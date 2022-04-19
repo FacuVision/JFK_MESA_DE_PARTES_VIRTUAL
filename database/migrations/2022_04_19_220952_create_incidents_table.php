@@ -20,7 +20,18 @@ class CreateIncidentsTable extends Migration
             $table->string('office_destiny',100);
             $table->string('destiny',100);
             $table->string('status',50);
+
+            $table->unsignedBigInteger('proceding_id');
+
             $table->timestamps();
+
+
+                                    //RELACION DE  UNO A MUCHOS DE  EXP CON INICIDENTE
+                                    $table->foreign('proceding_id')
+                                    ->references('id')
+                                    ->on('procedings')
+                                    ->onDelete('cascade')
+                                    ->onUpdate('cascade');
         });
     }
 

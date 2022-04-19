@@ -17,6 +17,7 @@ class CreateAplicantsTable extends Migration
 
             $table->unsignedBigInteger('user_id');
             $table->primary('user_id');
+            
             $table->timestamps();
 
             $table->foreign('user_id')

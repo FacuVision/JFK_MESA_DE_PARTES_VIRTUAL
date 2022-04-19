@@ -34,9 +34,15 @@ class CreateProcedingsTable extends Migration
 
             $table->unsignedBigInteger('office_id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('proceding_type_id');
+            $table->unsignedBigInteger('type_proceding_id');
 
             $table->timestamps();
+
+            $table->foreign('type_proceding_id')
+            ->references('id')
+            ->on('type_procedings')
+            ->onDelete('cascade')
+            ->onUpdate('cascade');
 
             $table->foreign('office_id')
             ->references('id')
@@ -50,11 +56,6 @@ class CreateProcedingsTable extends Migration
             ->onDelete('cascade')
             ->onUpdate('cascade');
 
-            $table->foreign('proceding_type_id')
-            ->references('id')
-            ->on('proceding_types')
-            ->onDelete('cascade')
-            ->onUpdate('cascade');
         });
     }
 

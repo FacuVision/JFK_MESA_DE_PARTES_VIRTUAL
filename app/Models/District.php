@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class District extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    //un distrito puede aparecer en muchos profiles
+
+    public function profiles()
+    {
+        return $this->hasMany(Profile::class);
+    }
 }

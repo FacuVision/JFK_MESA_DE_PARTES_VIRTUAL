@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProcedingTypesTable extends Migration
+class CreateTypeProcedingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateProcedingTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('proceding_types', function (Blueprint $table) {
+        Schema::create('type_procedings', function (Blueprint $table) {
             $table->id();
             $table->string('name',100)->unique();
             $table->enum('type', ['user','system']);
@@ -28,6 +28,6 @@ class CreateProcedingTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proceding_types');
+        Schema::dropIfExists('type_procedings');
     }
 }

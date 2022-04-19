@@ -7,5 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Secretary extends Model
 {
+
+    protected $primaryKey = 'user_id';
+    protected $guarded = [];
+
     use HasFactory;
+
+    //un secretario pertenece a un usuario
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    //un secretario pertenece a una oficina
+
+    public function office()
+    {
+        return $this->belongsTo(Office::class);
+    }
 }

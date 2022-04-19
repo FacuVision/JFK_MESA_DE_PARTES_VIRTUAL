@@ -58,4 +58,26 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+        //un usuario puede aparacer en los registros de un aplicant (solicitante)
+
+        public function aplicant()
+        {
+            return $this->hasOne(Aplicant::class);
+        }
+
+        //un usuario puede aparacer en los registros de un secretario
+
+        public function secretary()
+        {
+            return $this->hasOne(Secretary::class);
+        }
+
+        //un usuario puede aparacer en los registros de un profile
+
+        public function profile()
+        {
+            return $this->hasOne(Profile::class);
+        }
+
 }

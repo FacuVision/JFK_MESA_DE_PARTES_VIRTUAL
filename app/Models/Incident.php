@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Document extends Model
+class Incident extends Model
 {
-
     use HasFactory;
+
+
     protected $guarded = [];
 
-    public function documentable()
-    {
-        //VOLVER POLIMORFICO
-        return $this->morphTo();
-    }
+        public function proceding()
+        {
+            return $this->belongsToMany(Proceding::class);
+        }
 }

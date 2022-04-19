@@ -17,7 +17,12 @@ class CreateDocumentsTable extends Migration
             $table->unsignedBigInteger('documentable_id');
             $table->string('documentable_type');
             $table->string('url');
+            $table->enum('type',[0,1]);
 
+            /*
+             * 0 = principal
+             * 1 = file
+             */
             $table->timestamps();
 
             $table->primary(['documentable_id','documentable_type']);
