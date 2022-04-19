@@ -25,7 +25,7 @@ class CreateDocumentsTable extends Migration
              */
             $table->timestamps();
 
-            $table->primary(['documentable_id','documentable_type']);
+            $table->primary(['documentable_id','documentable_type','type']);
         });
     }
 

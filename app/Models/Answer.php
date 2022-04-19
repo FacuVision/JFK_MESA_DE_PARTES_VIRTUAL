@@ -25,7 +25,6 @@ class Answer extends Model
         return $this->belongsTo(Proceding::class);
     }
 
-
     public function documents()
     {
         return $this->morphMany(Document::class,'documentable');
