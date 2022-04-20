@@ -17,4 +17,8 @@ class District extends Model
     {
         return $this->hasMany(Profile::class);
     }
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
 }
