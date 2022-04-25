@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Office;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+
+        Storage::disk('public')->deleteDirectory('principal');
+        Storage::disk('public')->deleteDirectory('file');
+        Storage::disk('public')->deleteDirectory('answer');
+        Storage::disk('public')->makeDirectory('principal');
+        Storage::disk('public')->makeDirectory('file');
+        Storage::disk('public')->makeDirectory('answer');
+
+        $this->call(OfficeSeeder::class);
+        $this->call(SiteSeeder::class); 
+        $this->call(IdentitySeeder::class);
+        $this->call(UserSeeder::class);
     }
 }

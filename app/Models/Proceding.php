@@ -48,6 +48,11 @@ class Proceding extends Model
             return $this->hasMany(Incident::class);
         }
 
+        public function anotations()
+        {
+            return $this->hasMany(Anotations::class);
+        }
+
         public function documents()
         {
             return $this->morphMany(Document::class,'documentable');

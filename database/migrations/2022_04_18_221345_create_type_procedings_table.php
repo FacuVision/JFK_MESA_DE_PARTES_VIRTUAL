@@ -16,6 +16,7 @@ class CreateTypeProcedingsTable extends Migration
         Schema::create('type_procedings', function (Blueprint $table) {
             $table->id();
             $table->string('name',100)->unique();
+            $table->text("description");
             $table->enum('type', ['user','system']);
             $table->timestamps();
         });

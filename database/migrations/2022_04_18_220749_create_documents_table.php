@@ -22,6 +22,7 @@ class CreateDocumentsTable extends Migration
             /*
              * 0 = principal
              * 1 = file
+             * 2 = answer
              */
             $table->timestamps();
 

@@ -26,4 +26,9 @@ class Secretary extends Model
     {
         return $this->belongsTo(Office::class);
     }
+
+    public function anotations()
+    {
+        return $this->hasMany(Anotations::class);
+    }
 }

@@ -24,4 +24,9 @@ class Office extends Model
     {
         return $this->hasOne(Secretary::class);
     }
+
+    public function anotations()
+    {
+        return $this->hasMany(Anotations::class);
+    }
 }
