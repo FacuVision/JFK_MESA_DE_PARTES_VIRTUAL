@@ -282,19 +282,19 @@ return [
             'submenu' => [
                 [
                     'text' => 'Todos',
-                    'url'  => '#',
+                    'route'  => 'admin.users.index',
                     'icon_color' => 'yellow',
 
                 ],
                 [
                     'text' => 'Secretarios',
-                    'url'  => '#',
+                    'route'  => 'admin.secretaries.index',
                     'icon_color' => 'cyan',
 
                 ],
                 [
                     'text' => 'Solicitantes',
-                    'url'  => '#',
+                    'route'  => 'admin.aplicants.index',
                     'icon_color' => 'cyan',
 
                 ],
