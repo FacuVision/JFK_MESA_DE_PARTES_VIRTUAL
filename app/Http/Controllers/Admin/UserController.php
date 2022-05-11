@@ -82,6 +82,8 @@ class UserController extends Controller
             "address" => $request->address,
             "district_id" => $request->district
             ]);
+
+
         return redirect()->route('admin.users.index')->with('mensaje', 'Usuario creado correctamente');
     }
 
@@ -128,7 +130,78 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $sinpass = [
+            "email" => "required|string|email|max:100",
+            "name" => "required|string",
+            "lastname" => "required|string",
+            "date_nac" => "required",
+            "type_document_id" => "required",
+            "document_number" => "required|string|max:12",
+            "gender" => "required|string",
+            "address" => "required|max:100",
+            "district_id" => "required",
+        ];
+
+        $conpass = [
+            "email" => "required|string|email|max:100",
+            "password" => "required|string",
+            "name" => "required|string",
+            "lastname" => "required|string",
+            "date_nac" => "required",
+            "type_document_id" => "required",
+            "document_number" => "required|string|max:12",
+            "gender" => "required|string",
+            "address" => "required|max:100",
+            "district_id" => "required",
+        ];
+
+        $con_correo_cp = [
+            "email" => "required|string|email|max:100|unique:users",
+            "password" => "required|string",
+            "name" => "required|string",
+            "lastname" => "required|string",
+            "date_nac" => "required",
+            "type_document_id" => "required",
+            "document_number" => "required|string|max:12",
+            "gender" => "required|string",
+            "address" => "required|max:100",
+            "district_id" => "required",
+        ];
+
+        $con_correo_sp = [
+            "email" => "required|string|email|max:100|unique:users",
+            "name" => "required|string",
+            "lastname" => "required|string",
+            "date_nac" => "required",
+            "type_document_id" => "required",
+            "document_number" => "required|string|max:12",
+            "gender" => "required|string",
+            "address" => "required|max:100",
+            "district_id" => "required",
+        ];
+
+        if($user->email == $request->email){
+            if($request->password == ""){
+                $request->validate($sinpass);
+                $user->update(['name' => $request->name]);
+
+            }else{
+                $request->validate($conpass);
+                $user->update(['name' => $request->name, 'password' => bcrypt($request->password)]);
+            }
+
+        }else{
+            if($request->password == ""){
+                $request->validate($con_correo_sp);
+                $user->update(['name' => $request->name, 'email' => $request->email]);
+            }else{
+                $request->validate($con_correo_cp);
+                $user->update(['name' => $request->name, 'password' => bcrypt($request->password), 'email' => $request->email]);
+            }
+        }
+
+        $user->profile->update($request->only("name","lastname","date_nac","gender","address","document_number","type_document_id","district_id"));
+        return redirect()->route('admin.users.edit', $user)->with('mensaje','Usuario Modificado correctamente');
     }
 
     /**

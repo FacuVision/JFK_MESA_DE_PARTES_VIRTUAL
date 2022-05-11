@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AplicantController;
+use App\Http\Controllers\Admin\TypeDocumentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,3 +27,4 @@ Route::get('/', [HomeController::class,'index'])->name('admin.index');
 Route::resource('users', UserController::class)->names('admin.users');
 Route::resource('secretaries', SecretaryController::class)->names('admin.secretaries');
 Route::resource('aplicants', AplicantController::class)->names('admin.aplicants');
+Route::resource('typedocuments',TypeDocumentController::class)->names('admin.typedocuments');

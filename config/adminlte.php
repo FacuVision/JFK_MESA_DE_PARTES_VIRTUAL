@@ -308,11 +308,11 @@ return [
         ],
         [
             'text' => 'Documentos de identidad',
-            'url'  => 'admin/settings',
+            'route'  => 'admin.typedocuments.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'Tipos de documentos',
+            'text' => 'Tipos de expedientes',
             'url'  => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',
         ],

@@ -7,105 +7,107 @@
 @stop
 
 @section('content')
-<div class="card">
-    <div class="card-header">
-        @if (session('mensaje'))
-            <div class="alert alert-success">
-                <strong>{{session('mensaje')}}</strong>
-            </div>
-        @endif
-        @if (count($errors) > 0)
-        <div class="text-danger">
+    <div class="card">
+        <div class="card-header">
+            @if (session('mensaje'))
+                <div class="alert alert-success">
+                    <strong>{{ session('mensaje') }}</strong>
+                </div>
+            @endif
+            @if (count($errors) > 0)
+                <div class="text-danger">
 
-                @foreach ($errors->all() as $message)
-                    <li>{{ $message }}</li>
-                @endforeach
+                    @foreach ($errors->all() as $message)
+                        <li>{{ $message }}</li>
+                    @endforeach
+
+                </div>
+            @endif
 
         </div>
-        @endif
+        <div class="card-body">
 
-    </div>
-    <div class="card-body">
-
-        {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
-
-        <div class="form-group">
+            {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
 
             <div class="form-group">
 
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            {!! Form::label('email', 'Correo Electronico') !!}
-                            {!! Form::text('email', $user->email, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="col">
-                            {!! Form::label('password', 'Contraseña') !!}
-                            {!! Form::password('password', ['class' => 'form-control']) !!}
-                        </div>
-                      </div>
-                </div>
 
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            {!! Form::label('name', 'Nombres') !!}
-                            {!! Form::text('name', $user->name, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="col">
-                            {!! Form::label('lastname', 'Apellidos') !!}
-                            {!! Form::text('lastname', $user->profile->lastname, ['class' => 'form-control']) !!}                    </div>
-                      </div>
-                </div>
-
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col">
-                            {!! Form::label('fecha', 'Fecha de Nacimiento') !!}
-                            {!! Form::date('fecha', $user->profile->date_nac, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="col">
-                            {!! Form::label('type_document', 'Tipo de Documento') !!}
-                            {!! Form::select('type_document', $doc, $user->profile->type_document->id, ['placeholder' => 'Elija tipo de documento...', 'class' => 'form-control']); !!}
-                        </div>
-                        <div class="col">
-                            {!! Form::label('document_number', '# Documento') !!}
-                            {!! Form::text('document_number', $user->profile->document_number, ['class' => 'form-control']) !!}
-                        </div>
-                        <div class="col">
-                            {!! Form::label('gender', 'Sexo') !!}
-                            {!! Form::select('gender', $sexo, $user->profile->gender, ['placeholder' => 'Elija sexo...', 'class' => 'form-control']); !!}
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                {!! Form::label('email', 'Correo Electronico') !!}
+                                {!! Form::text('email', $user->email, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::label('password', 'Contraseña') !!}
+                                {!! Form::password('password', ['class' => 'form-control']) !!}
+                            </div>
                         </div>
                     </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                {!! Form::label('name', 'Nombres') !!}
+                                {!! Form::text('name', $user->name, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::label('lastname', 'Apellidos') !!}
+                                {!! Form::text('lastname', $user->profile->lastname, ['class' => 'form-control']) !!} </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col">
+                                {!! Form::label('date_nac', 'Fecha de Nacimiento') !!}
+                                {!! Form::date('date_nac', $user->profile->date_nac, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::label('type_document_id', 'Tipo de Documento') !!}
+                                {!! Form::select('type_document_id', $doc, $user->profile->type_document_id, ['placeholder' => 'Elija tipo de documento...', 'class' => 'form-control']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::label('document_number', '# Documento') !!}
+                                {!! Form::text('document_number', $user->profile->document_number, ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::label('gender', 'Sexo') !!}
+                                {!! Form::select('gender', $sexo, $user->profile->gender, ['placeholder' => 'Elija sexo...', 'class' => 'form-control']) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        {!! Form::label('address', 'Direccion') !!}
+                        {!! Form::text('address', $user->profile->address, ['class' => 'form-control']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('district_id', 'Distrito') !!}
+                        {!! Form::select('district_id', $dist, $user->profile->district_id, ['placeholder' => 'Elija un distrito...', 'class' => 'form-control']) !!}
+                    </div>
+
                 </div>
 
-                <div class="form-group">
-                    {!! Form::label('address', 'Direccion') !!}
-                    {!! Form::text('address', $user->profile->address, ['class' => 'form-control']) !!}
-                </div>
-                <div class="form-group">
-                    {!! Form::label('district', 'Distrito') !!}
-                    {!! Form::select('district', $dist, $user->profile->district->id, ['placeholder' => 'Elija un distrito...', 'class' => 'form-control']); !!}
-                </div>
 
+
+
+                {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
             </div>
+            {!! Form::close() !!}
 
-
-
-
-        {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
         </div>
-        {!! Form::close() !!}
+    @stop
 
-</div>
-@stop
+    @section('css')
+        <link rel="stylesheet" href="/css/admin_custom.css">
+    @stop
 
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
-@stop
+    @section('js')
+        <script>
+            console.log('Hi!');
+        </script>
+    @stop
