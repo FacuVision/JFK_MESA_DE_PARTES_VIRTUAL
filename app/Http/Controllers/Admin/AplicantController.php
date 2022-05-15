@@ -85,9 +85,9 @@ class AplicantController extends Controller
      * @param  \App\Models\Aplicant  $aplicant
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Aplicant $aplicant)
+    public function update(Request $request, User $user)
     {
-        //
+
     }
 
     /**

@@ -303,7 +303,7 @@ return [
 
         [
             'text' => 'Oficinas',
-            'url'  => 'admin/settings',
+            'route'  => 'admin.offices.index',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
