@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AplicantController;
 use App\Http\Controllers\Admin\OfficeController;
 use App\Http\Controllers\Admin\TypeDocumentController;
+use App\Http\Controllers\Admin\TypeProcedingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,5 @@ Route::resource('secretaries', SecretaryController::class)->names('admin.secreta
 Route::resource('aplicants', AplicantController::class)->names('admin.aplicants');
 Route::resource('typedocuments',TypeDocumentController::class)->names('admin.typedocuments');
 Route::resource('offices', OfficeController::class)->names('admin.offices');
+Route::resource('typeprocedings',TypeProcedingController::class)->names('admin.typeprocedings');
+

@@ -313,7 +313,7 @@ return [
         ],
         [
             'text' => 'Tipos de expedientes',
-            'url'  => 'admin/settings',
+            'route'  => 'admin.typeprocedings.index',
             'icon' => 'fas fa-fw fa-user',
         ],
 
