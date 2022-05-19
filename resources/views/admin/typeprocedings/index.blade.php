@@ -44,7 +44,7 @@
                         <td>{{ $TypeProceding->description }}</td>
                         <td class="text-center">{{ $TypeProceding->type }}</td>
                         <td class="text-center">
-                            <div class="row  ">
+                            <div class="grid-cols-2">
                                 {{-- Editar --}}
                                 <div class="col-sm-lg-1 m-1">
                                     <a href="{{ route('admin.typeprocedings.edit', $TypeProceding->id) }}"
@@ -52,7 +52,7 @@
                                 </div>
                                 <div class="col-sm-lg-1 m-1">
                                     {{-- Eliminar --}}
-                                    <form  action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}""
+                                    <form  action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}"
                                     method="post" class="formulario-eliminar">
                                     @csrf
                                     @method('DELETE')
@@ -84,7 +84,7 @@
     //     responsive: true,
     //     autoWidth: false,
     //     "language": {
-    //        "lengthMenu": "Mostrar "+ 
+    //        "lengthMenu": "Mostrar "+
     //        `<select class="custom-select custom-select-sm form-control form-control-sm" style="padding:.25rem .5rem;height:calc(1.5em + .5rem + 2px)"  >
     //            <option value="10">10</option>
     //            <option value="25">25</option>
@@ -124,6 +124,6 @@
        })
    });
 });
-   
+
 </script>
 @stop

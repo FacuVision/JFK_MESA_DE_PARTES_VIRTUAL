@@ -36,6 +36,7 @@ class UserSeeder extends Seeder
                 "date_nac" => $date,
                 "gender" => "m",
                 "address" => "mi casa",
+                "phone" => "955633251",
                 "document_number" => "74741985",
                 "district_id" => 1,
                 "user_id" => 1,

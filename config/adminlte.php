@@ -328,15 +328,15 @@ return [
         [
             'text'       => 'Mis Expedientes',
             'icon_color' => 'yellow',
-            'url'        => '#',
+            'route'        => 'secretary.procedings.index',
         ],
         [
-            'text'       => 'Derivar',
+            'text'       => 'Ver Archivados',
             'icon_color' => 'yellow',
             'url'        => '#',
         ],
         [
-            'text'       => 'Enviar Respuestas',
+            'text'       => 'Otro',
             'icon_color' => 'yellow',
             'url'        => '#',
         ]

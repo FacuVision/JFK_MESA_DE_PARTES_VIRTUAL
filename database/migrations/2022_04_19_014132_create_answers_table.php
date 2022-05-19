@@ -22,8 +22,8 @@ class CreateAnswersTable extends Migration
             $table->enum('read_status',[0,1]);
 
             /*
-            1 = no leido
-            2 = leído
+            0 = no leido
+            1 = leído
             */
 
 

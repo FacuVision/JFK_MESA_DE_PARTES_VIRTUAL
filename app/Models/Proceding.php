@@ -22,7 +22,7 @@ class Proceding extends Model
 
     public function aplicant()
     {
-        return $this->belongsTo(Aplicant::class);
+        return $this->belongsTo(Aplicant::class,'user_id');
     }
 
     //un expediente puede ser enviado a una sola oficina

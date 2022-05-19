@@ -14,7 +14,7 @@ use App\Http\Controllers\UserController;
 */
 Route::resource('profiles', UserController::class)->names('user.profiles');
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Route::middleware([

@@ -24,6 +24,6 @@ class Aplicant extends Model
 
     public function procedings()
     {
-        return $this->hasMany(Proceding::class);
+        return $this->hasMany(Proceding::class,'user_id');
     }
 }

@@ -20,6 +20,7 @@ class CreateProfilesTable extends Migration
             $table->date('date_nac');
             $table->enum('gender', ['m','f']);
             $table->string('address');
+            $table->string('phone',9);
             $table->string('document_number', 15)->unique();
 
             $table->unsignedBigInteger('district_id');

@@ -18,6 +18,7 @@ class ProfileFactory extends Factory
             "date_nac" => $this->faker->date(),
             "gender" => $this->faker->randomElement(["m","f"]),
             "address" => $this->faker->address(),
+            "phone" => $this->faker->numerify('#########'),
             "document_number" => $this->faker->randomNumber(8)
         ];
     }
