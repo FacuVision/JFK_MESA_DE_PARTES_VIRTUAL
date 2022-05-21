@@ -15,7 +15,7 @@ class DistrictController extends Controller
      */
     public function index()
     {
-        //
+       //
     }
 
     /**

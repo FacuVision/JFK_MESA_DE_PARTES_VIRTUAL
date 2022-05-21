@@ -99,6 +99,7 @@ class ProcedingController extends Controller
      */
     public function edit(Proceding $proceding)
     {
+
         $proceding->update([
             'status' => '3',
         ]);
@@ -137,9 +138,10 @@ class ProcedingController extends Controller
      */
     public function destroy(Proceding $proceding)
     {
-        $proceding->update([
-            'status' => '5',
-        ]);
-        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Expediente rechazado correctamente', 'color' => 'danger']);
+        // $proceding->update([
+        //     'status' => '5',
+        // ]);
+        // return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Expediente rechazado correctamente', 'color' => 'danger']);
     }
+
 }

@@ -73,11 +73,11 @@
                                 @endswitch
 
                                 <td>
-
+                                    <div class="row">
                                     <a href="#" data-toggle="modal" data-target="#showModal{{ $proceding->id }}"
-                                        class="btn btn-info">Detalle</a>
+                                        class="btn btn-info btn-sm mr-1">Detalle</a>
                                     <a href="{{ route('secretary.procedings.show', $proceding) }}"
-                                        class="btn btn-secondary">Archivar</a>
+                                        class="btn btn-secondary btn-sm">Archivar</a>
                                     {{-- @if ($proceding->status == 5)
                                         <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
                                             method="post" class="formulario-eliminar">
@@ -86,6 +86,15 @@
                                             <input type="submit" value="Eliminar" class="btn btn-danger">
                                         </form>
                                     @endif --}}
+                                    @if ($proceding->status == 5)
+                                        <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
+                                            method="post" class="formulario-eliminar ml-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                        </form>
+                                    @endif
+                                    </div>
                                     @include('secretary.procedings.partials.show')
                                     @include('secretary.procedings.partials.answer')
                                     @include('secretary.procedings.partials.derive')

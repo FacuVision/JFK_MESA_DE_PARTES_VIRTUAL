@@ -21,7 +21,7 @@
 
 
     <div class="card-body">
-        <table id="tabla" class="table table-striped dt-responsive nowrap" style="width:100%">
+        <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -75,5 +75,11 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+    console.log('Hi!');
+    $(document).ready(function() {
+            $('#tabla1').DataTable();
+        });
+    </script>
+
 @stop

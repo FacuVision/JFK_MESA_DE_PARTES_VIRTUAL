@@ -26,7 +26,7 @@
 
 
     <div class="card-body">
-        <table id="tipoExpe" class="table table-striped dt-responsive nowrap " style="width:100%">
+        <table id="tipoExpe" class="table table-striped dt-responsive nowrap" style="width:100%">
             <thead class="text-center">
                 <tr>
                     <th>Id</th>
@@ -52,12 +52,12 @@
                                 </div>
                                 <div class="col-sm-lg-1 m-1">
                                     {{-- Eliminar --}}
-                                    <form  action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}"
+                                    {{-- <form  action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}"
                                     method="post" class="formulario-eliminar">
                                     @csrf
                                     @method('DELETE')
                                     <button  TypeProcedings="submit" id="delete" value="" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                </form>
+                                </form> --}}
                                 </div>
                             </div>
                         </td>
@@ -79,31 +79,12 @@
 
 
 <script>
-    //datatatble
-    // $('#tipoExpe').DataTable({
-    //     responsive: true,
-    //     autoWidth: false,
-    //     "language": {
-    //        "lengthMenu": "Mostrar "+
-    //        `<select class="custom-select custom-select-sm form-control form-control-sm" style="padding:.25rem .5rem;height:calc(1.5em + .5rem + 2px)"  >
-    //            <option value="10">10</option>
-    //            <option value="25">25</option>
-    //            <option value="50">50</option>
-    //            <option value="100">100</option>
-    //            <option value="-1">Todos</option>
-    //        </select>` +" registros por página",
-    //        "zeroRecords": "No se encontró nada, lo siento",
-    //        "info": "Mostrando página _PAGE_ de _PAGES_",
-    //        "infoEmpty": "No hay registros disponibles",
-    //        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-    //        "search":"Buscar",
-    //        "paginate":{
-    //            'next': 'Siguiente',
-    //            'previous': 'Anterior'
-    //        }
-    //    }
-    // });
-    //datatatble
+    $(document).ready(function() {
+            $('#tipoExpe').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+        });
    $( document ).ready(function() {
        $('.formulario-eliminar').submit(function(e){
        e.preventDefault();

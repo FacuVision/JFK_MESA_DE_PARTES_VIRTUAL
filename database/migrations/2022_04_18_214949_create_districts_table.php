@@ -15,7 +15,7 @@ class CreateDistrictsTable extends Migration
     {
         Schema::create('districts', function (Blueprint $table) {
             $table->id();
-            $table->string('name',50)->unique();
+            $table->string('name',255);
             $table->unsignedBigInteger('province_id');
 
             $table->foreign('province_id')

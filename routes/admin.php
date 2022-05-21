@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\SecretaryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AplicantController;
+use App\Http\Controllers\Admin\CollectiveController;
 use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\OfficeController;
 use App\Http\Controllers\Admin\ProcedingController;
@@ -34,5 +35,9 @@ Route::resource('aplicants', AplicantController::class)->names('admin.aplicants'
 Route::resource('typedocuments',TypeDocumentController::class)->names('admin.typedocuments');
 Route::resource('offices', OfficeController::class)->names('admin.offices');
 Route::resource('typeprocedings',TypeProcedingController::class)->names('admin.typeprocedings');
-Route::resource('districts', DistrictController::class)->names('admin.districts');
+//Route::resource('districts', DistrictController::class)->names('admin.districts');
+
 Route::resource('procedings', ProcedingController::class)->names('secretary.procedings');
+
+Route::get('procedings/{proceding}/reject', [CollectiveController::class,'reject'])->name('secretary.procedings.reject');
+

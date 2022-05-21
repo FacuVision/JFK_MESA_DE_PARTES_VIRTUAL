@@ -101,20 +101,19 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-secondary" data-dismiss="modal">Cerrar</a>
-                <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
+                <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>
+                {{-- <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
                     method="post" class="formulario-eliminar">
                     @csrf
                     @method('DELETE')
                     <input type="submit" value="Rechazar" class="btn btn-dark">
-                </form>
-                <a href="{{ route('secretary.procedings.edit', $proceding) }}" class="btn btn-danger">Subsanar</a>
-                <a href="#" class="btn btn-warning" data-toggle="modal"
+                </form> --}}
+                <a href="{{route('secretary.procedings.reject', $proceding)}}" class="btn btn-dark btn-sm">Rechazar</a>
+                <a href="{{ route('secretary.procedings.edit', $proceding) }}" class="btn btn-danger btn-sm">Subsanar</a>
+                <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
                     data-target="#deriveModal{{ $proceding->id }}">Derivar</a>
-                <a href="#" class="btn btn-success" data-toggle="modal"
+                <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
                     data-target="#answerModal{{ $proceding->id }}">Dar Respuesta</a>
-
-
             </div>
         </div>
     </div>
