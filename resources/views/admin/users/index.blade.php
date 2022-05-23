@@ -48,8 +48,6 @@
 
                                 <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success">Editar</a>
 
-
-
                                 {{-- Eliminar --}}
                                 <form class="formulario-eliminar" style="display: inline" action="{{ route('admin.users.destroy', $user) }}"
                                     method="post" class="formulario-eliminar">
