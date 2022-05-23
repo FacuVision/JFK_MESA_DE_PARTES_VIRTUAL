@@ -27,8 +27,18 @@ class AplicantController extends Controller
      */
     public function create()
     {
-        $users = User::select()->orderBy("name")->get();
-        return view('admin.aplicants.create',compact('users'));
+        // $users = User::select()->orderBy("name")->get();
+
+        // foreach ($users as $user) {
+            // if ($user->secretary() == null) {
+            //    echo $user . "<br>";
+            // }
+        // }
+        $users_sin_rol=User::doesntHave('aplicant')->doesntHave('secretary')->get();
+
+        //DD($users_sin_rol);
+
+        return view('admin.aplicants.create',compact('users_sin_rol'));
     }
 
     /**
@@ -45,15 +55,15 @@ class AplicantController extends Controller
 
         $user = User::findOrFail($request->user_id);
 
-        if($user->secretary){
-            return redirect()->route('admin.aplicants.index')->with('alerta','El usuario ya fue asignado como Secretario');
-        }elseif($user->aplicant){
-            return redirect()->route('admin.aplicants.index')->with('alerta','El usuario ya fue asignado como Solicitante');
-        }else{
+        // if($user->secretary){
+        //     return redirect()->route('admin.aplicants.index')->with('alerta','El usuario ya fue asignado como Secretario');
+        // }elseif($user->aplicant){
+        //     return redirect()->route('admin.aplicants.index')->with('alerta','El usuario ya fue asignado como Solicitante');
+        // }else{
 
-            Aplicant::create($request->all());
+        Aplicant::create($request->all());
             return redirect()->route('admin.aplicants.index')->with('mensaje','El Solicitante fue creado correctamente');
-        }
+
     }
 
     /**

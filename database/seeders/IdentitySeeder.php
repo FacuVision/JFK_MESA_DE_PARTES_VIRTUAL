@@ -22,6 +22,48 @@ class IdentitySeeder extends Seeder
         Type_document::create(["name"=>"Cedula de identidad"]);
         Type_document::create(["name"=>"Pasaporte"]);
 
-        Type_proceding::factory(15)->create();
+        Type_proceding::create(
+            ["name"=>"EMISION FICHA DE INSCRIPCION",
+            "description"=>"La ficha de inscripcion es el documento que acredita que el estudiante ha sido matriculado correctamente",
+            "type"=>"system" ]);
+
+        Type_proceding::create(
+            ["name"=>"PRESENTACION DE DESCANSOS MEDICOS",
+            "description"=>"El descanso medico acredita que el trabajador se encuentra en resposo por algun accidente o enfermedad, el cual se toma en cuenta en sus inasistencias",
+            "type"=>"system" ]);
+
+        Type_proceding::create(
+            ["name"=>"AUTORIZACION DE PADRES A MENORES DE EDAD",
+            "description"=>"Cuando un menor de edad requiere aprender a conducir, es necesario contar con el consentimiento de los padres de familia"]);
+
+        Type_proceding::create(
+            ["name"=>"VERIFICACION DE EXAMEN MÉDICO",
+            "description"=>"Es un requisito importante para que el estudiante pueda empezar a dar sus clases de manejo y se encuentre en las condiciones fisicas y mentales adecuadas"]);
+
+        Type_proceding::create(
+            ["name"=>"HACER UN COMUNICADO",
+            "description"=>"Se pueden redactar comunicados o mensajes a una oficina en especifico"]);
+
+        Type_proceding::create(
+            ["name"=>"QUEJA O RECLAMO",
+            "description"=>"Presenta una queja o reclamo de algun incidente ocurrido con nuestros servicios o colaboradores"]);
+
+        Type_proceding::create(
+            ["name"=>"SOLICITUD EN GENERAL",
+            "description"=>"Solicita o realiza algun pedido a nuestras oficinas"]);
+
+        Type_proceding::create(
+            ["name"=>"CARTA DE RENUNCIA",
+            "description"=>"Ya sea por termino de contrato, algun inconveniente o motivo alguno puedes presentar tu carta de renuncia a nuestras oficinas"]);
+
+        Type_proceding::create(
+                ["name"=>"PERMISO PREVISIONAL (PARA CLASES DE MANEJO)",
+                "description"=>"El permiso provisional para aprender a conducir habilita a una persona a manejar un vehículo en la vía pública por el período de 6 meses, acompañado siempre de un instructor (familiar, amigo o conocido) que cuente con un brevete hace más de 2 años."]);
+
+        Type_proceding::create(
+                ["name"=>"SOLICITUD DE ACTUALIZACION DE DATOS DE PERFIL)",
+                "description"=>"Si quieres hacer alguna correccion de tu informacion brindada a la mesa de partes, puedes solicitarlo a las oficinas para que puedan hacer tu actualizacion correspondiente"]);
+
+
     }
 }

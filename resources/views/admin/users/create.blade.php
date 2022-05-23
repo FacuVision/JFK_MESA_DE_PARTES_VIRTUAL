@@ -3,7 +3,9 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
+    @livewireStyles
     <h1>Menu de Usuarios: Crear Usuario</h1>
+
 @stop
 
 @section('content')
@@ -33,6 +35,10 @@
                         <div class="col">
                             {!! Form::label('email', 'Correo Electronico') !!}
                             {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                        </div>
+                        <div class="col">
+                            {!! Form::label('phone', 'Celular') !!}
+                            {!! Form::text('phone', null, ['class' => 'form-control']) !!}
                         </div>
                         <div class="col">
                             {!! Form::label('password', 'Contraseña') !!}
@@ -82,9 +88,9 @@
                     {!! Form::label('address', 'Direccion') !!}
                     {!! Form::text('address', null, ['class' => 'form-control']) !!}
                 </div>
+
                 <div class="form-group">
-                    {!! Form::label('district', 'Distrito') !!}
-                    {!! Form::select('district', $dist, null, ['placeholder' => 'Elija un distrito...', 'class' => 'form-control']) !!}
+                        @livewire('admin-register-component')
                 </div>
 
             </div>
@@ -95,7 +101,7 @@
             {!! Form::close() !!}
 
         </div>
-
+        @livewireScripts
 
     @stop
 

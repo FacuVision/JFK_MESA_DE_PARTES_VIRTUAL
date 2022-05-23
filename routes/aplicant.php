@@ -13,18 +13,3 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::resource('profiles', UserController::class)->names('user.profiles');
-
-Route::get('/', function () {
-    return view('dashboard');
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});

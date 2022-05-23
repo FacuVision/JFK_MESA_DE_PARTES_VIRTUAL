@@ -28,9 +28,12 @@ class SecretaryController extends Controller
      */
     public function create()
     {
-        $users = User::select()->orderBy("name")->get();
+        //$users = User::select()->orderBy("name")->get();
+
+        $users_sin_rol=User::doesntHave('aplicant')->doesntHave('secretary')->get();
+
         $offices = Office::all();
-        return view('admin.secretaries.create',compact('users','offices'));
+        return view('admin.secretaries.create',compact('users_sin_rol','offices'));
     }
 
     /**
@@ -45,17 +48,17 @@ class SecretaryController extends Controller
             "user_id" => "required"
         ]);
 
-        $user = User::findOrFail($request->user_id);
+        // $user = User::findOrFail($request->user_id);
 
-        if($user->secretary){
-            return redirect()->route('admin.secretaries.index')->with('alerta','El usuario ya fue asignado como Secretario');
-        }elseif($user->aplicant){
-            return redirect()->route('admin.secretaries.index')->with('alerta','El usuario ya fue asignado como Solicitante');
-        }else{
+        // if($user->secretary){
+        //     return redirect()->route('admin.secretaries.index')->with('alerta','El usuario ya fue asignado como Secretario');
+        // }elseif($user->aplicant){
+        //     return redirect()->route('admin.secretaries.index')->with('alerta','El usuario ya fue asignado como Solicitante');
+        // }else{
 
-            Secretary::create($request->all());
-            return redirect()->route('admin.secretaries.index')->with('mensaje','El Secretario fue creado correctamente');
-        }
+        Secretary::create($request->all());
+        return redirect()->route('admin.secretaries.index')->with('mensaje','El Secretario fue creado correctamente');
+
     }
 
     /**

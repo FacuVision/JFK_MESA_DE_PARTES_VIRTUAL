@@ -21,12 +21,12 @@
         @endif
 
         <div class="card-header">
-            <a href="{{ route('admin.secretaries.create') }}" class="btn btn-primary"> Añadir Secretario</a>
+            <a href="{{ route('admin.secretaries.create') }}" class="btn btn-primary"> Asignar nuevo secretario</a>
         </div>
 
 
         <div class="card-body">
-            <table id="tabla" class="table table-striped dt-responsive nowrap" style="width:100%">
+            <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -60,7 +60,7 @@
                                         method="post" class="formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
-                                        <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                                        <input type="submit" id="delete" value="Desasignar" class="btn btn-danger">
                                     </form>
 
 
@@ -80,8 +80,40 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
+
 @section('js')
-    <script>
-        console.log('Hi!');
-    </script>
+
+<script>
+    $(document).ready(function() {
+            $('#tabla1').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+    });
+
+</script>
+
+<script>
+        $( document ).ready(function() {
+            $('.formulario-eliminar').submit(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "El usuario dejará de ser Secretario(a), mas no se eliminará del sistema. Para ello se debe de ir al menú de usuarios general",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, desasignar!',
+                    cancelmButtonText: 'Cancelar'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+       }
+       })
+    });
+
+});
+</script>
 @stop

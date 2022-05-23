@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminUserCreateRequest;
 use App\Models\District;
 use App\Models\Type_document;
 use App\Models\User;
@@ -32,19 +33,21 @@ class UserController extends Controller
     public function create()
     {
 
-        $distritos = District::all();
-        $dist = [];
-        foreach($distritos as $ds){
-            $dist[$ds['id']]= $ds['name'];
-        }
+        // $dist = [];
+        // foreach($distritos as $ds){
+        //     $dist[$ds['id']]= $ds['name'];
+        // }
+
         $document = Type_document::all();
+
         $doc = [];
         foreach ($document as $dc){
             $doc[$dc['id']] = $dc['name'];
         }
 
         $sexo = $this->sexo;
-        return view('admin.users.create', compact('dist','sexo','doc'));
+
+        return view('admin.users.create', compact('sexo','doc'));
     }
 
     /**
@@ -53,20 +56,10 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminUserCreateRequest $request)
+
     {
-        $request->validate([
-            "email" => "required|string|email|max:100|unique:users",
-            "password" => "required|string",
-            "name" => "required|string",
-            "lastname" => "required|string",
-            "date_nac" => "required",
-            "type_document" => "required",
-            "document_number" => "required|string|max:12",
-            "gender" => "required|string",
-            "address" => "required|max:100",
-            "district" => "required",
-        ]);
+
         $user = User::create([
             "name" => $request->name,
             "email" => $request->email,
@@ -80,7 +73,8 @@ class UserController extends Controller
             "date_nac" => $request->date_nac,
             "gender" => $request->gender,
             "address" => $request->address,
-            "district_id" => $request->district
+            "district_id" => $request->district_id,
+            "phone" => $request->phone
             ]);
 
 
@@ -106,11 +100,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        $distritos = District::all();
-        $dist = [];
-        foreach($distritos as $ds){
-            $dist[$ds['id']]= $ds['name'];
-        }
+        // $distritos = District::all();
+        // $dist = [];
+        // foreach($distritos as $ds){
+        //     $dist[$ds['id']]= $ds['name'];
+        // }
 
         $document = Type_document::all();
         $doc = [];
@@ -118,7 +112,7 @@ class UserController extends Controller
             $doc[$dc['id']] = $dc['name'];
         }
         $sexo = $this->sexo;
-        return view('admin.users.edit', compact('user','dist','sexo','doc'));
+        return view('admin.users.edit', compact('user','sexo','doc'));
     }
 
     /**
@@ -140,6 +134,7 @@ class UserController extends Controller
             "gender" => "required|string",
             "address" => "required|max:100",
             "district_id" => "required",
+            "phone" => "required|numeric",
         ];
 
         $conpass = [
@@ -153,6 +148,8 @@ class UserController extends Controller
             "gender" => "required|string",
             "address" => "required|max:100",
             "district_id" => "required",
+            "phone" => "required|numeric",
+
         ];
 
         $con_correo_cp = [
@@ -166,6 +163,8 @@ class UserController extends Controller
             "gender" => "required|string",
             "address" => "required|max:100",
             "district_id" => "required",
+            "phone" => "required|numeric",
+
         ];
 
         $con_correo_sp = [
@@ -178,6 +177,8 @@ class UserController extends Controller
             "gender" => "required|string",
             "address" => "required|max:100",
             "district_id" => "required",
+            "phone" => "required|numeric",
+
         ];
 
         if($user->email == $request->email){
@@ -200,7 +201,8 @@ class UserController extends Controller
             }
         }
 
-        $user->profile->update($request->only("name","lastname","date_nac","gender","address","document_number","type_document_id","district_id"));
+        $user->profile->update($request->only("name","lastname","date_nac","gender","address","document_number","type_document_id","district_id","phone"));
+
         return redirect()->route('admin.users.edit', $user)->with('mensaje','Usuario Modificado correctamente');
     }
 

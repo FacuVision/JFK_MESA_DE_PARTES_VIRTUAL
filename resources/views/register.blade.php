@@ -11,31 +11,19 @@
 
             <div>
                 <x-jet-label for="name" value="{{ __('Nombres') }}" />
-                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="nombre" :value="old('nombre')" required />
+                <x-jet-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
+                <input type="hidden" name="name" id="name" value="">
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="lastname" value="{{ __('Apellidos') }}" />
-                <x-jet-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" :value="old('lastname')" required />
-            </div>
-
-            <div class="mt-4">
-                <label for="gender" class="block text-sm font-medium text-gray-700">Genero</label>
-                <select id="gender" name="gender"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                    <option value="m">Hombre</option>
-                    <option value="f">Mujer</option>
-                </select>
+                <x-jet-input id="lastname" class="block mt-1 w-full" type="text" name="lastname" required />
+                <input type="hidden" name="apellido" id="apellido" value="">
             </div>
 
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('Email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <div class="mt-4">
-                <x-jet-label for="phone" value="{{ __('Celular') }}" />
-                <x-jet-input id="phone" type="text" class="block mt-1 w-full" :value="old('phone')" name="phone" required/>
             </div>
 
             <div class="mt-4">
@@ -51,10 +39,10 @@
             </div>
 
 
-            <div class="mt-4">
-                <label for="type_document_id" class="block text-sm font-medium text-gray-700">Tipo de documento de identidad</label>
+            <div class="col-span-6 sm:col-span-3">
+                <label for="type_document_id" class="block text-sm font-medium text-gray-700">Sexo</label>
                 <select id="type_document_id" name="type_document_id"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm block mt-1 w-full">
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                     @foreach ($types as $type)
                         <option value="{{$type->id}}">{{$type->name}}</option>
                     @endforeach
@@ -63,44 +51,32 @@
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="document_number" value="{{ __('Numero de documento') }}" />
-                <x-jet-input id="document_number" class="block mt-1 w-full" type="text" :value="old('document_number')" name="document_number" required />
+                <x-jet-label for="document_number" value="{{ __('DNI') }}" />
+                <x-jet-input id="document_number" class="block mt-1 w-full" type="text" :value="old('dni')" name="document_number" required />
             </div>
 
             <div class="mt-4">
-                <x-jet-label for="date_nac" value="{{ __('Fecha de Nacimiento') }}" />
-                <x-jet-input id="date_nac" name="date_nac" type="date" class="mt-1 block w-full"
+                <x-jet-label for="fecha_nac" value="{{ __('Fecha de Nacimiento') }}" />
+                <x-jet-input id="fecha_nac" name="fecha_nac" type="date" class="mt-1 block w-full"
                     wire:model.defer="state.fecha_nac" />
             </div>
 
-           @livewire('register-component')
-
             <div class="mt-4">
-                <x-jet-label for="address" value="{{ __('Direccion') }}" />
-                <textarea
-                    :value="old('address')"
-                    class="
-                    form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    font-normal
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                  id="address"
-                  name="address"
-                  rows="3"
-                ></textarea>
+                <x-jet-label for="edad" value="{{ __('Edad') }}" />
+                <x-jet-input id="edad" class="block mt-1 w-full" :value="old('edad')" type="number" name="edad" required
+                    autocomplete="edad" />
             </div>
+
+            <div class="col-span-6 sm:col-span-3">
+                <label for="sexo" class="block text-sm font-medium text-gray-700">Sexo</label>
+                <select id="sexo" name="sexo"
+                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option value="m">Hombre</option>
+                    <option value="f">Mujer</option>
+                </select>
+            </div>
+
+
 
 
 

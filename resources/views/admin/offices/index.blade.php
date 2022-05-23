@@ -26,7 +26,7 @@
 
 
     <div class="card-body">
-        <table id="tabla" class="table table-striped dt-responsive nowrap" style="width:100%">
+        <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -66,6 +66,39 @@
     <link rel="stylesheet" href="/css/admin_custom.css">
 @stop
 
+
 @section('js')
-    <script> console.log('Hi!'); </script>
+
+<script>
+    $(document).ready(function() {
+            $('#tabla1').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+    });
+
+</script>
+<script>
+        $( document ).ready(function() {
+            $('.formulario-eliminar').submit(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta registro se eliminará definitivamente",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar!',
+                    cancelmButtonText: 'Cancelar'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+       }
+       })
+    });
+
+});
+</script>
 @stop

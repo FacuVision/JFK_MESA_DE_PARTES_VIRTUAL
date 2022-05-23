@@ -40,7 +40,8 @@ class UserSeeder extends Seeder
                 "document_number" => "74741985",
                 "district_id" => 1,
                 "user_id" => 1,
-                "type_document_id" => 1
+                "type_document_id" => 1,
+                "phone" => '999999999'
             ]
         );
 

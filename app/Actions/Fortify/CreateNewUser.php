@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -21,17 +22,42 @@ class CreateNewUser implements CreatesNewUsers
     public function create(array $input)
     {
         Validator::make($input, [
-            'name' => ['required', 'string', 'max:255'],
+            'nombre' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'date_nac' => ['required', 'date'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'gender' => ['required'],
+            'address' => ['required', 'max:255'],
+            'phone' => ['required', 'digits:9', 'numeric', 'unique:profiles'],
+            'document_number' => ['required','numeric', 'unique:profiles'],
+            'type_document_id' => ['required','numeric'],
+            'district_id' => ['required','numeric'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
+
         ])->validate();
 
-        return User::create([
-            'name' => $input['name'],
+        $user = User::create([
+            'name' => $input['nombre'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        Profile::create([
+            'name' => $user->name,
+            'lastname' => $input['lastname'],
+            'date_nac' => $input['date_nac'],
+            'gender' => $input['gender'],
+            'phone' => $input['phone'],
+            'address' => $input['address'],
+            'document_number' => $input['document_number'],
+            'type_document_id' => $input['type_document_id'],
+            'district_id' => $input['district_id'],
+            'user_id' => $user->id],
+        );
+
+
+        return $user;
 
 
         // Validator::make($input, [
@@ -47,14 +73,6 @@ class CreateNewUser implements CreatesNewUsers
         // ])->validate();
 
 
-        // Profile::create([
-        //     'nombre' => $user->name,
-        //     'apellido' => $input['apellido'],
-        //     'edad' => $input['edad'],
-        //     'dni' => $input['dni'],
-        //     'fecha_nac' => $input['fecha_nac'],
-        //     'sexo' => $input['sexo'],
-        //     'user_id' => $user->id,
-        // ]);
+
     }
 }

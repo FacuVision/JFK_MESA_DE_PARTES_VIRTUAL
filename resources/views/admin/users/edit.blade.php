@@ -4,6 +4,7 @@
 
 @section('content_header')
     <h1>Menu de Usuarios: Editar Usuario</h1>
+    @livewireStyles
 @stop
 
 @section('content')
@@ -42,6 +43,10 @@
                             <div class="col">
                                 {!! Form::label('password', 'Contraseña') !!}
                                 {!! Form::password('password', ['class' => 'form-control']) !!}
+                            </div>
+                            <div class="col">
+                                {!! Form::label('phone', 'Celular') !!}
+                                {!! Form::text('phone', $user->profile->phone, ['class' => 'form-control']) !!}
                             </div>
                         </div>
                     </div>
@@ -85,9 +90,9 @@
                         {!! Form::label('address', 'Direccion') !!}
                         {!! Form::text('address', $user->profile->address, ['class' => 'form-control']) !!}
                     </div>
+
                     <div class="form-group">
-                        {!! Form::label('district_id', 'Distrito') !!}
-                        {!! Form::select('district_id', $dist, $user->profile->district_id, ['placeholder' => 'Elija un distrito...', 'class' => 'form-control']) !!}
+                        @livewire('admin-register-component')
                     </div>
 
                 </div>
@@ -100,6 +105,8 @@
             {!! Form::close() !!}
 
         </div>
+        @livewireScripts
+
     @stop
 
     @section('css')

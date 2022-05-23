@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\TypeDocumentController;
+use App\Models\Type_document;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +17,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -25,7 +26,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $types= Type_document::all();
+        return view('auth.register', compact('types'));
     }
 
     /**
@@ -36,44 +38,9 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $user =  Auth::user();
-        $con_correo= [
-            "email" => "required|string|email|max:100|unique:users",
-            "name" => "required|string",
-            "lastname" => "required|string",
-            "date_nac" => "required",
-            "address" => "required|max:100",
-        ];
-        $sin_correo= [
-            "email" => "required|string|email|max:100",
-            "name" => "required|string",
-            "lastname" => "required|string",
-            "date_nac" => "required",
-            "address" => "required|max:100",
-        ];
-        if($request->email == $user->email){
-            $request->validate($sin_correo);
-            $user->update(['name' => $request->name,]);
-            $user->profile->update([
-                'name'=>$request->name,
-                'lastname'=>$request->lastname,
-                'date_nac'=>$request->date_nac,
-                'address'=>$request->address,
-            ]);
-        }else{
-            $request->validate($con_correo);
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
-            $user->profile->update([
-                'name'=>$request->name,
-                'lastname'=>$request->lastname,
-                'date_nac'=>$request->date_nac,
-                'address'=>$request->address,
-            ]);
-        }
-        return redirect()->route('profile.show')->with('mensaje','Datos modificados correctamente');
+
+
+
 
     }
 

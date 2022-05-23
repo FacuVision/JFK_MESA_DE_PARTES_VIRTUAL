@@ -51,7 +51,7 @@
 
 
                                 {{-- Eliminar --}}
-                                <form style="display: inline" action="{{ route('admin.users.destroy', $user) }}"
+                                <form class="formulario-eliminar" style="display: inline" action="{{ route('admin.users.destroy', $user) }}"
                                     method="post" class="formulario-eliminar">
                                     @csrf
                                     @method('DELETE')
@@ -75,11 +75,38 @@
 @stop
 
 @section('js')
-    <script>
-    console.log('Hi!');
-    $(document).ready(function() {
-            $('#tabla1').DataTable();
-        });
-    </script>
 
+<script>
+    $(document).ready(function() {
+            $('#tabla1').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+    });
+
+</script>
+
+<script>
+        $( document ).ready(function() {
+            $('.formulario-eliminar').submit(function(e){
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta registro se eliminará definitivamente",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar!',
+                    cancelmButtonText: 'Cancelar'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+       }
+       })
+    });
+
+});
+</script>
 @stop

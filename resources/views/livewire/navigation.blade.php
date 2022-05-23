@@ -47,8 +47,10 @@
                     <div class="hidden sm:block sm:ml-6">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            <a href="#" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
-                                aria-current="page">Dashboard</a>
+                            @if (Auth::user()==null)
+                            <a href="{{ route('login')}}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                aria-current="page">Ingresa o regístrate</a>
+                            @endif
 
                             <a href="#"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
@@ -86,9 +88,9 @@
                                 class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                                 id="user-menu-button" aria-expanded="false" aria-haspopup="true">
 
-                                <img class="h-8 w-8 rounded-full"
-                                    src="{{ Auth::user()->profile_photo_url}}"
-                                    />
+                                @if (Auth::user())
+                                    <img class="h-8 w-8 rounded-full" src="{{ Auth::user()->profile_photo_url }}" />
+                                @endif
                             </button>
                         </div>
 
@@ -107,15 +109,15 @@
                             role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                             <!-- Active: "bg-gray-100", Not Active: "" -->
                             <a href="{{ route('admin.index') }}" class="block px-4 py-2 text-sm text-gray-700"
-                                        role="menuitem" tabindex="-1" id="user-menu-item-0">Administracion</a>
-                            <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1"
-                                id="user-menu-item-0">Tu perfil</a>
+                                role="menuitem" tabindex="-1" id="user-menu-item-0">Administracion</a>
+                            <a href="{{ route('profile.show') }}" class="block px-4 py-2 text-sm text-gray-700"
+                                role="menuitem" tabindex="-1" id="user-menu-item-0">Tu perfil</a>
 
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                this.closest('form').submit();" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                    tabindex="-1" id="user-menu-item-2">
+                                this.closest('form').submit();" class="block px-4 py-2 text-sm text-gray-700"
+                                    role="menuitem" tabindex="-1" id="user-menu-item-2">
                                     Cerrar Sesión
                                 </a>
 
@@ -130,8 +132,12 @@
         <div class="sm:hidden" id="mobile-menu" x-show="open" x-on:click.away="open=false">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a href="#" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                    aria-current="page">Dashboard</a>
+                @if (Auth::user()==null)
+                <a href="{{ route('login')}}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                    aria-current="page">Ingresa o regístrate</a>
+                @endif
+
+
 
                 <a href="#"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
