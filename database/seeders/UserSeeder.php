@@ -23,25 +23,25 @@ class UserSeeder extends Seeder
     {
         $admin = User::create([
             "name" => "emma",
-            "email" => "emma@gmail.com",
-            "password" => bcrypt("emmanuel@gmail.com")
+            "email" => "correoprueba@gmail.com",
+            "password" => bcrypt("correoprueba@gmail.com")
         ]);
 
         $date = new DateTime("2001-01-01");
 
         $admin->profile()->create(
             [
-                "name" => "Emmanuel",
-                "lastname" => "Garayar",
+                "name" => "Administrador",
+                "lastname" => "Administrador",
                 "date_nac" => $date,
                 "gender" => "m",
-                "address" => "mi casa",
-                "phone" => "955633251",
-                "document_number" => "74741985",
+                "address" => "Direccion",
+                "phone" => "963852741",
+                "document_number" => "96396312",
                 "district_id" => 1,
                 "user_id" => 1,
                 "type_document_id" => 1,
-                "phone" => '999999999'
+                "phone" => '963741852'
             ]
         );
 

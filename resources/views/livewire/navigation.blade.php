@@ -47,19 +47,24 @@
                     <div class="hidden sm:block sm:ml-6">
                         <div class="flex space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                            @if (Auth::user()==null)
-                            <a href="{{ route('login')}}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                                aria-current="page">Ingresa o regístrate</a>
+                            @if (Auth::user() == null)
+                                <a href="{{ route('login') }}"
+                                    class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                                    aria-current="page">Ingresa o regístrate</a>
+                            @else
+                                <a href="#"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Genera
+                                    tu expediente (Pronto)</a>
                             @endif
 
-                            <a href="#"
+                            {{-- <a href="#"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Team</a>
 
                             <a href="#"
                                 class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Projects</a>
 
                             <a href="#"
-                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a>
+                                class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Calendar</a> --}}
                         </div>
                     </div>
                 </div>
@@ -132,21 +137,26 @@
         <div class="sm:hidden" id="mobile-menu" x-show="open" x-on:click.away="open=false">
             <div class="px-2 pt-2 pb-3 space-y-1">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                @if (Auth::user()==null)
-                <a href="{{ route('login')}}" class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
-                    aria-current="page">Ingresa o regístrate</a>
+                @if (Auth::user() == null)
+                    <a href="{{ route('login') }}"
+                        class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
+                        aria-current="page">Ingresa o regístrate</a>
+                @else
+                    <a href="#"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Genera
+                        tu expediente (Pronto)</a>
                 @endif
 
 
 
-                <a href="#"
+                {{-- <a href="#"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Team</a>
 
                 <a href="#"
                     class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Projects</a>
 
                 <a href="#"
-                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a>
+                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Calendar</a> --}}
             </div>
         </div>
     </nav>

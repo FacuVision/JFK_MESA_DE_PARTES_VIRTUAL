@@ -43,6 +43,19 @@
                                     {!! Form::text('address', $user->profile->address, ['disabled', 'class' => 'mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm']) !!}
                                 </div>
                                 <div class="col-span-6 sm:col-span-4">
+                                    {!! Form::label('district', 'Distrito') !!}
+                                    {!! Form::text('district', $user->profile->district->name, ['disabled', 'class' => 'mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm']) !!}
+                                </div>
+                                <div class="col-span-6 sm:col-span-4">
+                                    {!! Form::label('province', 'Provincia') !!}
+                                    {!! Form::text('province', $user->profile->district->province->name, ['disabled', 'class' => 'mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm']) !!}
+                                </div>
+                                <div class="col-span-6 sm:col-span-4">
+                                    {!! Form::label('department', 'Departamento') !!}
+                                    {!! Form::text('department', $user->profile->district->province->departament->name, ['disabled', 'class' => 'mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm']) !!}
+                                </div>
+
+                                <div class="col-span-6 sm:col-span-4">
                                     {!! Form::label('type_document_id', 'Tipo de Documento') !!}
                                     {!! Form::text('type_document_id', $user->profile->type_document->name, ['disabled', 'class' => 'mt-1 block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm']) !!}
                                 </div>
@@ -82,13 +95,13 @@
                 <x-jet-section-border />
             @endif
 
-            @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
+            {{-- @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
                 <div class="mt-10 sm:mt-0">
                     @livewire('profile.two-factor-authentication-form')
                 </div>
 
                 <x-jet-section-border />
-            @endif
+            @endif --}}
 
             <div class="mt-10 sm:mt-0">
                 @livewire('profile.logout-other-browser-sessions-form')
