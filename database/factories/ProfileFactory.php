@@ -14,7 +14,7 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            "lastname" => $this->faker->unique()->lastName(),
+            "lastname" => $this->faker->lastName(),
             "date_nac" => $this->faker->date(),
             "gender" => $this->faker->randomElement(["m","f"]),
             "address" => $this->faker->address(),

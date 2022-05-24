@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Office;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
 
@@ -24,8 +23,9 @@ class DatabaseSeeder extends Seeder
         Storage::disk('public')->makeDirectory('answer');
 
         $this->call(OfficeSeeder::class);
-        $this->call(SiteSeeder::class); 
+        $this->call(SiteSeeder::class);
         $this->call(IdentitySeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(ProcedingSeeder::class);
     }
 }

@@ -27,12 +27,12 @@ class CreateAnswersTable extends Migration
             */
 
 
-            $table->unsignedBigInteger('proceeding_id');
+            $table->unsignedBigInteger('proceding_id');
             $table->unsignedBigInteger('user_id');
 
             $table->timestamps();
 
-            $table->foreign('proceeding_id')
+            $table->foreign('proceding_id')
             ->references('id')
             ->on('procedings')
             ->onDelete('cascade')

@@ -46,9 +46,18 @@ class UserSeeder extends Seeder
         );
 
 
+        //ASOCIAMOS EL USUARIO AL APLICANT
+        Secretary::factory()->create([
+            "user_id" => 1,
+            "office_id" => 1
+        ]);
+
+
+
+
         //********************************************** */
 
-        $users = User::factory(5)->create();
+        $users = User::factory(885)->create();
 
         foreach ($users as $user) {
 
@@ -74,7 +83,7 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(5)->create();
+        $users = User::factory(10)->create();
 
         foreach ($users as $user) {
 
