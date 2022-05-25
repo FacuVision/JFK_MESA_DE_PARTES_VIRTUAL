@@ -74,7 +74,7 @@ class ProcedingController extends Controller
 
 
         //SOLO SE EJECUTARÁ EN CASO EL EXPEDIENTE TENGA ALGUNA REFERENCIA
-        if($proceding->reference != ""){
+        if($proceding->reference != "-"){
 
             //Buscara y actualizará a las referencias que tenga dicho expediente
             Proceding::select()

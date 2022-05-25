@@ -14,6 +14,11 @@
                     $cont = 1
                 @endphp
 
+
+
+
+@if ($proceding->anotations->count() != 0)
+
                 @foreach ($proceding->anotations as $anotation)
 
                 <div class="card">
@@ -36,7 +41,9 @@
                    $cont++
                 @endphp
                 @endforeach
-
+@else
+                    <input disabled class="form-control" type="text" value="Este expediente no cuenta con incidencias aún">
+@endif
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>

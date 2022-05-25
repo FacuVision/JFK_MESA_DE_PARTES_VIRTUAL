@@ -31,6 +31,12 @@ class CollectiveController extends Controller
     public function subsanar_expediente(Proceding $sub_proceding, Request $request)
     {
 
+
+        $request->validate([
+            'titulo' => 'required|string',
+            'contenido' => 'required|string'
+        ]);
+
         $sub_proceding->update([
             "status" => "3"
         ]);
@@ -46,6 +52,7 @@ class CollectiveController extends Controller
 
         //SOLO SE EJECUTARÁ EN CASO EL EXPEDIENTE TENGA ALGUNA REFERENCIA
           if($sub_proceding->reference != "-"){
+
             //Buscara y actualizará a las referencias que tenga dicho expediente
             // Proceding::select()
             // ->where("reference",$proceding->reference)
@@ -62,7 +69,7 @@ class CollectiveController extends Controller
         }
 
         return redirect()->route('secretary.procedings.index')
-        ->with(['mensaje' => 'Se solicitó subsanación correctamente (el expediente anterior fue archivado automáticamente)', 'color' => 'warning']);
+        ->with(['mensaje' => 'Se solicitó subsanación correctamente (sI el expediente tenia referencia, este fue archivado automáticamente)', 'color' => 'warning']);
 
     }
 
