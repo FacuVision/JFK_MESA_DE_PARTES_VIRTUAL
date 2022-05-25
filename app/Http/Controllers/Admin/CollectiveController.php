@@ -28,24 +28,24 @@ class CollectiveController extends Controller
     }
 
     //ESTE METODO SIRVE PARA SOLICITAR SUBSANACION POR PARTE DEL SECRETARIO
-    public function subsanar_expediente(Proceding $proceding, Request $request)
+    public function subsanar_expediente(Proceding $sub_proceding, Request $request)
     {
 
-        $proceding->update([
+        $sub_proceding->update([
             "status" => "3"
         ]);
 
-        $proceding->answers()->create([
+        $sub_proceding->answers()->create([
             "title" => $request->titulo,
             "content" => $request->contenido,
             "read_status" => "0",
             "user_id" => Auth::user()->id,
-            "proceding_id" => $proceding->id
+            "proceding_id" => $sub_proceding->id
         ]);
 
 
         //SOLO SE EJECUTARÁ EN CASO EL EXPEDIENTE TENGA ALGUNA REFERENCIA
-          if($proceding->reference != "-"){
+          if($sub_proceding->reference != "-"){
             //Buscara y actualizará a las referencias que tenga dicho expediente
             // Proceding::select()
             // ->where("reference",$proceding->reference)
@@ -55,7 +55,7 @@ class CollectiveController extends Controller
 
             //Actualizará al expediente original
             Proceding::select()
-            ->where("code",$proceding->reference)
+            ->where("code",$sub_proceding->reference)
             ->update([
                 "status" => "4"
             ]);

@@ -146,10 +146,10 @@ class ProcedingController extends Controller
      */
     public function update(Request $request, Proceding $proceding)
     {
-
         $request->validate([
             'office' => 'required',
         ]);
+
         if ($request->office == $proceding->office_id) {
             return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'El expediente ya se encuentra en esta oficina', 'color' => 'warning']);
         } else {
@@ -157,7 +157,7 @@ class ProcedingController extends Controller
                 'office_id' => $request->office,
                 'status' => '2'
             ]);
-            return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Derivación correcta!', 'color' => 'success']);
+            return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Derivación correcta! (Ya no puedes gestionar este expediente)', 'color' => 'success']);
         }
     }
 

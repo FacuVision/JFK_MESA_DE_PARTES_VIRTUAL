@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(885)->create();
+        $users = User::factory(100)->create();
 
         foreach ($users as $user) {
 
