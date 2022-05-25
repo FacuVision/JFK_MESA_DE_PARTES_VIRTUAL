@@ -15,20 +15,21 @@ class CreateIncidentsTable extends Migration
     {
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
-            $table->string('office_remitent',100);
+            $table->string('ip_origin',50);
+            $table->string('navigator_origin',50);
+            $table->string('os_origin',50);
+            $table->string('office_remitent',100)->nullable();
             $table->string('remitent',100);
             $table->string('office_destiny',100);
             $table->string('destiny',100);
             $table->string('status',50);
-            $table->string('ip_origin',50);
-            $table->string('transaction_type',100);
+            $table->enum('transaction_type',["envio","derivacion","subsanacion","rechazo","archivamiento","notificacion"]);
 
             $table->unsignedBigInteger('proceding_id');
-
             $table->timestamps();
 
 
-            //RELACION DE  UNO A MUCHOS DE  EXP CON INICIDENTE
+            //RELACION DE  UNO A MUCHOS DE  EXP CON INCIDENTE
             $table->foreign('proceding_id')
             ->references('id')
             ->on('procedings')

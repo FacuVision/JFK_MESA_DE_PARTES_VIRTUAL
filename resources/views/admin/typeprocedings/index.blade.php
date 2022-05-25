@@ -27,13 +27,13 @@
 
         <div class="card-body">
             <table id="tipoExpe" class="table table-striped dt-responsive nowrap" style="width:100%">
-                <thead class="text-center">
+                <thead>
                     <tr>
                         <th>Id</th>
                         <th>Nombre</th>
-                        <th>Descripción</th>
                         <th>Tipo</th>
                         <th>Acción</th>
+                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,6 @@
                         <tr>
                             <td>{{ $TypeProceding->id }}</td>
                             <td>{{ $TypeProceding->name }}</td>
-                            <td>{{ $TypeProceding->description }}</td>
                             <td>{{ $TypeProceding->type }}</td>
                             <td>
 
@@ -50,7 +49,7 @@
                                     class="btn btn-success">Editar</a>
 
                                 {{-- Eliminar --}}
-                                <form class="formulario-eliminar" style="display: inline"
+                                <form id="formulario-eliminar" style="display: inline"
                                     action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}"
                                     method="post" class="formulario-eliminar">
                                     @csrf
@@ -58,6 +57,7 @@
                                     <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
                                 </form>
                             </td>
+                            <td>{{ $TypeProceding->description }}</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -84,7 +84,7 @@
 
     <script>
         $(document).ready(function() {
-            $('.formulario-eliminar').submit(function(e) {
+            $('#formulario-eliminar').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: '¿Estás seguro?',

@@ -23,8 +23,12 @@ class ProcedingController extends Controller
     {
 
         $secretary = Secretary::findOrFail(Auth::id());
-        $procedings = $secretary->office->procedings;
+
+        $procedings = Proceding::select()->where("office_id", $secretary->office->id)->where("status","<>","4")->get();
         $offices = Office::all();
+
+
+
         return view('secretary.procedings.index', compact('procedings', 'offices'));
     }
 
@@ -53,16 +57,43 @@ class ProcedingController extends Controller
         ]);
         $proceding = Proceding::findOrFail($request->procedingid);
 
+        //CREAMOS LA RESPUESTA CORRESPONDIENTE
+
         Answer::create([
             'title' => $request->title,
             'content' => $request->content,
             'read_status' => '0',
-            'proceeding_id' => $proceding->id,
-            'user_id' => Auth::id(),
+            'proceding_id' => $proceding->id,
+            'user_id' => Auth::user()->id,
         ]);
+
+        //SE ACTULIZA A ARCHIVADO
         $proceding->update([
             'status' => '4',
         ]);
+
+
+        //SOLO SE EJECUTARÁ EN CASO EL EXPEDIENTE TENGA ALGUNA REFERENCIA
+        if($proceding->reference != ""){
+
+            //Buscara y actualizará a las referencias que tenga dicho expediente
+            Proceding::select()
+            ->where("reference",$proceding->reference)
+            ->update([
+                "status" => "4"
+            ]);
+
+            //Actualizará al expediente original
+            Proceding::select()
+            ->where("code",$proceding->reference)
+            ->update([
+                "status" => "4"
+            ]);
+        }
+
+
+
+        //$pro = Proceding::select()->where("reference",$proceding->reference)->get();
 
         // Incident::create([
         //     'office_remitent' => $proceding->office->name,
@@ -73,7 +104,7 @@ class ProcedingController extends Controller
         //     'proceding_id' => $proceding->id
         // ]);
 
-        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Respuesta Enviada', 'color' => 'success']);
+        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Respuesta Enviada (El(los) expediente(s) fueron archivados automáticamente)', 'color' => 'success']);
     }
 
     /**
@@ -100,10 +131,10 @@ class ProcedingController extends Controller
     public function edit(Proceding $proceding)
     {
 
-        $proceding->update([
-            'status' => '3',
-        ]);
-        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Petición de Subsanación Enviada', 'color' => 'warning']);
+        // $proceding->update([
+        //     'status' => '3',
+        // ]);
+        // return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Petición de Subsanación Enviada', 'color' => 'warning']);
     }
 
     /**

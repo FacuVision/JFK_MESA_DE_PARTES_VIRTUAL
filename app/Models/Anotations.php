@@ -20,7 +20,7 @@ class Anotations extends Model
     }
     public function secretary()
     {
-        return $this->belongsTo(Secretary::class);
+        return $this->belongsTo(Secretary::class,'user_id');
     }
     public function office()
     {

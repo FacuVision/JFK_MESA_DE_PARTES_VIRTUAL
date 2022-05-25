@@ -33,7 +33,7 @@
         </div>
 
         <div class="card-body">
-            <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
+            <table id="expedientes" class="table table-striped dt-responsive nowrap" style="width:100%">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -47,59 +47,62 @@
                 <tbody>
                     @foreach ($procedings as $proceding)
                         <tr>
-                            @if ($proceding->status == 1 || $proceding->status == 2 || $proceding->status == 5)
                                 <td>{{ $proceding->id }}</td>
                                 <td>{{ $proceding->code }}</td>
                                 <td>{{ $proceding->title }}</td>
                                 <td>{{ $proceding->office->name }}</td>
-                                @switch($proceding->status)
-                                    @case(1)
-                                        <td class="text-primary">
-                                            Enviado
-                                        </td>
-                                    @break
+                                <td>
+                                    @switch($proceding->status)
+                                        @case(1)
+                                            <span class="text-success">
+                                                Enviado
+                                            </span>
+                                        @break
 
-                                    @case(2)
-                                        <td class="text-warning">
-                                            Derivado
-                                        </td>
-                                    @break
+                                        @case(3)
+                                            <span class="text-info">
+                                                Por subsanar
+                                            </span>
+                                        @break
+                                        @case(5)
+                                            <span class="text-danger">
+                                                Rechazado
+                                            </span>
+                                        @break
+                                    @endswitch
 
-                                    @case(5)
-                                        <td class="text-danger">
-                                            Rechazado
-                                        </td>
-                                    @break
-                                @endswitch
+                                </td>
 
                                 <td>
                                     <div class="row">
-                                    <a href="#" data-toggle="modal" data-target="#showModal{{ $proceding->id }}"
-                                        class="btn btn-info btn-sm mr-1">Detalle</a>
-                                    <a href="{{ route('secretary.procedings.show', $proceding) }}"
-                                        class="btn btn-secondary btn-sm">Archivar</a>
-                                    {{-- @if ($proceding->status == 5)
-                                        <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
-                                            method="post" class="formulario-eliminar">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="submit" value="Eliminar" class="btn btn-danger">
-                                        </form>
-                                    @endif --}}
-                                    @if ($proceding->status == 5)
-                                        <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
+                                        <a href="#" data-toggle="modal" data-target="#showModal{{ $proceding->id }}"
+                                            class="btn btn-info btn-sm mr-1">Detalle</a>
+                                            <a data-toggle="modal" class="btn btn-primary btn-sm"
+                                            data-target="#anotationModal{{ $proceding->id }}">Ver Anotaciones</a>
+
+                                            {{-- SI EN CASO EL EXPEDIENTE ES RECHAZADO --}}
+                                            @if ($proceding->status == 5)
+                                            <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
                                             method="post" class="formulario-eliminar ml-1">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                    @endif
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                class="formulario-eliminar fa fa-trash"></i></button>
+                                            </form>
+                                            <a href="{{ route('secretary.procedings.dont_reject', $proceding) }}" class="btn btn-success btn-sm ml-1"><i class="fa fa-check-square"
+                                                aria-hidden="true"></i></a>
+                                                @endif
+                                            @if ($proceding->status != 5)
+                                                <a href="{{ route('secretary.procedings.show', $proceding) }}" class="archivar ml-1 btn btn-secondary btn-sm mr-1">Archivar</a>
+                                            @endif
+
                                     </div>
                                     @include('secretary.procedings.partials.show')
+                                    @include('secretary.procedings.partials.anotations')
                                     @include('secretary.procedings.partials.answer')
+                                    @include('secretary.procedings.partials.subsana')
                                     @include('secretary.procedings.partials.derive')
                                 </td>
-                            @endif
                         </tr>
                     @endforeach
 
@@ -115,9 +118,61 @@
 @stop
 
 @section('js')
+
     <script>
         $(document).ready(function() {
-            $('#tabla1').DataTable();
+            $('#expedientes').DataTable({
+                responsive: true,
+                autoWidth: false,
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta registro se eliminará definitivamente",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, eliminar!',
+                    cancelmButtonText: 'Cancelar'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('.archivar').click(function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: "Esta expediente se archivará, el solicitante no podrá realizar ninguna acción con su expediente si continuas",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Sí, archivar',
+                    cancelmButtonText: 'Cancelar'
+
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        this.submit();
+                    }
+                })
+            });
+
         });
     </script>
 

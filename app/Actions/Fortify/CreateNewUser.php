@@ -2,6 +2,7 @@
 
 namespace App\Actions\Fortify;
 
+use App\Models\Aplicant;
 use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -56,23 +57,11 @@ class CreateNewUser implements CreatesNewUsers
             'user_id' => $user->id],
         );
 
+        Aplicant::create([
+            "user_id"=>$user->id
+        ]);
 
         return $user;
-
-
-        // Validator::make($input, [
-        //     'name' => ['required', 'string', 'max:100'],
-        //     'email' => ['required', 'string', 'email', 'max:100', 'unique:users'],
-        //     'apellido' => ['required', 'string', 'max:100'],
-        //     'edad' => ['required', 'int', 'max:110', 'min:1'],
-        //     'dni' => ['required','digits:8','numeric', 'unique:profiles'],
-        //     'fecha_nac' => ['required'],
-        //     'sexo' => ['required'],
-        //     'password' => $this->passwordRules(),
-        //     'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
-        // ])->validate();
-
-
 
     }
 }

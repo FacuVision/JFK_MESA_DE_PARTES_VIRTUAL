@@ -132,21 +132,40 @@
 
             </div>
             <div class="modal-footer">
-                <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>
                 {{-- <form action="{{ route('secretary.procedings.destroy', $proceding) }}"
-                    method="post" class="formulario-eliminar">
-                    @csrf
-                    @method('DELETE')
-                    <input type="submit" value="Rechazar" class="btn btn-dark">
-                </form> --}}
+                method="post" class="formulario-eliminar">
+                @csrf
+                @method('DELETE')
+                <input type="submit" value="Rechazar" class="btn btn-dark">
+            </form> --}}
+
+            @if($proceding->status == 5)
+                <div class="text-danger mr-2">El expediente ha sido rechazado, las opciones han sido deshabilitadas</div>
+            @endif
+
+            @if($proceding->status == 3)
+                <div class="text-info mr-2">El expediente ha sido mandando a subsanar, las opciones han sido deshabilitadas</div>
+
+            @endif
+
+            @if($proceding->status != 5 && $proceding->status != 3)
                 <a href="{{ route('secretary.procedings.reject', $proceding) }}"
-                    class="btn btn-dark btn-sm">Rechazar</a>
-                <a href="{{ route('secretary.procedings.edit', $proceding) }}"
-                    class="btn btn-danger btn-sm">Subsanar</a>
+                class="btn btn-dark btn-sm">Rechazar</a>
+
+                <a href="#"
+                class="btn btn-danger btn-sm"
+                data-toggle="modal"
+                data-target="#subsanaModal{{ $proceding->id }}">Subsanar</a>
+
                 <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
-                    data-target="#deriveModal{{ $proceding->id }}">Derivar</a>
+                data-target="#deriveModal{{ $proceding->id }}">Derivar</a>
+
                 <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
-                    data-target="#answerModal{{ $proceding->id }}">Dar Respuesta</a>
+                data-target="#answerModal{{ $proceding->id }}">Dar Respuesta</a>
+            @endif
+
+            <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>
+
             </div>
         </div>
     </div>

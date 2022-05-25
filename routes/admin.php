@@ -36,8 +36,15 @@ Route::resource('typedocuments',TypeDocumentController::class)->names('admin.typ
 Route::resource('offices', OfficeController::class)->names('admin.offices');
 Route::resource('typeprocedings',TypeProcedingController::class)->names('admin.typeprocedings');
 //Route::resource('districts', DistrictController::class)->names('admin.districts');
-
 Route::resource('procedings', ProcedingController::class)->names('secretary.procedings');
 
+
+//rechazar expediente
 Route::get('procedings/{proceding}/reject', [CollectiveController::class,'reject'])->name('secretary.procedings.reject');
+
+//arpobar expediente
+Route::get('procedings/{proceding}/dont_reject', [CollectiveController::class,'dont_reject'])->name('secretary.procedings.dont_reject');
+
+//subsanar expediente
+Route::put('procedings/{proceding}', [CollectiveController::class,'subsanar_expediente'])->name('secretary.procedings.subsanar_expediente');
 
