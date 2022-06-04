@@ -3,8 +3,20 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             Registro de Expedientes
         </h2>
-          
     </x-slot>
+    @section('content')
+    <div class="card">
+    {{session('Todos')}}
+    @if (session('mensaje'))
+        <div class="alert alert-{{session('color')}}">
+            <strong>{{ session('mensaje') }}</strong>
+        </div>
+    @endif
+    @if (session('alerta'))
+        <div class="alert alert-warning">
+            <strong>{{ session('alerta') }}</strong>
+        </div>
+    @endif
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">

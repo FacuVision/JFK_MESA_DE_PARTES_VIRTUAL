@@ -42,7 +42,7 @@ class ProcedingController extends Controller
         $office  = Office::pluck('name','id')->toArray();
         notify()->success('El Expediente se ha registrado con éxito.', '¡Registrado!');
         
-        return view('aplicant.create',compact('office','typedocument'))->with('mensaje','Tipo de Documento creado correctamente');
+        return view('aplicant.create',compact('office','typedocument'));
     }
 
     /**
@@ -115,7 +115,7 @@ class ProcedingController extends Controller
                 $foo = $anexo->extension();
                 if($foo == 'pdf'){
                      // se crea una carpeta con el id del usuario
-                    if(Storage::putFileAs('/public/principal/'. $user_id. '/', $anexo, $anexoName)){
+                    if(Storage::putFileAs('/public/file/'. $user_id. '/', $anexo, $anexoName)){
 
 
                         $procedings->documents()->create([
@@ -137,7 +137,7 @@ class ProcedingController extends Controller
            // return redirect()->route('aplicant.procedings.create');
         }
 
-        return redirect()->with('mensaje','Tipo de Documento creado correctamente');
+        return redirect()->route('aplicant.procedings.create')->with('mensaje','Tipo de Documento creado correctamente');
     }
 
     /**
