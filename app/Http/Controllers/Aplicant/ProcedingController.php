@@ -46,9 +46,9 @@ class ProcedingController extends Controller
         // tipo : mensaje
         //mensaje: Expediente enviado satisfactoriamente
         //session()->flash('mensaje','Expediente enviado satisfactoriamente');
-        $this->alert('success','Expediente enviado satisfactoriamente');
+        //$this->alert('success','Expediente enviado //satisfactoriamente');
 
-        
+
         return view('aplicant.create',compact('office','typedocument','docsubsanar'));
     }
 
@@ -97,7 +97,7 @@ class ProcedingController extends Controller
                     $this->alert('success','Expediente enviado satisfactoriamente');
                 }
                 //CUANDO ES SUBSANANACIÓN
-                // al realizar esta acción el estado del expediente al que hace referencia debe estar estado 'corregido 
+                // al realizar esta acción el estado del expediente al que hace referencia debe estar estado 'corregido
                 else if($request->typedocument_id == '11'){
                     // crear expediente haciendo referencia al 'code' del que hace referencia a la subsanación
                     //CREAR ARCHIVOS PDFS Y ANEXOS
