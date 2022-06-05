@@ -15,7 +15,7 @@ class CreateProcedingsTable extends Migration
     {
         Schema::create('procedings', function (Blueprint $table) {
             $table->id();
-            $table->string("code",10)->unique();
+            $table->string("code",10);//->unique(); //cuando se inserte al hacer referencia ocurrirá error si es unico este campo.
             $table->string("title",100);
             $table->text("content");
             $table->string("n_foly",5);

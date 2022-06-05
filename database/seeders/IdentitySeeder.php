@@ -61,8 +61,18 @@ class IdentitySeeder extends Seeder
                 "description"=>"El permiso provisional para aprender a conducir habilita a una persona a manejar un vehículo en la vía pública por el período de 6 meses, acompañado siempre de un instructor (familiar, amigo o conocido) que cuente con un brevete hace más de 2 años."]);
 
         Type_proceding::create(
-                ["name"=>"SOLICITUD DE ACTUALIZACION DE DATOS DE PERFIL)",
+                ["name"=>"SOLICITUD DE ACTUALIZACION DE DATOS DE PERFIL",
                 "description"=>"Si quieres hacer alguna correccion de tu informacion brindada a la mesa de partes, puedes solicitarlo a las oficinas para que puedan hacer tu actualizacion correspondiente"]);
+
+        Type_proceding::create(
+                    ["name"=>"SUBSANACION",
+                    "description"=>"Documento que ha sido rechazado o necesita archivos adicionales"]);
+
+        Type_proceding::create(
+                    ["name"=>"OTROS",
+                    "description"=>"El solicitante puede adjuntar otros archivos"]);
+
+
 
 
     }

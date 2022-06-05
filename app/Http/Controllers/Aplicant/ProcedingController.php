@@ -39,149 +39,160 @@ class ProcedingController extends Controller
     {
         //$typedocument = TypeDocument::all();
         $typedocument  = Type_proceding::pluck('name','id')->toArray();
+        $docsubsanar = Proceding::where(['status'=>3,'user_id'=>Auth()->user()->id])->pluck('title','code')->toArray();
+
         $office  = Office::pluck('name','id')->toArray();
-        notify()->success('El Expediente se ha registrado con éxito.', '¡Registrado!');
+
+        // tipo : mensaje
+        //mensaje: Expediente enviado satisfactoriamente
+        //session()->flash('mensaje','Expediente enviado satisfactoriamente');
+        $this->alert('success','Expediente enviado satisfactoriamente');
+
         
-        return view('aplicant.create',compact('office','typedocument'));
+        return view('aplicant.create',compact('office','typedocument','docsubsanar'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    public function alert($tipo,$mensaje){
+        session()->flash($tipo,$mensaje);
+        // session()->flash('alert');
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
             'office_id'=>'required',
-            'pdf1'=>'required|max:15000',
-            'anexo'=>'max:15000',
+            'pdf1'=>'required|max:15000|mimes:pdf',
+            'anexo'=>'max:15000|mimes:pdf',
         ]);
 
+
+
         $year = date('Y');
-        $DesdeLetra = "A";
-        $HastaLetra = "Z";
         $DesdeNumero = 1;
         $HastaNumero = 10000;
         $numeroAleatorio = rand($DesdeNumero, $HastaNumero);
-    
 
-        
-    try {
-            $code = Str::random(4) .'-'.$numeroAleatorio;
-            $pdf1 = $request->file('pdf1');
-            $anexo = $request->file('pdf2');
-            $user_id = Auth()->user()->id;
-        
+        $code = Str::random(4) .'-'.$numeroAleatorio;
+        $pdf1 = $request->file('pdf1');
+        $anexo = $request->file('pdf2');
+        $user = Auth()->user();
 
-            $procedings=Proceding::create([
-                'code'=>$code,
-                'title'=>$request->title,
-                'content'=>$request->content,
-                'n_foly'=>$request->n_foly,
-                'reference'=>'referencia por modificar',
-                'status'=>1, //"enviado"
-                'office_id'=>$request->office_id,
-                'user_id'=>$user_id,
-                'type_proceding_id'=>$request->typedocument_id //tipo de exp
-            ]);
-        
-
-            if($pdf1!=null){
-                $filename =$year.'-'.strtr($pdf1->getClientOriginalName(), " ", "_");
-                $foo = $pdf1->extension();
-                if($foo == 'pdf'){
-                    // se crea una carpeta con el id del usuario
-                    if(Storage::putFileAs('/public/principal/'.$user_id. '/', $pdf1,$filename)){
-
-                        $procedings->documents()->create([
-                            'documentable_id'=>$procedings->id,
-                            'documentable_type'=>Proceding::class,
-                            'type'=>'0',
-                            'url'=>$filename
-                            
-                        ]);
-                    }
-                    //en file se guardan los pfs subidos.
-                    // $route_file = 'principal'.DIRECTORY_SEPARATOR.date('Ymdhmi').'.'.$foo;
-                    // Storage::disk('public')->put($route_file,$filename);               
+        try {
+                /***
+                 * crear 2 flujos:
+                 * - 1 "tipo de exp. otros" expediente con o sin anexos .
+                 * - 2 subsananción de exp.
+                 * - 3 Solicitudes normales
+                 */
+                //CUANDO EL TIPO DE EXP. ES "OTROS"
+                if($request->typedocument_id == '12'){
+                    // se crea un nuevo tipo de proceding
+                    $NewTypeProceding =Type_proceding::create([
+                        'name'=>strtoupper($request->newtipodoc),
+                        'description'=>strtoupper($request->newtipodoc),
+                        'type'=>'user'
+                    ]);
+                    $this->crearArchivos($pdf1,$anexo,$year,$user,$this->crearSolicitud($code,$request,'-',1,$user,$NewTypeProceding->id));
+                    $this->alert('success','Expediente enviado satisfactoriamente');
                 }
-            
-            }
+                //CUANDO ES SUBSANANACIÓN
+                // al realizar esta acción el estado del expediente al que hace referencia debe estar estado 'corregido 
+                else if($request->typedocument_id == '11'){
+                    // crear expediente haciendo referencia al 'code' del que hace referencia a la subsanación
+                    //CREAR ARCHIVOS PDFS Y ANEXOS
+                    $this->crearArchivos($pdf1,$anexo,$year,$user,$this->crearSolicitud($request->referencia,$request,$request->referencia,1,$user,$request->typedocument_id ));
 
-            if($anexo!=null){
-                $anexoName =$year.'-'.strtr($anexo->getClientOriginalName(), " ", "_");
-                $foo = $anexo->extension();
-                if($foo == 'pdf'){
-                     // se crea una carpeta con el id del usuario
-                    if(Storage::putFileAs('/public/file/'. $user_id. '/', $anexo, $anexoName)){
-
-
-                        $procedings->documents()->create([
-                            'documentable_id'=>$procedings->id,
-                            'documentable_type'=>Proceding::class,
-                            'type'=>'1',
-                            'url'=>$anexoName
-                        ]);
-                    }
-                    //en file se guardan los pfs subidos.
-                    // $route_anexo = 'file'.DIRECTORY_SEPARATOR.date('Ymdhmi').'.'.$foo;
-                    // Storage::disk('public')->put($route_anexo,$anexoName);               
+                    $this->alert('success','Subsanación de Expediente enviado satisfactoriamente');
+                }else{
+                    // se crea Solicitudes normales
+                    $this->crearArchivos($pdf1,$anexo,$year,$user,$this->crearSolicitud($code,$request,'-',1,$user,$request->typedocument_id));
+                    $this->alert('success','Expediente enviado satisfactoriamente');
                 }
+            } catch (\Throwable $th) {
+                    $this->alert('error','¡Error!, Comuníquece con el soporte');
+                return redirect()->route('aplicant.procedings.create');
             }
-          //
-    
-        } catch (\Throwable $th) {
-
-           // return redirect()->route('aplicant.procedings.create');
-        }
-
-        return redirect()->route('aplicant.procedings.create')->with('mensaje','Tipo de Documento creado correctamente');
+        return redirect()->route('aplicant.procedings.create');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         //
     }
+
+
+
+
+            //funcion |
+            public function crearSolicitud($code,$request,$referencia,$estado,$user,$typeProceding_id){
+
+                $procedings=Proceding::create([
+                    'code'=>$code,
+                    'title'=>$request->title,
+                    'content'=>$request->content,
+                    'n_foly'=>$request->n_foly,
+                    'reference'=>$referencia,
+                    'status'=>$estado, //"enviado"
+                    'office_id'=>$request->office_id,
+                    'user_id'=>$user->id,
+                    'type_proceding_id'=>$typeProceding_id //tipo de exp
+                ]);
+                //retorna el modelo
+                return $procedings;
+            }
+            //función 2
+            public function crearArchivos($pdf1,$anexo,$year,$user,$procedings){
+                    if($pdf1!=null){
+                        $filename =$year.'-'.strtr($pdf1->getClientOriginalName(), " ", "_");
+                        $foo = $pdf1->extension();
+                        if($foo == 'pdf'){
+                            // se crea una carpeta con el id del usuario
+                            if(Storage::putFileAs('/public/principal/'.$user->id.'-'.$user->name. '/', $pdf1,$filename)){
+                                $procedings->documents()->create([
+                                    'documentable_id'=>$procedings->id,
+                                    'documentable_type'=>Proceding::class,
+                                    'type'=>'0',
+                                    'url'=>$filename
+                                ]);
+                            }
+                        }
+                    }
+                    if($anexo!=null){
+                        $anexoName =$year.'-'.strtr($anexo->getClientOriginalName(), " ", "_");
+                        $foo = $anexo->extension();
+                        if($foo == 'pdf'){
+                             // se crea una carpeta con el id del usuario
+                            if(Storage::putFileAs('/public/file/'. $user->id.'-'.$user->name.'/', $anexo, $anexoName)){
+                                $procedings->documents()->create([
+                                    'documentable_id'=>$procedings->id,
+                                    'documentable_type'=>Proceding::class,
+                                    'type'=>'1',
+                                    'url'=>$anexoName
+                                ]);
+                            }
+                        }
+                    }
+                }
+
+
+
 }
