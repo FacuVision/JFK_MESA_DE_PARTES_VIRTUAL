@@ -99,7 +99,7 @@ class ProcedingController extends Controller
         $fullname = $office->secretary->user->profile->name.' '.$office->secretary->user->profile->lastname;
         //nombres y apellidos del usuario
 
-        // try {
+        try {
                 /***
                  * crear 2 flujos:
                  * - 1 "tipo de exp. otros" expediente con o sin anexos .
@@ -151,10 +151,10 @@ class ProcedingController extends Controller
                     $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Enviado',$request->typedocument_id );
                     $this->alert('success','Expediente enviado satisfactoriamente');
                 }
-            // } catch (\Throwable $th) {
-                    // $this->alert('error','¡Error!, Comuníquece con el soporte');
-                // return redirect()->route('aplicant.procedings.create');
-            // }
+            } catch (\Throwable $th) {
+                    $this->alert('error','¡Error!, Comuníquece con el soporte');
+                return redirect()->route('aplicant.procedings.create');
+            }
         return redirect()->route('aplicant.procedings.create');
     }
 
