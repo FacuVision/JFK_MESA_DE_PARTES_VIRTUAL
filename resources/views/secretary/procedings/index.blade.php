@@ -54,19 +54,24 @@
                                 <td>
                                     @switch($proceding->status)
                                         @case(1)
-                                            <span class="text-success">
+                                            <span class="text-white badge badge-success">
                                                 Enviado
                                             </span>
                                         @break
 
                                         @case(3)
-                                            <span class="text-info">
+                                            <span class="text-white badge badge-danger">
                                                 Por subsanar
                                             </span>
                                         @break
                                         @case(5)
-                                            <span class="text-danger">
+                                            <span class="text-white badge badge-dark">
                                                 Rechazado
+                                            </span>
+                                        @break
+                                        @case(6)
+                                            <span class="text-white badge badge-warning">
+                                                Subsanado
                                             </span>
                                         @break
                                     @endswitch

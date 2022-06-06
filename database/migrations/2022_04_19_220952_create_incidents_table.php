@@ -23,7 +23,7 @@ class CreateIncidentsTable extends Migration
             $table->string('office_destiny',100);
             $table->string('destiny',100);
             $table->string('status',50);
-            $table->enum('transaction_type',["envio","derivacion","subsanacion","rechazo","archivamiento","notificacion"]);
+            $table->enum('transaction_type',["envio","derivacion","subsanacion","rechazo","archivamiento","notificacion","subsanando"]);
 
             $table->unsignedBigInteger('proceding_id');
             $table->timestamps();

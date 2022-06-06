@@ -14,7 +14,7 @@ class OfficeFactory extends Factory
     public function definition()
     {
         return [
-            "name"=> $this->faker->word(15),
+            "name"=> $this->faker->unique()->word(15),
             "description" => $this->faker->sentence()
         ];
     }

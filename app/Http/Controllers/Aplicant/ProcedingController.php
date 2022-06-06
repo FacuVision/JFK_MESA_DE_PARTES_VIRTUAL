@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Aplicant;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DocumentRequest;
 use App\Models\Aplicant;
 use App\Models\Document;
+use App\Models\Incident;
 use Illuminate\Http\Request;
 
 use App\Models\Type_document;
@@ -41,6 +43,7 @@ class ProcedingController extends Controller
         $typedocument  = Type_proceding::pluck('name','id')->toArray();
         $docsubsanar = Proceding::where(['status'=>3,'user_id'=>Auth()->user()->id])->pluck('title','code')->toArray();
 
+
         $office  = Office::pluck('name','id')->toArray();
 
         // tipo : mensaje
@@ -58,16 +61,8 @@ class ProcedingController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(DocumentRequest $request)
     {
-        $request->validate([
-            'office_id'=>'required',
-            'pdf1'=>'required|max:15000|mimes:pdf',
-            'anexo'=>'max:15000|mimes:pdf',
-        ]);
-
-
-
         $year = date('Y');
         $DesdeNumero = 1;
         $HastaNumero = 10000;
@@ -78,7 +73,33 @@ class ProcedingController extends Controller
         $anexo = $request->file('pdf2');
         $user = Auth()->user();
 
-        try {
+        //se cambia los puntos por '' vacío
+        $cadena =str_replace('.','', $user->name);
+        //este nombre es para la carpeta que se creará
+        $nomArchivo = preg_replace("/\s+/u", "", $cadena );
+
+        //DATOS DEL DE IN(CIDENTE
+        $ip = getenv('REMOTE_ADDR');
+        $navigator=getenv('HTTP_USER_AGENT');
+        $s1 = " (";
+        $separada = explode($s1, $navigator);
+        $cadena = $separada[1];
+        $s2 = ")";
+        $so = explode($s2, $cadena);
+        $os_origin = $so[0]; // sistema oeprativo
+
+        $cadena2 = $separada[2];
+        $s3 = ")";
+        $navegador = explode($s3, $cadena2);
+        $nav= $navegador[1];  //navegador
+
+
+        //oficina destino
+        $office = Office::find($request->office_id);
+        $fullname = $office->secretary->user->profile->name.' '.$office->secretary->user->profile->lastname;
+        //nombres y apellidos del usuario
+
+        // try {
                 /***
                  * crear 2 flujos:
                  * - 1 "tipo de exp. otros" expediente con o sin anexos .
@@ -90,30 +111,66 @@ class ProcedingController extends Controller
                     // se crea un nuevo tipo de proceding
                     $NewTypeProceding =Type_proceding::create([
                         'name'=>strtoupper($request->newtipodoc),
-                        'description'=>strtoupper($request->newtipodoc),
+                        'description'=>$request->newtipodoc,
                         'type'=>'user'
                     ]);
-                    $this->crearArchivos($pdf1,$anexo,$year,$user,$this->crearSolicitud($code,$request,'-',1,$user,$NewTypeProceding->id));
+                    $id_nuevo_proceding = $NewTypeProceding->id;
+                    $procedings = $this->crearSolicitud($code,$request,'-',1,$user,$id_nuevo_proceding);
+
+                    $this->crearArchivos($pdf1,$anexo,$year,$user,$nomArchivo,$procedings);
+
+                    //code...
+                    $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Enviado',$procedings->id);
+
                     $this->alert('success','Expediente enviado satisfactoriamente');
                 }
                 //CUANDO ES SUBSANANACIÓN
-                // al realizar esta acción el estado del expediente al que hace referencia debe estar estado 'corregido
+                // al realizar esta acción el estado del expediente al que hace referencia debe estar estado 'subsanado
                 else if($request->typedocument_id == '11'){
                     // crear expediente haciendo referencia al 'code' del que hace referencia a la subsanación
                     //CREAR ARCHIVOS PDFS Y ANEXOS
-                    $this->crearArchivos($pdf1,$anexo,$year,$user,$this->crearSolicitud($request->referencia,$request,$request->referencia,1,$user,$request->typedocument_id ));
+
+                    // MODIFICACIÓN DEL ESTADO DEL EXPEDIENTE A SUBSANAR
+                    $exp = Proceding::where(['code'=>$request->referencia,'user_id'=>$user->id])->first();
+                    //ESTADO "SUBSANADO"
+                    $exp->status = '6';
+                    $exp->save();
+
+                    // obtenemos el id de exp. referente para modificar el estado
+                    $procedings = $this->crearSolicitud($request->referencia,$request,$request->referencia,1,$user,$request->typedocument_id );
+
+                    $this->crearArchivos($pdf1,$anexo,$year,$user,$nomArchivo,$procedings);
+
+                    $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Subsanado',$procedings->id);
+
 
                     $this->alert('success','Subsanación de Expediente enviado satisfactoriamente');
                 }else{
                     // se crea Solicitudes normales
-                    $this->crearArchivos($pdf1,$anexo,$year,$user,$this->crearSolicitud($code,$request,'-',1,$user,$request->typedocument_id));
+                    $this->crearArchivos($pdf1,$anexo,$year,$user, $nomArchivo,$this->crearSolicitud($code,$request,'-',1,$user,$request->typedocument_id));
+                    $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Enviado',$request->typedocument_id );
                     $this->alert('success','Expediente enviado satisfactoriamente');
                 }
-            } catch (\Throwable $th) {
-                    $this->alert('error','¡Error!, Comuníquece con el soporte');
-                return redirect()->route('aplicant.procedings.create');
-            }
+            // } catch (\Throwable $th) {
+                    // $this->alert('error','¡Error!, Comuníquece con el soporte');
+                // return redirect()->route('aplicant.procedings.create');
+            // }
         return redirect()->route('aplicant.procedings.create');
+    }
+
+    public function crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,$status,$id_nuevo_proceding){
+        Incident::create([
+            'ip_origin'=>strval($ip),
+            'navigator_origin'=>strval($nav),
+            'os_origin'=>strval($os_origin),
+            'office_remitent'=>'-',
+            'remitent'=>strval($user->profile->name ." ". $user->profile->lastname),
+            'office_destiny'=>strval($office->name),
+            'destiny'=>strval($fullname),
+            'status'=>strval($status),
+            'transaction_type'=>'envio', //revisar las migraciones
+            'proceding_id'=>$id_nuevo_proceding,
+            ]);
     }
 
 
@@ -142,31 +199,32 @@ class ProcedingController extends Controller
 
 
 
-            //funcion |
+            //funcion | crear un proceding
             public function crearSolicitud($code,$request,$referencia,$estado,$user,$typeProceding_id){
 
-                $procedings=Proceding::create([
-                    'code'=>$code,
-                    'title'=>$request->title,
-                    'content'=>$request->content,
-                    'n_foly'=>$request->n_foly,
-                    'reference'=>$referencia,
-                    'status'=>$estado, //"enviado"
-                    'office_id'=>$request->office_id,
-                    'user_id'=>$user->id,
-                    'type_proceding_id'=>$typeProceding_id //tipo de exp
-                ]);
-                //retorna el modelo
-                return $procedings;
+            $procedings=Proceding::create([
+            'code'=>$code,
+            'title'=>$request->title,
+            'content'=>$request->content,
+            'n_foly'=>$request->n_foly,
+            'reference'=>$referencia,
+            'status'=>$estado, //"enviado"
+            'office_id'=>$request->office_id,
+            'user_id'=>$user->id,
+            'type_proceding_id'=>$typeProceding_id //tipo de exp
+            ]);
+            //retorna el modelo
+            return $procedings;
             }
-            //función 2
-            public function crearArchivos($pdf1,$anexo,$year,$user,$procedings){
+            //función 2 | crear archivos
+            public function crearArchivos($pdf1,$anexo,$year,$user,$nomArchivo,$procedings){
                     if($pdf1!=null){
+                        $filename =$year.'-'.strtr($pdf1->getClientOriginalName(), " ", "_");
                         $filename =$year.'-'.strtr($pdf1->getClientOriginalName(), " ", "_");
                         $foo = $pdf1->extension();
                         if($foo == 'pdf'){
                             // se crea una carpeta con el id del usuario
-                            if(Storage::putFileAs('/public/principal/'.$user->id.'-'.$user->name. '/', $pdf1,$filename)){
+                            if(Storage::putFileAs('/public/principal/'.$user->id.'-'.$nomArchivo.'/', $pdf1,$filename)){
                                 $procedings->documents()->create([
                                     'documentable_id'=>$procedings->id,
                                     'documentable_type'=>Proceding::class,
@@ -181,7 +239,7 @@ class ProcedingController extends Controller
                         $foo = $anexo->extension();
                         if($foo == 'pdf'){
                              // se crea una carpeta con el id del usuario
-                            if(Storage::putFileAs('/public/file/'. $user->id.'-'.$user->name.'/', $anexo, $anexoName)){
+                            if(Storage::putFileAs('/public/file/'. $user->id.'-'.$nomArchivo.'/', $anexo, $anexoName)){
                                 $procedings->documents()->create([
                                     'documentable_id'=>$procedings->id,
                                     'documentable_type'=>Proceding::class,
