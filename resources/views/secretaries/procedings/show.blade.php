@@ -46,7 +46,7 @@
                         <td>{{ $proceding->office->name }}</td>
                         <td>{{ $proceding->status }}</td>
                         <td>
-                            <a href="{{ route('secretary.procedings.edit', $proceding) }}"
+                            <a href="{{ route('secretaries.procedings.edit', $proceding) }}"
                                 class="btn btn-warning">Responder</a>
                         </td>
                     </tr>

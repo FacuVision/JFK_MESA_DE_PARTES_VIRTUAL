@@ -15,7 +15,7 @@ class CollectiveController extends Controller
         $proceding->update([
             'status' => '5',
         ]);
-        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Expediente rechazado correctamente', 'color' => 'danger']);
+        return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Expediente rechazado correctamente', 'color' => 'danger']);
     }
 
     //ESTE METODO SIRVE PARA APROBAR UN EXPEDIENTE RECHAZADO DEL LADO DEL SECRETARIO
@@ -24,7 +24,7 @@ class CollectiveController extends Controller
         $proceding->update([
             'status' => '1',
         ]);
-        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Expediente aprobado correctamente', 'color' => 'success']);
+        return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Expediente aprobado correctamente', 'color' => 'success']);
     }
 
     //ESTE METODO SIRVE PARA SOLICITAR SUBSANACION POR PARTE DEL SECRETARIO
@@ -68,7 +68,7 @@ class CollectiveController extends Controller
             ]);
         }
 
-        return redirect()->route('secretary.procedings.index')
+        return redirect()->route('secretaries.procedings.index')
         ->with(['mensaje' => 'Se solicitó subsanación correctamente (sI el expediente tenia referencia, este fue archivado automáticamente)', 'color' => 'warning']);
 
     }

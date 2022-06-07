@@ -52,9 +52,13 @@
                                     class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                                     aria-current="page">Ingresa o regístrate</a>
                             @else
-                                <a href="{{ route('aplicant.procedings.create') }}"
+                                <a href="{{ route('aplicants.procedings.create') }}"
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Genera
-                                    tu expediente (Pronto)</a>
+                                    tu expediente</a>
+                                <a href="{{ route('aplicants.procedings.create') }}"
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Seguimiento
+                                    de
+                                    expediente</a>
                             @endif
 
                             {{-- <a href="#"
@@ -142,9 +146,13 @@
                         class="bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium"
                         aria-current="page">Ingresa o regístrate</a>
                 @else
-                    <a href="#"
+                    <a href="{{ route('aplicants.procedings.create')}}"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Genera
-                        tu expediente (Pronto)</a>
+                        tu expediente</a>
+                    <a href="{{ route('aplicants.procedings.create')}}"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Seguimiento
+                        de
+                        expediente</a>
                 @endif
 
 

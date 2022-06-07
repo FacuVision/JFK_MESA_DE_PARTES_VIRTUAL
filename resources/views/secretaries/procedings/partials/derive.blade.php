@@ -9,7 +9,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::model($proceding, ['route' => ['secretary.procedings.update', $proceding], 'method' => 'PUT']) !!}
+                {!! Form::model($proceding, ['route' => ['secretaries.procedings.update', $proceding], 'method' => 'PUT']) !!}
                 <div class="form-row">
                     <div class="form-group-sm col-md-12">
                         {!! Form::label('office', 'Seleccionar Oficina', ['class' => 'col-form-label col-form-label-sm']) !!}

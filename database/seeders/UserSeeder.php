@@ -47,9 +47,8 @@ class UserSeeder extends Seeder
 
 
         //ASOCIAMOS EL USUARIO AL APLICANT
-        Secretary::factory()->create([
-            "user_id" => 1,
-            "office_id" => 1
+        Aplicant::factory()->create([
+            "user_id" => $admin->id,
         ]);
 
 
@@ -57,7 +56,7 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(100)->create();
+        $users = User::factory(40)->create();
 
         foreach ($users as $user) {
 
@@ -83,8 +82,9 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(10)->create();
+        $users = User::factory(5)->create();
 
+        $conteo = 1;
         foreach ($users as $user) {
 
 
@@ -97,13 +97,12 @@ class UserSeeder extends Seeder
             ]);
 
             //ASOCIAMOS EL USUARIO AL APLICANT
-            Secretary::factory()->create([
-                "user_id" => $user->id,
-                "office_id" => Office::all()->random()->id
-            ]);
+            Secretary::factory()->create(
+                ["user_id" => $user->id,"office_id" => $conteo]);
 
             //ASIGNAMOS LOS ROLES
             //COMMING SOON
+            $conteo++;
         }
 
 

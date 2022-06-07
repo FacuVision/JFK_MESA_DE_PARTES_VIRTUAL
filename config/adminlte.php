@@ -307,24 +307,19 @@ return [
 
         ['header' => 'GESTION SECRETARIO'],
         [
-            'text'       => 'Ver subsanaciones',
+            'text'       => 'Hacer Seguimiento',
             'icon_color' => 'red',
             'url'        => '#',
         ],
         [
             'text'       => 'Mis Expedientes',
             'icon_color' => 'yellow',
-            'route'        => 'secretary.procedings.index',
+            'route'        => 'secretaries.procedings.index',
         ],
         [
             'text'       => 'Ver Archivados',
             'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'Otro',
-            'icon_color' => 'yellow',
-            'url'        => '#',
+            'route'        =>'secretaries.archivate.procedings.index',
         ]
     ],
 

@@ -19,12 +19,13 @@ class DocumentRequest extends FormRequest
     public function rules(){
         return [
             "pdf1" => "required|mimes:pdf|max:15000",
+            "pdf2" => "mimes:pdf|max:15000",
             'office_id'=>'required',
             "anexo" => "mimes:pdf|max:15000",
-            'title' =>'required',
-            'content'=>'required',
+            'title' =>'required|max:250',
+            'content'=>'required|max:500',
             'n_foly'=>'required',
-            'typedocument_id'=>'required',
+            'typedocument_id'=>'required'
             // 'referencia'=>'required',
             // 'newtipodoc'=>'required'
         ];
@@ -34,6 +35,7 @@ class DocumentRequest extends FormRequest
 
         return [
             'pdf1' => 'archivo',
+            "pdf2" => 'anexos',
             'office_id' => 'oficina',
             'anexo' => 'archivos de anexo',
             'title' => 'asunto',

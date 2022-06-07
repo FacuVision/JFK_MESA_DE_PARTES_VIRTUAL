@@ -29,7 +29,7 @@ class ProcedingController extends Controller
 
 
 
-        return view('secretary.procedings.index', compact('procedings', 'offices'));
+        return view('secretaries.procedings.index', compact('procedings', 'offices'));
     }
 
     /**
@@ -104,7 +104,7 @@ class ProcedingController extends Controller
         //     'proceding_id' => $proceding->id
         // ]);
 
-        return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Respuesta Enviada (El(los) expediente(s) fueron archivados automáticamente)', 'color' => 'success']);
+        return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Respuesta Enviada (El(los) expediente(s) fueron archivados automáticamente)', 'color' => 'success']);
     }
 
     /**
@@ -115,11 +115,10 @@ class ProcedingController extends Controller
      */
     public function show(Proceding $proceding)
     {
-
         $proceding->update([
             'status' => '4'
         ]);
-         return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Archivado correctamente', 'color' => 'info']);
+         return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Archivado correctamente', 'color' => 'info']);
     }
 
     /**
@@ -134,7 +133,7 @@ class ProcedingController extends Controller
         // $proceding->update([
         //     'status' => '3',
         // ]);
-        // return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Petición de Subsanación Enviada', 'color' => 'warning']);
+        // return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Petición de Subsanación Enviada', 'color' => 'warning']);
     }
 
     /**
@@ -151,13 +150,13 @@ class ProcedingController extends Controller
         ]);
 
         if ($request->office == $proceding->office_id) {
-            return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'El expediente ya se encuentra en esta oficina', 'color' => 'warning']);
+            return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'El expediente ya se encuentra en esta oficina', 'color' => 'warning']);
         } else {
             $proceding->update([
                 'office_id' => $request->office,
                 'status' => '2'
             ]);
-            return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Derivación correcta! (Ya no puedes gestionar este expediente)', 'color' => 'success']);
+            return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Derivación correcta! (Ya no puedes gestionar este expediente)', 'color' => 'success']);
         }
     }
 
@@ -169,10 +168,8 @@ class ProcedingController extends Controller
      */
     public function destroy(Proceding $proceding)
     {
-        // $proceding->update([
-        //     'status' => '5',
-        // ]);
-        // return redirect()->route('secretary.procedings.index')->with(['mensaje' => 'Expediente rechazado correctamente', 'color' => 'danger']);
+        $proceding->delete();
+        return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Expediente eliminado correctamente', 'color' => 'danger']);
     }
 
 }

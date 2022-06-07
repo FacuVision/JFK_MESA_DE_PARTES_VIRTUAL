@@ -5,5 +5,5 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Aplicant\ProcedingController;
 
 
-Route::resource('procedings', ProcedingController::class)->names('aplicant.procedings');
+Route::resource('procedings', ProcedingController::class)->names('aplicants.procedings');
 
