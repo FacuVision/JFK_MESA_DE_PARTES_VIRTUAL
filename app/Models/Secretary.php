@@ -29,6 +29,6 @@ class Secretary extends Model
 
     public function anotations()
     {
-        return $this->hasMany(Anotations::class, 'user_id');
+        return $this->hasMany(Anotation::class, 'user_id');
     }
 }

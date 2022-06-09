@@ -66,10 +66,13 @@
                         <input type="text" class="form-control form-control-sm" id="office"
                             value="{{ $proceding->office->name }}" readonly>
                     </div>
+                    @php
+                        $fecha = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $proceding->created_at)->format('d-m-Y H:i:s');
+                     @endphp
                     <div class="form-group-sm col-md-6">
                         <label class="col-form-label col-form-label-sm" for="created_at">Fecha de Envio</label>
                         <input type="text" class="form-control form-control-sm" id="created_at"
-                            value="{{ $proceding->created_at }}" readonly>
+                            value="{{ $fecha }}" readonly>
                     </div>
 
 
@@ -111,11 +114,18 @@
 
                         <div class="row">
                             <div class="col-sm">
+                                @if (isset($proceding->documents[0]->url))
                                 <div class="form-group-sm col-md-12">
                                         <span style="font-size: 3em;">
                                             <a href="{{Storage::url($proceding->documents[0]->url)}}" target="blank_"><i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
                                         </span>
                                 </div>
+                                @else
+                                <div class="form-group-sm col-md-12">
+                                    <span style="font-size: 3em;">
+                                        <a href="#"><i  style="color:gray" class="fas fa-file-pdf"></i></a>
+                                </div>
+                            @endif
                             </div>
                             <div class="col-sm">
                                 @if (isset($proceding->documents[1]->url))
@@ -142,7 +152,7 @@
 
             </div>
             <div class="modal-footer">
-                {{-- <form action="{{ route('secretaries.procedings.destroy', $proceding) }}"
+            {{-- <form action="{{ route('secretaries.procedings.destroy', $proceding) }}"
                 method="post" class="formulario-eliminar">
                 @csrf
                 @method('DELETE')
@@ -158,7 +168,13 @@
 
             @endif
 
-            @if($proceding->status != 5 && $proceding->status != 3)
+            @if($proceding->status == 6)
+                <div class="text-info mr-2">El expediente ha sido subsanado, debes de revisar el nuevo documento que ha llegado</div>
+                <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
+                data-target="#deriveModal{{ $proceding->id }}">Derivar</a>
+            @endif
+
+            @if($proceding->status != 5 && $proceding->status != 3 && $proceding->status != 6)
                 <a href="{{ route('secretaries.procedings.reject', $proceding) }}"
                 class="btn btn-dark btn-sm">Rechazar</a>
 

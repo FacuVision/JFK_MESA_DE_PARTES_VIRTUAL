@@ -17,6 +17,7 @@ class AplicantController extends Controller
     public function index()
     {
         $aplicants = Aplicant::all();
+
         return view('admin.aplicants.index', compact('aplicants'));
     }
 

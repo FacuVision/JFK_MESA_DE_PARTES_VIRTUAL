@@ -40,6 +40,7 @@
                     <tr>
                         <th>Id</th>
                         <th>Codigo</th>
+                        <th>Referencia</th>
                         <th>Titulo</th>
                         <th>Oficina</th>
                         <th>Estado</th>
@@ -51,6 +52,7 @@
                         <tr>
                             <td>{{ $proceding->id }}</td>
                             <td>{{ $proceding->code }}</td>
+                            <td>{{ $proceding->reference }}</td>
                             <td>{{ $proceding->title }}</td>
                             <td>{{ $proceding->office->name }}</td>
                             <td>
@@ -107,7 +109,7 @@
                                             class="btn btn-success btn-sm ml-1"><i class="fa fa-check-square"
                                                 aria-hidden="true"></i></a>
                                     @endif
-                                    @if ($proceding->status != 5)
+                                    @if ($proceding->status != 5 && $proceding->status !=6 && $proceding->status !=1)
                                         <a href="{{ route('secretaries.procedings.show', $proceding) }}"
                                             class="archivar ml-1 btn btn-secondary btn-sm mr-1">Archivar</a>
                                     @endif

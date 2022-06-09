@@ -72,7 +72,9 @@ class IdentitySeeder extends Seeder
                 "description"=>"Si quieres hacer alguna correccion de tu informacion brindada a la mesa de partes, puedes solicitarlo a las oficinas para que puedan hacer tu actualizacion correspondiente",
                 "type"=>"system" ]);
 
-                Type_proceding::create(
+        //SE RECOMIENDA NO MOVER ESTOS SEEDERS
+
+        Type_proceding::create(
                     ["name"=>"SUBSANACION",
                     "description"=>"Documento que ha sido rechazado o necesita archivos adicionales",
                     "type"=>"system" ]);
@@ -82,5 +84,6 @@ class IdentitySeeder extends Seeder
                     "description"=>"El solicitante puede adjuntar otros archivos",
                     "type"=>"system" ]);
 
+        //AGREGAR DE AQUI EN ADELANTE
     }
 }

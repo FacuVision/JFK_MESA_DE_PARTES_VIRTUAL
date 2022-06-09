@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Proceding;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProcedingArchivateController extends Controller
 {
@@ -15,7 +16,8 @@ class ProcedingArchivateController extends Controller
      */
     public function index()
     {
-        $documentos_archivados = Proceding::select()->where("status","4")->get();
+        $user = Auth::user();
+        $documentos_archivados = Proceding::select()->where("status","4")->where("office_id",$user->secretary->office->id)->get();
 
         return view("secretaries.archivates.index", compact("documentos_archivados"));
     }

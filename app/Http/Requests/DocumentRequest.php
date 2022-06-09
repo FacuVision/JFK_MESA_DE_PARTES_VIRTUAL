@@ -41,9 +41,7 @@ class DocumentRequest extends FormRequest
             'title' => 'asunto',
             'content' => 'descripción',
             'n_foly' => 'numero de folio',
-            'typedocument_id' => 'tipo de expediente',
-            // 'referencia' => 'documento de referencia',
-            // 'newtipodoc'=>'otro tipo de documento'
+            'typedocument_id' => 'tipo de expediente'
         ];
     }
 }

@@ -88,7 +88,7 @@
                                                         </div>
 
                                                         {{--  --}}
-                                                        <div class="col-span-6 sm:col-span-3 " id="newtipodoc">
+                                                        <div class="col-span-6 sm:col-span-6 " id="newtipodoc">
                                                             <label for="first-name"
                                                                 class="block text-sm font-medium text-gray-700">Nombre del
                                                                 Otro tipo de Doc. (*)</label>
@@ -105,7 +105,7 @@
                                                         </div>
 
 
-                                                        <div class="col-span-6 sm:col-span-3 " id="id_subsanar">
+                                                        <div class="col-span-6 sm:col-span-6 " id="id_subsanar">
                                                             <label for="first-name"
                                                                 class="block text-sm font-medium text-gray-700">Referencia
                                                                 (*)</label>

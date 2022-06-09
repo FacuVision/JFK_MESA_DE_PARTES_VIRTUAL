@@ -11,6 +11,7 @@ use App\Models\Office;
 use App\Models\Proceding;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PhpParser\Node\Stmt\Return_;
 
 class ProcedingController extends Controller
 {
@@ -70,7 +71,7 @@ class ProcedingController extends Controller
         //este nombre es para la carpeta que se creará
         $nomArchivo = preg_replace("/\s+/u", "", $cadena );
 
-        //DATOS DEL DE IN(CIDENTE
+        //DATOS DEL DE INCIDENTE
         $ip = getenv('REMOTE_ADDR');
         $navigator=getenv('HTTP_USER_AGENT');
         $s1 = " (";
@@ -112,7 +113,7 @@ class ProcedingController extends Controller
                     $this->crearArchivos($pdf1,$anexo,$year,$user,$nomArchivo,$procedings);
 
                     //code...
-                    $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Enviado',$procedings->id);
+                    $this->crearIncidente($ip,$nav, $os_origin,$user, "-",$office->name,$fullname,'Enviado',$procedings->id,"Envio");
 
                     $this->alert('success','Expediente enviado satisfactoriamente');
                 }
@@ -136,37 +137,46 @@ class ProcedingController extends Controller
 
                     $this->crearArchivos($pdf1,$anexo,$year,$user,$nomArchivo,$procedings);
 
-                    $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Subsanado',$procedings->id);
+                    $this->crearIncidente($ip,$nav, $os_origin,$user, "-",$office->name,$fullname,'Subsanado',$procedings->id,"Envio");
 
 
                     $this->alert('success','Subsanación de Expediente enviado satisfactoriamente');
                 }else{
+
+
+
                     // se crea Solicitudes normales
 
                     $procedings = $this->crearSolicitud($code,$request,'-',1,$user,$request->typedocument_id);
                     $this->crearArchivos($pdf1,$anexo,$year,$user, $nomArchivo, $procedings);
-                    $this->crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,'Enviado',$procedings->id);
+                    $this->crearIncidente($ip,$nav, $os_origin,$user, "-", $office->name,$fullname,'Enviado',$procedings->id,"Envio");
                     $this->alert('success','Expediente enviado satisfactoriamente');
                 }
-            } catch (\Throwable $th) {
+            }
+
+
+
+
+            catch (\Throwable $th) {
                     $this->alert('error','¡Error!, Comuníquece con el soporte');
                 return redirect()->route('aplicants.procedings.create');
             }
         return redirect()->route('aplicants.procedings.create');
     }
 
-    public function crearIncidente($ip,$nav, $os_origin,$user,$office,$fullname,$status,$id_nuevo_proceding){
+
+    public function crearIncidente($ip,$nav,$os_origin,$user_remitente,$of_remitente,$of_destino,$destino_nombres,$status,$id_nuevo_proceding,$transaccion){
 
         Incident::create([
             'ip_origin'=>strval($ip),
             'navigator_origin'=>strval($nav),
             'os_origin'=>strval($os_origin),
-            'office_remitent'=>'-',
-            'remitent'=>strval($user->profile->name ." ". $user->profile->lastname),
-            'office_destiny'=>strval($office->name),
-            'destiny'=>strval($fullname),
-            'status'=>strval($status),
-            'transaction_type'=>'envio', //revisar las migraciones
+            'remitent'=>strval($user_remitente->profile->name ." ". $user_remitente->profile->lastname),
+            'office_remitent'=>$of_remitente,
+            'office_destiny'=>$of_destino,
+            'destiny'=>$destino_nombres,
+            'status'=>$status,
+            'transaction_type'=>$transaccion, //revisar las migraciones
             'proceding_id'=>$id_nuevo_proceding,
             ]);
     }
@@ -193,6 +203,33 @@ class ProcedingController extends Controller
     {
         //
     }
+
+    //PREPARAR DATOS PARA LA INSERCION DE INCIDENTES
+
+    public function user_data()
+    {
+            $ip = getenv('REMOTE_ADDR'); // ip
+            $navigator=getenv('HTTP_USER_AGENT');
+
+            $separada = explode(" (", $navigator);
+            $cadena = $separada[1];
+
+            $so = explode(")", $cadena);
+            $os_origin = $so[0]; // sistema oeprativo
+
+            $cadena2 = $separada[2];
+            $navegador = explode(")", $cadena2);
+            $nav= $navegador[1];  //navegador
+
+
+            $array_datos = [
+                "ip" => $ip,
+                "so" => $os_origin,
+                "nav" => $nav
+            ];
+
+        return $array_datos;
+    }
             //funcion | crear un proceding
             public function crearSolicitud($code,$request,$referencia,$estado,$user,$typeProceding_id){
 
@@ -207,8 +244,8 @@ class ProcedingController extends Controller
             'user_id'=>$user->id,
             'type_proceding_id'=>$typeProceding_id //tipo de exp
             ]);
-            //retorna el modelo
-            return $procedings;
+                //retorna el modelo
+                return $procedings;
             }
 
 
@@ -246,5 +283,5 @@ class ProcedingController extends Controller
                             }
                         }
                     }
-                }
+            }
 }

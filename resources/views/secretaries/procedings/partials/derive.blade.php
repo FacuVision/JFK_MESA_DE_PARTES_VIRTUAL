@@ -11,6 +11,16 @@
             <div class="modal-body">
                 {!! Form::model($proceding, ['route' => ['secretaries.procedings.update', $proceding], 'method' => 'PUT']) !!}
                 <div class="form-row">
+
+                    <div class="form-group-sm col-md-12">
+                        {!! Form::label('titulo', 'Titulo', ['class' => 'col-form-label col-form-label-sm']) !!}
+                        {!! Form::text('titulo', null, ['class' => 'form-control form-control-sm']) !!}
+                    </div>
+                    <div class="form-group-sm col-md-12">
+                        {!! Form::label('descripcion', 'Mensaje', ['class' => 'col-form-label col-form-label-sm']) !!}
+                        {!! Form::textarea('descripcion', null, ['class' => 'form-control form-control-sm']) !!}
+                    </div>
+
                     <div class="form-group-sm col-md-12">
                         {!! Form::label('office', 'Seleccionar Oficina', ['class' => 'col-form-label col-form-label-sm']) !!}
                         {!! Form::select('office', $offices->pluck('name','id'), null, ['placeholder' => 'Elija Oficina...', 'class' => 'form-control']) !!}

@@ -21,7 +21,7 @@ class CreateProcedingsTable extends Migration
             $table->string("n_foly",5);
             $table->string("reference",50);
 
-            $table->enum('status',[1,2,3,4,5,6]);
+            $table->enum('status',[1,2,3,4,5,6,7]);
 
             /*
             1 = enviado
@@ -30,6 +30,7 @@ class CreateProcedingsTable extends Migration
             4 = archivado
             5 = rechazado
             6 = subsanado
+            7 = desarchivado
             */
 
 

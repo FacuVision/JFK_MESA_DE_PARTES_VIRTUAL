@@ -9,7 +9,9 @@
                 </button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['method' => 'POST', 'route' => 'secretaries.procedings.store']) !!}
+                {{-- {!! Form::open(['method' => 'POST', 'route' => 'secretaries.procedings.store']) !!} --}}
+
+                {!! Form::open(['method' => 'POST', 'route' => 'secretaries.procedings.store', 'method' => 'POST', 'files' => true]) !!}
 
                 {!! Form::hidden('procedingid', $proceding->id) !!}
                 <div class="form-row">
@@ -24,7 +26,7 @@
 
                     <div class="form-group-sm col-md-12">
                         {!! Form::label('Archivo', 'Selecciona archivo', ['class' => 'col-form-label col-form-label-sm']) !!}
-                        <input type="file" lang="es" name="answer" class="form-control">
+                        <input type="file" lang="es" name="answer_pdf" class="form-control">
                           </div>
                     </div>
 

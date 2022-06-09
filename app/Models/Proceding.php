@@ -50,7 +50,7 @@ class Proceding extends Model
 
         public function anotations()
         {
-            return $this->hasMany(Anotations::class);
+            return $this->hasMany(Anotation::class);
         }
 
         public function documents()

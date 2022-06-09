@@ -38,37 +38,32 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     @foreach ($secretaries as $secretary)
                         <tr>
-
-                            <td>{{ $secretary->user_id }}</td>
-                            <td>{{ $secretary->user->profile->name }}</td>
-                            <td>{{ $secretary->user->profile->lastname }}</td>
-                            <td>{{ $secretary->user->email }}</td>
-                            <td>{{ $secretary->office->name }}</td>
+                            <td>{{ $secretary->user_id}}</td>
+                            <td>{{ $secretary->user->profile->name}}</td>
+                            <td>{{ $secretary->user->profile->lastname}}</td>
+                            <td>{{ $secretary->user->email}}</td>
+                            <td>{{ $secretary->office->name}}</td>
                             <td style="display: flex">
 
                                 {{-- Ver --}}
-
                                     <a href="{{ route('admin.users.show', $secretary->user) }}" style="margin: 0px 5px;"
                                         class="btn btn-primary">Ver</a>
                                 {{-- Editar --}}
                                     <a href="{{ route('admin.secretaries.edit', $secretary) }}" class="btn btn-success">Editar</a>
 
-                                    {{-- Borrar --}}
+                                {{-- Borrar --}}
                                     <form style="display: inline" action="{{ route('admin.secretaries.destroy', $secretary) }}"
                                         method="post" class="formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" id="delete" value="Desasignar" class="btn btn-danger">
                                     </form>
-
-
-
                             </td>
                         </tr>
                     @endforeach
-
                 </tbody>
             </table>
         </div>

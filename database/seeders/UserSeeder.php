@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::create([
+        $solicitante = User::create([
             "name" => "emma",
             "email" => "correoprueba@gmail.com",
             "password" => bcrypt("correoprueba@gmail.com")
@@ -29,10 +29,10 @@ class UserSeeder extends Seeder
 
         $date = new DateTime("2001-01-01");
 
-        $admin->profile()->create(
+        $solicitante->profile()->create(
             [
-                "name" => "Administrador",
-                "lastname" => "Administrador",
+                "name" => "Emmanuel",
+                "lastname" => "Garayar",
                 "date_nac" => $date,
                 "gender" => "m",
                 "address" => "Direccion",
@@ -41,15 +41,52 @@ class UserSeeder extends Seeder
                 "district_id" => 1,
                 "user_id" => 1,
                 "type_document_id" => 1,
-                "phone" => '963741852'
             ]
         );
 
 
         //ASOCIAMOS EL USUARIO AL APLICANT
         Aplicant::factory()->create([
-            "user_id" => $admin->id,
+            "user_id" => $solicitante->id,
         ]);
+
+
+
+
+
+        $secretario = User::create([
+            "name" => "Sr. Secretario",
+            "email" => "secretario@gmail.com",
+            "password" => bcrypt("secretario@gmail.com")
+        ]);
+
+        $date = new DateTime("1990-01-01");
+
+        $secretario->profile()->create(
+            [
+                "name" => "Secretario",
+                "lastname" => "Apellido del secretario",
+                "date_nac" => $date,
+                "gender" => "m",
+                "address" => "Direccion",
+                "phone" => "963258474",
+                "document_number" => "85236914",
+                "district_id" => 1,
+                "user_id" => 2,
+                "type_document_id" => 1,
+            ]
+        );
+
+
+        //ASOCIAMOS EL USUARIO AL APLICANT
+        Secretary::factory()->create([
+            "user_id" => $secretario->id,
+            "office_id" => 1,
+        ]);
+
+
+
+
 
 
 
@@ -63,7 +100,7 @@ class UserSeeder extends Seeder
             //LOS MODELOS PUEDEN LLAMAR A LAS FACTORIES, PERO LOS OBJETOS POR ALGUNA RAZON NO PUEDEN
 
 
-            //CREAMOS LOS 5 PERFILES
+            //CREAMOS LOS  PERFILES
             Profile::factory()->create([
                 "name" => $user->name,
                 "user_id" => $user->id,
@@ -82,13 +119,13 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(5)->create();
+        $users = User::factory(4)->create();
 
-        $conteo = 1;
+        $conteo = 2;
         foreach ($users as $user) {
 
 
-            //CREAMOS LOS 5 PERFILES
+            //CREAMOS LOS 4 PERFILES
             Profile::factory()->create([
                 "name" => $user->name,
                 "user_id" => $user->id,
@@ -96,7 +133,7 @@ class UserSeeder extends Seeder
                 "type_document_id" => Type_document::all()->random(),
             ]);
 
-            //ASOCIAMOS EL USUARIO AL APLICANT
+            //ASOCIAMOS EL USUARIO
             Secretary::factory()->create(
                 ["user_id" => $user->id,"office_id" => $conteo]);
 
