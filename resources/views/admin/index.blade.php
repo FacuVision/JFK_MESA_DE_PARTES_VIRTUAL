@@ -3,11 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Panel de Administracion</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Bienvenido al panel de control de la empresa JFK Escuela de Manejo</p>
+
+    @livewire("dashboardcomponent")
 @stop
 
 @section('css')

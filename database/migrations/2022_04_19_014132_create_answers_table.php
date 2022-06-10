@@ -18,12 +18,17 @@ class CreateAnswersTable extends Migration
             $table->string("title",100);
             $table->text("content");
 
-
             $table->enum('read_status',[0,1]);
+            $table->enum('answer_type',[0,1]);
 
             /*
             0 = no leido
             1 = leído
+            */
+
+            /*
+            0 = Notificacion final
+            1 = Solicita Subsanacion
             */
 
 

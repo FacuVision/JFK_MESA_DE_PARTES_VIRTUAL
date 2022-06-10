@@ -31,6 +31,7 @@ class CreateProcedingsTable extends Migration
             5 = rechazado
             6 = subsanado
             7 = desarchivado
+            
             */
 
 

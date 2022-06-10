@@ -108,10 +108,19 @@
                             <input type="text" class="form-control form-control-sm" value="No" readonly>
                             @endif
                         </div>
-                        <div class="form-group-sm col-md-6">
+                        <div class="form-group-sm col-md-3">
                             <label class="col-form-label col-form-label-sm" for="code">Fecha de envío</label>
                             <input type="text" class="form-control form-control-sm"
                                 value="{{ $fecha }}" readonly>
+                        </div>
+                        <div class="form-group-sm col-md-3">
+                            <label class="col-form-label col-form-label-sm red" for="code">Tipo de respuesta</label>
+                            @if ($respuesta->answer_type==1)
+                            <input type="text" class="form-control form-control-sm" value="Se solicitó subsanación" readonly>
+
+                            @else
+                            <input type="text" class="form-control form-control-sm" value="Notificacion final" readonly>
+                            @endif
                         </div>
 
                     </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUserCreateRequest;
 use App\Models\District;
+use App\Models\Proceding;
 use App\Models\Type_document;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -21,6 +22,10 @@ class UserController extends Controller
 
     public function index()
     {
+
+        // $informacion = Proceding::where("created_at","<","2022-06-09")->get();
+        // return $informacion;
+
         $users = User::orderBy('id', 'ASC')->get();
         return view('admin.users.index', compact('users'));
     }

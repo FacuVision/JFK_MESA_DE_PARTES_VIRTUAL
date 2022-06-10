@@ -103,9 +103,12 @@ class ProcedingController extends Controller
             'read_status' => '0',
             'proceding_id' => $proceding->id,
             'user_id' => $user->id,
+            "answer_type" => "0"
         ]);
 
-        $this->crearArchivos($answer_pdf, $new_answer);
+        if ($request->file('answer_pdf')) {
+            $this->crearArchivos($answer_pdf, $new_answer);
+        }
 
         //SE ACTUALIZA A ARCHIVADO
         $proceding->update([
@@ -157,6 +160,16 @@ class ProcedingController extends Controller
                     "Archivado",
                     $proceding2->id,
                     "archivamiento");
+
+
+                $new_answer =  Answer::create([
+                        'title' => "El documento fué archivado correctamente",
+                        'content' => "Este documento fue subsanado y posteriormente archivado, por favor revisar el ultimo expediente enviado con Codigo Nº " . $proceding->code,
+                        'read_status' => '0',
+                        'proceding_id' => $proceding2->id,
+                        'user_id' => $user->id,
+                        "answer_type" => "0"
+                ]);
 
             //Actualizará al expediente original
 

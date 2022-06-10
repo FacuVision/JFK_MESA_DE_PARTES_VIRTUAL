@@ -175,19 +175,23 @@
             @endif
 
             @if($proceding->status != 5 && $proceding->status != 3 && $proceding->status != 6)
+
+            <a href="#"
+            class="btn btn-danger btn-sm"
+            data-toggle="modal"
+            data-target="#subsanaModal{{ $proceding->id }}">Subsanar</a>
+
+            <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
+            data-target="#deriveModal{{ $proceding->id }}">Derivar</a>
+
+            @if($proceding->status != 7)
                 <a href="{{ route('secretaries.procedings.reject', $proceding) }}"
                 class="btn btn-dark btn-sm">Rechazar</a>
 
-                <a href="#"
-                class="btn btn-danger btn-sm"
-                data-toggle="modal"
-                data-target="#subsanaModal{{ $proceding->id }}">Subsanar</a>
-
-                <a href="#" class="btn btn-warning btn-sm" data-toggle="modal"
-                data-target="#deriveModal{{ $proceding->id }}">Derivar</a>
-
                 <a href="#" class="btn btn-success btn-sm" data-toggle="modal"
                 data-target="#answerModal{{ $proceding->id }}">Dar Respuesta</a>
+                
+                @endif
             @endif
 
             <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>

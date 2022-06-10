@@ -56,23 +56,7 @@
                                                 <div class="px-4 py-5 bg-white sm:p-6">
                                                     <div class="grid grid-cols-6 gap-6">
 
-
                                                         <div class="col-span-6 sm:col-span-4">
-                                                            <label for="email-address"
-                                                                class="block text-sm font-medium text-gray-700">Oficina a
-                                                                donde desea dirigirse (*)</label>
-                                                            {!! Form::select('office_id', $office, null, ['class' => 'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm', 'placeholder' => '[Selecciones un opción]']) !!}
-                                                            @error('office_id')
-                                                                <div class="mt-1 leading-normal text-red-600  rounded-lg"
-                                                                    role="alert">
-                                                                    <p class="m-1 text-sm">¡{{ $message }}!</p>
-                                                                </div>
-                                                            @enderror
-
-                                                        </div>
-
-
-                                                        <div class="col-span-6 sm:col-span-3">
 
                                                             <label for="first-name"
                                                                 class="block text-sm font-medium text-gray-700">Tipo de
@@ -108,7 +92,7 @@
                                                         <div class="col-span-6 sm:col-span-6 " id="id_subsanar">
                                                             <label for="first-name"
                                                                 class="block text-sm font-medium text-gray-700">Referencia
-                                                                (*)</label>
+                                                                (*) - "Si está vacio, quiere decir que no tienes documentos por subsanar"</label>
                                                             {{-- {!! Form::select('referencia', $docsubsanar,null, ['class'=>'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm','placeholder' => '[Selecciones un opción]']) !!} --}}
                                                             @livewire('show-procedings')
                                                             @error('referencia')
@@ -118,9 +102,23 @@
                                                                 </div>
                                                             @enderror
 
+                                                        </div>
 
+                                                        <div class="col-span-6 sm:col-span-4">
+                                                            <label for="email-address"
+                                                                class="block text-sm font-medium text-gray-700">Oficina a
+                                                                donde desea dirigirse (*)</label>
+                                                            {!! Form::select('office_id', $office, null, ['class' => 'mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm', 'placeholder' => '[Selecciones un opción]']) !!}
+                                                            @error('office_id')
+                                                                <div class="mt-1 leading-normal text-red-600  rounded-lg"
+                                                                    role="alert">
+                                                                    <p class="m-1 text-sm">¡{{ $message }}!</p>
+                                                                </div>
+                                                            @enderror
 
                                                         </div>
+
+
 
 
                                                         <div class="col-span-6 sm:col-span-4">

@@ -108,18 +108,32 @@
                         </div>
                         <div class="row">
                             <div class="col-sm">
+                                @if (isset($archivado->documents[0]->url))
+                                <div class="form-group-sm col-md-12">
+                                        <span style="font-size: 3em;">
+                                            <a href="{{Storage::url($archivado->documents[0]->url)}}" target="blank_"><i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
+                                        </span>
+                                </div>
+                                @else
                                 <div class="form-group-sm col-md-12">
                                     <span style="font-size: 3em;">
-                                        <a href=""><i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
-                                    </span>
+                                        <a href="#"><i  style="color:gray" class="fas fa-file-pdf"></i></a>
                                 </div>
+                            @endif
                             </div>
                             <div class="col-sm">
-                                <div class="form-group-sm col-md-12">
-                                    <span style="font-size: 3em;">
-                                        <a href=""><i style="color:Tomato" class="fas fa-file-pdf"></i></a>
-                                    </span>
-                                 </div>
+                                @if (isset($archivado->documents[1]->url))
+                                    <div class="form-group-sm col-md-12">
+                                        <span style="font-size: 3em;">
+                                            <a href="{{Storage::url($archivado->documents[1]->url)}}" target="blank_"><i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
+                                        </span>
+                                    </div>
+                                @else
+                                    <div class="form-group-sm col-md-12">
+                                        <span style="font-size: 3em;">
+                                            <a href="#"><i  style="color:gray" class="fas fa-file-pdf"></i></a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Aplicant\ProcedingController;
 use App\Http\Controllers\Controller;
 use App\Models\Proceding;
 use Illuminate\Http\Request;
@@ -81,10 +82,34 @@ class ProcedingArchivateController extends Controller
 
     public function destroy($proceding)
     {
+        $user = Auth::user();
         $proceding = Proceding::findOrFail($proceding);
+
         $proceding->update([
-        "status" => "1"
+            "status" => "7"
         ]);
+
+
+        $procedingControllerIncident = new ProcedingController();
+        $array_datos = $procedingControllerIncident->user_data();
+
+
+        //EL REMITENTE ES EL SECRETARIO
+        $oficina_remitente = $user->secretary->office->name;
+
+        //EL DESTINO ES EL APLICANT
+        $nombre_destinatario = $user->profile->name ." ". $user->profile->lastname;
+        $procedingControllerIncident->crearIncidente(
+            $array_datos["ip"],
+            $array_datos["nav"],
+            $array_datos["so"],
+            $user,
+            $oficina_remitente,
+            $oficina_remitente,            //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
+            $nombre_destinatario,       //nombres y apellidos
+            "Desarchivado",
+            $proceding->id,
+            "desarchivamiento");
 
         return redirect()-> route("secretaries.archivate.procedings.index")->with(['mensaje' => 'Expediente desarchivado correctamente', 'color' => 'secondary']);
     }

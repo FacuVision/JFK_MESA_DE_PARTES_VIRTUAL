@@ -47,7 +47,7 @@ class CollectiveController extends Controller
     //ESTE METODO SIRVE PARA APROBAR UN EXPEDIENTE RECHAZADO DEL LADO DEL SECRETARIO
     public function dont_reject(Proceding $proceding)
     {
-        $user = Auth::user();
+        //$user = Auth::user();
 
 
         $proceding->update([
@@ -56,24 +56,24 @@ class CollectiveController extends Controller
 
         //registramos en los incidentes
 
-        $procedingControllerIncident = new ProcedingController();
-        $array_datos = $procedingControllerIncident->user_data();
+        // $procedingControllerIncident = new ProcedingController();
+        // $array_datos = $procedingControllerIncident->user_data();
 
-        $oficina_remitente = $user->secretary->office->name;
+        // $oficina_remitente = $user->secretary->office->name;
 
-        $destino = $proceding->aplicant->user->profile->name." ".$proceding->aplicant->user->profile->lastname;
+        // $destino = $proceding->aplicant->user->profile->name." ".$proceding->aplicant->user->profile->lastname;
 
-        $procedingControllerIncident->crearIncidente(
-            $array_datos["ip"],
-            $array_datos["nav"],
-            $array_datos["so"],
-            $user,
-            $oficina_remitente,
-            "-",            //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
-            $destino,       //nombres y apellidos
-            "Enviado",
-            $proceding->id,
-            "envio");
+        // $procedingControllerIncident->crearIncidente(
+        //     $array_datos["ip"],
+        //     $array_datos["nav"],
+        //     $array_datos["so"],
+        //     $user,
+        //     $oficina_remitente,
+        //     "-",            //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
+        //     $destino,       //nombres y apellidos
+        //     "Enviado",
+        //     $proceding->id,
+        //     "envio");
 
         return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Expediente aprobado correctamente', 'color' => 'success']);
     }
@@ -105,10 +105,11 @@ class CollectiveController extends Controller
             "content" => $request->contenido,
             "read_status" => "0",
             "user_id" => $user->id,
-            "proceding_id" => $sub_proceding->id
+            "proceding_id" => $sub_proceding->id,
+            "answer_type" => "1"
         ]);
 
-        
+
         $procedingControllerIncident = new ProcedingController();
         $array_datos = $procedingControllerIncident->user_data();
 

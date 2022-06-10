@@ -85,6 +85,11 @@
                                             Subsanado
                                         </span>
                                     @break
+                                    @case(7)
+                                        <span class="text-white badge badge-primary">
+                                            Desarchivado
+                                        </span>
+                                    @break
                                 @endswitch
 
                             </td>
@@ -109,7 +114,7 @@
                                             class="btn btn-success btn-sm ml-1"><i class="fa fa-check-square"
                                                 aria-hidden="true"></i></a>
                                     @endif
-                                    @if ($proceding->status != 5 && $proceding->status !=6 && $proceding->status !=1)
+                                    @if ($proceding->status != 5 && $proceding->status !=6 && $proceding->status !=1 && $proceding->status !=2)
                                         <a href="{{ route('secretaries.procedings.show', $proceding) }}"
                                             class="archivar ml-1 btn btn-secondary btn-sm mr-1">Archivar</a>
                                     @endif

@@ -28,7 +28,7 @@ class DocumentSecretaryRequest extends FormRequest
                 'title' => 'required|string',
                 'content' => 'required|string',
                 'procedingid' => 'required|integer',
-                "answer_pdf" => "required|mimes:pdf|max:20000"
+                "answer_pdf" => "mimes:pdf|max:20000"
         ];
 
     }
