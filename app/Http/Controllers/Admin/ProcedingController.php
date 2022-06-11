@@ -323,6 +323,8 @@ class ProcedingController extends Controller
      * @param  \App\Models\Proceding  $proceding
      * @return \Illuminate\Http\Response
      */
+
+     
     public function destroy(Proceding $proceding)
     {
 

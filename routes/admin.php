@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProcedingArchivateController;
 use App\Http\Controllers\Admin\ProcedingController;
 use App\Http\Controllers\Admin\TypeDocumentController;
 use App\Http\Controllers\Admin\TypeProcedingController;
+use App\Http\Controllers\Aplicant\TracingProcedingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,29 +26,35 @@ use Illuminate\Support\Facades\Route;
 */
 //Route::get('/', [HomeController::class,'index'])->middleware('can:admin.index')->name('admin.index');
 //Route::resource('users', UserController::class)->names('admin.users');
-
 //Route::resource('districts', DistrictController::class)->names('admin.districts');
+
+
 
 Route::get('/', [HomeController::class,'index'])->name('admin.index');
 
-
+//administracion de usuarios (admin)
 Route::resource('users', UserController::class)->names('admin.users');
+//administracion de secretarios (admin)
 Route::resource('secretaries', SecretaryController::class)->names('admin.secretaries');
+//administracion de solicitantes (admin)
 Route::resource('aplicants', AplicantController::class)->names('admin.aplicants');
+//administracion de tipos de documentos (admin)
 Route::resource('typedocuments',TypeDocumentController::class)->names('admin.typedocuments');
+//administracion de oficinas (admin)
 Route::resource('offices', OfficeController::class)->names('admin.offices');
+//administracion de tipos de procedimientos (admin)
 Route::resource('typeprocedings',TypeProcedingController::class)->names('admin.typeprocedings');
+//administracion de procedimientos (secretario)
 Route::resource('procedings', ProcedingController::class)->names('secretaries.procedings');
-
+//administracion de procedimientos archivados (secretario)
 Route::resource('archivateprocedings', ProcedingArchivateController::class)->names('secretaries.archivate.procedings');
 
 
-//rechazar expediente
+//rechazar expediente (secretario)
 Route::get('procedings/{proceding}/reject', [CollectiveController::class,'reject'])->name('secretaries.procedings.reject');
 
-//arpobar expediente
+//arpobar expediente (secretario)
 Route::get('procedings/{proceding}/dont_reject', [CollectiveController::class,'dont_reject'])->name('secretaries.procedings.dont_reject');
 
-//subsanar expediente
+//subsanar expediente (secretario)
 Route::put('procedings_sub/{sub_proceding}', [CollectiveController::class,'subsanar_expediente'])->name('secretaries.procedings.subsanar_expediente');
-

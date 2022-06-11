@@ -13,21 +13,23 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
-
         @livewireStyles
 
         <!-- Scripts -->
         <script src="{{ mix('js/app.js') }}" defer></script>
+
+
+
     </head>
     <body
     x-data="alertComponent()"
-  x-init="$watch('openAlertBox', value => {
-    if(value){
-      setTimeout(function () {
-        openAlertBox = false
-      }, 2000)
-    }
-  })"
+    x-init="$watch('openAlertBox', value => {
+        if(value){
+        setTimeout(function () {
+            openAlertBox = false
+        }, 2000)
+        }
+    })"
 
     class="font-sans antialiased relative">
         <x-jet-banner />
