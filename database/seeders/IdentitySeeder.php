@@ -68,7 +68,7 @@ class IdentitySeeder extends Seeder
                 "type"=>"system" ]);
 
         Type_proceding::create(
-                ["name"=>"SOLICITUD DE ACTUALIZACION DE DATOS DE PERFIL)",
+                ["name"=>"SOLICITUD DE ACTUALIZACION DE DATOS DE PERFIL",
                 "description"=>"Si quieres hacer alguna correccion de tu informacion brindada a la mesa de partes, puedes solicitarlo a las oficinas para que puedan hacer tu actualizacion correspondiente",
                 "type"=>"system" ]);
 

@@ -1,4 +1,4 @@
-<div class="modal fade bd-example-modal-lg" id="showModal{{ $pro->id }}" data-modal-index="1"
+<div class="modal fade bd-example-modal-lg" id="showModal{{ $proceding->id }}" data-modal-index="1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -15,30 +15,30 @@
 
                     <div class="form-group-sm col-md-4">
                         <label class="col-form-label col-form-label-sm" for="code">Codigo</label>
-                        <input type="text" class="form-control form-control-sm" id="code"
-                            value="{{ $pro->code }}" readonly>
+                        <input type="text" class="form-control form-control-sm" id="code" value="{{ $proceding->code }}"
+                            readonly>
                     </div>
                     <div class="form-group-sm col-md-4">
                         <label class="col-form-label col-form-label-sm" for="foly">Numero de Folio</label>
-                        <input type="text" class="form-control form-control-sm" id="foly"
-                            value="{{ $pro->n_foly }}" readonly>
+                        <input type="text" class="form-control form-control-sm" id="foly" value="{{ $proceding->n_foly }}"
+                            readonly>
                     </div>
                     <!-- Referencia es "S/N" por defecto, esto estara activo siempre y cuando se haga referencia a un documento cuando se haya hecho la subsanacion-->
                     <div class="form-group-sm col-md-4">
                         <label class="col-form-label col-form-label-sm" for="reference">Referencia</label>
                         <input type="text" class="form-control form-control-sm" id="reference"
-                            value="{{ $pro->reference }}" readonly>
+                            value="{{ $proceding->reference }}" readonly>
                     </div>
 
                     <div class="form-group-sm col-md-6">
                         <label class="col-form-label col-form-label-sm" for="lastname">Apellidos del Remitente</label>
                         <input type="text" class="form-control form-control-sm" id="lastname"
-                            value="{{ $pro->aplicant->user->profile->lastname }}" readonly>
+                            value="{{ $proceding->aplicant->user->profile->lastname }}" readonly>
                     </div>
                     <div class="form-group-sm col-md-6">
                         <label class="col-form-label col-form-label-sm" for="name">Nombres del Remitente</label>
                         <input type="text" class="form-control form-control-sm" id="name"
-                            value="{{ $pro->aplicant->user->profile->name }}" readonly>
+                            value="{{ $proceding->aplicant->user->profile->name }}" readonly>
                     </div>
 
 
@@ -46,29 +46,29 @@
                     <div class="form-group-sm col-md-4">
                         <label class="col-form-label col-form-label-sm" for="type_document">Tipo de Documento</label>
                         <input type="text" class="form-control form-control-sm" id="type_document"
-                            value="{{ $pro->aplicant->user->profile->type_document->name }}" readonly>
+                            value="{{ $proceding->aplicant->user->profile->type_document->name }}" readonly>
                     </div>
                     <div class="form-group-sm col-md-4">
                         <label class="col-form-label col-form-label-sm" for="document_number">Numero de
                             Documento</label>
                         <input type="text" class="form-control form-control-sm" id="document_number"
-                            value="{{ $pro->aplicant->user->profile->document_number }}" readonly>
+                            value="{{ $proceding->aplicant->user->profile->document_number }}" readonly>
                     </div>
                     <div class="form-group-sm col-md-4">
                         <label class="col-form-label col-form-label-sm" for="phone">Numero de Celular</label>
                         <input type="text" class="form-control form-control-sm" id="phone"
-                            value="{{ $pro->aplicant->user->profile->phone }}" readonly>
+                            value="{{ $proceding->aplicant->user->profile->phone }}" readonly>
                     </div>
 
 
                     <div class="form-group-sm col-md-6">
                         <label class="col-form-label col-form-label-sm" for="office">Oficina Destino</label>
                         <input type="text" class="form-control form-control-sm" id="office"
-                            value="{{ $pro->office->name }}" readonly>
+                            value="{{ $proceding->office->name }}" readonly>
                     </div>
                     @php
-                        $fecha = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $pro->created_at)->format('d-m-Y H:i:s');
-                     @endphp
+                        $fecha = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $proceding->created_at)->format('d-m-Y H:i:s');
+                    @endphp
                     <div class="form-group-sm col-md-6">
                         <label class="col-form-label col-form-label-sm" for="created_at">Fecha de Envio</label>
                         <input type="text" class="form-control form-control-sm" id="created_at"
@@ -79,81 +79,77 @@
                     <div class="form-group-sm col-md-12">
                         <label class="col-form-label col-form-label-sm" for="type_proceding">Tipo de Expediente</label>
                         <input type="text" class="form-control form-control-sm" id="type_proceding"
-                            value="{{ $pro->type_proceding->name }}" readonly>
+                            value="{{ $proceding->type_proceding->name }}" readonly>
                     </div>
 
 
                     <div class="form-group-sm col-md-12">
                         <label class="col-form-label col-form-label-sm" for="title">Titulo</label>
-                        <input type="text" class="form-control form-control-sm" id="title"
-                            value="{{ $pro->title }}" readonly>
+                        <input type="text" class="form-control form-control-sm" id="title" value="{{ $proceding->title }}"
+                            readonly>
                     </div>
 
 
                     <div class="form-group-sm col-md-12">
                         <label class="col-form-label col-form-label-sm" for="content">Contenido</label>
-                        <textarea type="textarea" class="form-control form-control-sm" id="content"
-                            readonly>{{ $pro->content }}</textarea>
+                        <textarea type="textarea" class="form-control form-control-sm" id="content" readonly>{{ $proceding->content }}</textarea>
                     </div>
 
 
                 </div>
-                <div class="card">
-                    <div class="card-body text-center">
 
-                        <div class="row">
-                            <div class="col-sm">
-                                <label class="col-form-label col-form-label-sm" for="content">Principal</label>
-                            </div>
-                            <div class="col-sm">
-                                <label class="col-form-label col-form-label-sm" for="content">Anexos</label>
+                <div class="row text-center">
+                    <div class="col-sm">
+                        <label class="col-form-label col-form-label-sm" for="content">Principal</label>
+                    </div>
+                    <div class="col-sm">
+                        <label class="col-form-label col-form-label-sm" for="content">Anexos</label>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                @if (isset($proceding->documents[0]->url))
+                                    <a href="{{ Storage::url($proceding->documents[0]->url) }}" target="blank_">
+                                        <span style="font-size: 3em"><i style="color:Tomato" class="fas fa-file-pdf"></i></span>
+                                    </a>
+                                @else
+                                    <div class="form-group-sm col-md-12">
+                                        <a>-</a>
+                                    </div>
+                                @endif
+
                             </div>
                         </div>
 
-{{-- $proceding->user_id."-".$proceding->aplicant->user->name."/".  --}}
-
-                        <div class="row">
-                            <div class="col-sm">
-                                @if (isset($pro->documents[0]->url))
-                                <div class="form-group-sm col-md-12">
-                                        <span style="font-size: 3em;">
-                                            <a href="{{Storage::url($pro->documents[0]->url)}}" target="blank_"><i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
-                                        </span>
-                                </div>
-                                @else
-                                <div class="form-group-sm col-md-12">
-                                    <span style="font-size: 3em;">
-                                        <a href="#"><i  style="color:gray" class="fas fa-file-pdf"></i></a>
-                                </div>
-                            @endif
-                            </div>
-                            <div class="col-sm">
-                                @if (isset($pro->documents[1]->url))
-                                    <div class="form-group-sm col-md-12">
-                                        <span style="font-size: 3em;">
-                                            <a href="{{Storage::url($pro->documents[1]->url)}}" target="blank_"><i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
-                                        </span>
-                                    </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                @if (isset($proceding->documents[1]->url))
+                                    <a href="{{ Storage::url($proceding->documents[1]->url) }}" target="blank_"><span style="font-size: 3em"><i
+                                            style="color:Tomato" class="fas fa-file-pdf"></i></span></a>
                                 @else
                                     <div class="form-group-sm col-md-12">
-                                        <span style="font-size: 3em;">
-                                            <a href="#"><i  style="color:gray" class="fas fa-file-pdf"></i></a>
+                                        <a><span style="font-size: 3em"><i style="color:gray" class="fas fa-file-pdf"></i></span></a>
                                     </div>
                                 @endif
                             </div>
                         </div>
 
-
-
-
                     </div>
                 </div>
-
-
             </div>
+
+
+
+
             <div class="modal-footer">
-                    <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>
+                <a href="#" class="btn btn-secondary btn-sm" data-dismiss="modal">Cerrar</a>
             </div>
         </div>
     </div>
+</div>
 </div>

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Aplicant;
 
 use App\Http\Controllers\Controller;
-use App\Models\Incident;
 use App\Models\Proceding;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,9 +47,11 @@ class TracingProcedingController extends Controller
      * @param  \App\Models\Proceding  $proceding
      * @return \Illuminate\Http\Response
      */
-    public function show(Proceding $proceding)
+    public function show(Proceding $tracing)
     {
-        return view("");
+        $incidents = $tracing->incidents;
+
+        return view("aplicant.tracings.show",compact("incidents","tracing"));
     }
 
     /**

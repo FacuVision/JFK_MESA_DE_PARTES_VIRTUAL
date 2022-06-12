@@ -56,9 +56,7 @@
                                     class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Genera
                                     tu expediente</a>
                                 <a href="{{ route('aplicants.tracings.index') }}"
-                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Seguimiento
-                                    de
-                                    expediente</a>
+                                    class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tus expedientes</a>
                             @endif
 
                             {{-- <a href="#"
@@ -147,8 +145,7 @@
                         aria-current="page">Ingresa o regístrate</a>
                 @else
                     <a href="{{ route('aplicants.procedings.create')}}"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Genera
-                        tu expediente</a>
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tus expedientes</a>
                     <a href="{{ route('aplicants.tracings.index')}}"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Seguimiento
                         de
