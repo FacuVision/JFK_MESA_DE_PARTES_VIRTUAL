@@ -58,3 +58,6 @@ Route::get('procedings/{proceding}/dont_reject', [CollectiveController::class,'d
 
 //subsanar expediente (secretario)
 Route::put('procedings_sub/{sub_proceding}', [CollectiveController::class,'subsanar_expediente'])->middleware("secretaries.procedings.subsanar_expediente")->name('secretaries.procedings.subsanar_expediente');
+
+//graficos
+Route::get('procedings/graficos', [CollectiveController::class,'graficos'])->name('admin.procedings.graficos');

@@ -22,7 +22,7 @@ class RoleSeeder extends Seeder
 
         //admin y secretarios
 
-        Permission::create(["name"=>"admin.home", "description"=>"ver usuarios"])->syncRoles([$admin,$secretario]);
+        Permission::create(["name"=>"admin.index", "description"=>"ver usuarios"])->syncRoles([$admin,$secretario]);
 
         Permission::create(["name"=>"admin.users.index","description"=>"ver usuarios"])->syncRoles([$admin,$secretario]);
         Permission::create(["name"=>"admin.users.show","description"=>"detallar usuarios"])->syncRoles([$admin,$secretario]);

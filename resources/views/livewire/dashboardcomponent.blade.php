@@ -67,16 +67,42 @@
                     </div>
                 </div>
             </div>
-
         </div>
+
+        <!-- Custom tabs (Charts with tabs)-->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="fas fa-chart-pie mr-1"></i>
+                    Sales
+                </h3>
+                <div class="card-tools">
+                    <ul class="nav nav-pills ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#sales-chart" data-toggle="tab">Donut</a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!-- /.card-header -->
+            <div class="card-body">
+                <div class="card-body">
+                    <div class="chart">
+                      <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                    </div>
+                  </div>
+            </div><!-- /.card-body -->
+        </div>
+
     @endcan
 
-    
+
     @can('secretaries.archivate.procedings.index')
         {{-- VISTA GENERAL DEL SECRETARIO --}}
         @if ($secretario_array_documentos != null)
-
-        <h4>Específicos</h4>
+            <h4>Específicos</h4>
 
             <div class="row">
                 <div class="col">
@@ -93,7 +119,8 @@
                         <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Tus documentos atendidos</span>
-                            <span class="info-box-number">{{ $secretario_array_documentos['secretary_respondidos'] }}</span>
+                            <span
+                                class="info-box-number">{{ $secretario_array_documentos['secretary_respondidos'] }}</span>
                         </div>
                     </div>
                 </div>
@@ -101,6 +128,8 @@
             </div>
         @endif
     @endcan
+
+
 
 
 

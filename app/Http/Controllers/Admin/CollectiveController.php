@@ -171,6 +171,9 @@ class CollectiveController extends Controller
 
     }
 
-
+    // public function graficos()
+    // {
+    //     echo "aea";
+    // }
 
 }

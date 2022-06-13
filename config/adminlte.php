@@ -250,7 +250,8 @@ return [
             'text'        => 'Inicio',
             'route'         => 'admin.index',
             'icon'        => 'fas fa-home',
-            'label_color' => 'success'
+            'label_color' => 'success',
+            'can' => 'admin.index'
         ],
         [
             'text'          => 'Ver Expedientes',
@@ -438,12 +439,13 @@ return [
             ],
         ],
         'Chartjs' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',
                     'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js',
+                    // 'location' => '//cdn.jsdelivr.net/npm/chart.js',
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js'
                 ],
             ],
         ],
