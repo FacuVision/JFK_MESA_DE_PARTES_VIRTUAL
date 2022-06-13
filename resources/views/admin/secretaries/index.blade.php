@@ -10,19 +10,30 @@
     <div class="card">
 
         @if (session('mensaje'))
-            <div class="alert alert-success">
-                <strong>{{ session('mensaje') }}</strong>
-            </div>
+        <div class="alert alert-success">
+            <strong>{{ session('mensaje') }}</strong>
+        </div>
         @endif
+
         @if (session('alerta'))
-            <div class="alert alert-warning">
-                <strong>{{ session('alerta') }}</strong>
+        <div class="alert alert-warning">
+            <strong>{{ session('alerta') }}</strong>
+        </div>
+        @endif
+
+        @if (session('eliminado'))
+            <div class="alert alert-danger">
+                <strong>{{ session('eliminado') }}</strong>
             </div>
         @endif
 
-        <div class="card-header">
-            <a href="{{ route('admin.secretaries.create') }}" class="btn btn-primary"> Asignar nuevo secretario</a>
-        </div>
+
+
+        @can('admin.secretaries.create')
+            <div class="card-header">
+                <a href="{{ route('admin.secretaries.create') }}" class="btn btn-primary"> Asignar nuevo secretario</a>
+            </div>
+        @endcan
 
 
         <div class="card-body">
@@ -41,26 +52,33 @@
 
                     @foreach ($secretaries as $secretary)
                         <tr>
-                            <td>{{ $secretary->user_id}}</td>
-                            <td>{{ $secretary->user->profile->name}}</td>
-                            <td>{{ $secretary->user->profile->lastname}}</td>
-                            <td>{{ $secretary->user->email}}</td>
-                            <td>{{ $secretary->office->name}}</td>
+                            <td>{{ $secretary->user_id }}</td>
+                            <td>{{ $secretary->user->profile->name }}</td>
+                            <td>{{ $secretary->user->profile->lastname }}</td>
+                            <td>{{ $secretary->user->email }}</td>
+                            <td>{{ $secretary->office->name }}</td>
                             <td style="display: flex">
 
                                 {{-- Ver --}}
+                                @can('admin.users.show')
                                     <a href="{{ route('admin.users.show', $secretary->user) }}" style="margin: 0px 5px;"
                                         class="btn btn-primary">Ver</a>
+                                @endcan
                                 {{-- Editar --}}
-                                    <a href="{{ route('admin.secretaries.edit', $secretary) }}" class="btn btn-success">Editar</a>
-
+                                @can('admin.aplicants.edit')
+                                    <a href="{{ route('admin.secretaries.edit', $secretary) }}"
+                                        class="btn btn-success">Editar</a>
+                                @endcan
                                 {{-- Borrar --}}
-                                    <form style="display: inline" action="{{ route('admin.secretaries.destroy', $secretary) }}"
-                                        method="post" class="formulario-eliminar">
+                                @can('admin.aplicants.destroy')
+                                    <form style="display: inline"
+                                        action="{{ route('admin.secretaries.destroy', $secretary) }}" method="post"
+                                        class="formulario-eliminar">
                                         @csrf
                                         @method('DELETE')
                                         <input type="submit" id="delete" value="Desasignar" class="btn btn-danger">
                                     </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
@@ -78,19 +96,18 @@
 
 @section('js')
 
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $('#tabla1').DataTable({
                 responsive: true,
                 autoWidth: false,
             });
-    });
+        });
+    </script>
 
-</script>
-
-<script>
-        $( document ).ready(function() {
-            $('.formulario-eliminar').submit(function(e){
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -105,10 +122,10 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         this.submit();
-       }
-       })
-    });
+                    }
+                })
+            });
 
-});
-</script>
+        });
+    </script>
 @stop

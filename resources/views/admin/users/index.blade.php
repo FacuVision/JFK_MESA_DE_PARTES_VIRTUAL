@@ -7,65 +7,71 @@
 @stop
 
 @section('content')
-<div class="card">
-    @if (session('mensaje'))
-        <div class="alert alert-success">
-            <strong>{{ session('mensaje') }}</strong>
-        </div>
-    @endif
+    <div class="card">
+        @if (session('mensaje'))
+            <div class="alert alert-success">
+                <strong>{{ session('mensaje') }}</strong>
+            </div>
+        @endif
+@can("admin.users.create")
+    <div class="card-header">
+        <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Añadir Usuario</a>
+    </div>
+@endcan
 
-        <div class="card-header">
-            <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Añadir Usuario</a>
-        </div>
 
 
-
-    <div class="card-body">
-        <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Fecha de Creación</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($users as $user)
+        <div class="card-body">
+            <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
+                <thead>
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>{{ date('d/m/Y H:m:s', strtotime($user->created_at)) }}</td>
-                        <td>
-                            {{-- Mostrar --}}
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Fecha de Creación</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ date('d/m/Y H:m:s', strtotime($user->created_at)) }}</td>
+                            <td>
+                                {{-- Mostrar --}}
+                                @can('admin.users.show')
+                                    <a href="{{ route('admin.users.show', $user) }}" class="btn btn-primary">Ver</a>
+                                @endcan
 
-                                <a href="{{ route('admin.users.show', $user) }}" class="btn btn-primary">Ver</a>
 
-
-                            {{-- Editar --}}
-
-                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success">Editar</a>
+                                {{-- Editar --}}
+                                @can('admin.users.edit')
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success">Editar</a>
+                                @endcan
 
                                 {{-- Eliminar --}}
-                                <form class="formulario-eliminar" style="display: inline" action="{{ route('admin.users.destroy', $user) }}"
-                                    method="post" class="formulario-eliminar">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                                </form>
+                                @can('admin.users.destroy')
+                                    <form class="formulario-eliminar" style="display: inline"
+                                        action="{{ route('admin.users.destroy', $user) }}" method="post"
+                                        class="formulario-eliminar">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                                    </form>
+                                @endcan
 
 
-                        </td>
-                    </tr>
-                @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
     </div>
-
-</div>
 @stop
 
 @section('css')
@@ -74,19 +80,18 @@
 
 @section('js')
 
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $('#tabla1').DataTable({
                 responsive: true,
                 autoWidth: false,
             });
-    });
+        });
+    </script>
 
-</script>
-
-<script>
-        $( document ).ready(function() {
-            $('.formulario-eliminar').submit(function(e){
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -101,10 +106,10 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         this.submit();
-       }
-       })
-    });
+                    }
+                })
+            });
 
-});
-</script>
+        });
+    </script>
 @stop

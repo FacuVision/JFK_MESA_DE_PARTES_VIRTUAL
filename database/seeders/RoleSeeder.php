@@ -37,7 +37,6 @@ class RoleSeeder extends Seeder
 
         Permission::create(["name"=>"admin.aplicants.index","description"=>"ver solicitantes"])->syncRoles([$admin,$secretario]);
         Permission::create(["name"=>"admin.aplicants.create","description"=>"crear solicitantes"])->syncRoles([$admin]);
-        Permission::create(["name"=>"admin.aplicants.edit","description"=>"editar solicitantes"])->syncRoles([$admin]);
         Permission::create(["name"=>"admin.aplicants.destroy","description"=>"eliminar solicitantes"])->syncRoles([$admin]);
 
 
@@ -69,7 +68,13 @@ class RoleSeeder extends Seeder
         Permission::create(["name"=>"secretaries.procedings.subsanar_expediente","description"=>"solicitar subsanacion de expedientes"])->syncRoles([$secretario]); //expedientes subsanacion
 
 
-        //usuarios normales
+
+        //Usuarios normales
+        Permission::create(["name"=>"aplicants.procedings.create","description"=>"ver menu de redaccion de expedientes"])->syncRoles([$solicitante]); //expedientes menú
+
+        //Seguimiento de expedientes
+        Permission::create(["name"=>"aplicants.tracings.index","description"=>"ver expedientes enviados"])->syncRoles([$solicitante]); //expedientes enviados
+        Permission::create(["name"=>"aplicants.tracings.show","description"=>"ver seguimiento de expedientes"])->syncRoles([$solicitante]); //expedientes detalles
 
     }
 }

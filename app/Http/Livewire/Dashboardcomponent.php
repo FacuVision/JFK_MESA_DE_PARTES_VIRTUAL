@@ -58,9 +58,13 @@ class Dashboardcomponent extends Component
     {
         $array_users = $this->admin_obtener_cantidad_usuarios();
         $array_documentos = $this->admin_obtener_datos_documentos();
-        $secretario_array_documentos = $this->secretario_obtener_datos_documentos();
 
-        return view('livewire.dashboardcomponent', compact("array_users", "array_documentos","secretario_array_documentos"));
+        if(Auth::user()->secretary != null){
+            $secretario_array_documentos = $this->secretario_obtener_datos_documentos();
+            return view('livewire.dashboardcomponent', compact("array_users", "array_documentos", "secretario_array_documentos"));
+        }
+
+        return view('livewire.dashboardcomponent', compact("array_users", "array_documentos"));
     }
 
 }

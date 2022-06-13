@@ -95,6 +95,11 @@
                         @livewire('admin-register-component')
                     </div>
 
+                    <div class="form-group">
+                        {!! Form::label('Administrador', 'Administrador') !!}
+                        {!! Form::checkbox("roles[]", $roles[0]->id, null, ["class" => "mr-1"]) !!}
+                    </div>
+
                 </div>
 
 

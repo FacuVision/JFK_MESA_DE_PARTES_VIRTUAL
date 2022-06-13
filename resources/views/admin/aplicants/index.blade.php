@@ -19,10 +19,12 @@
                 <strong>{{ session('alerta') }}</strong>
             </div>
         @endif
+@can("admin.aplicants.create")
 
-        <div class="card-header">
-            <a href="{{ route('admin.aplicants.create') }}" class="btn btn-primary"> Asignar nuevo solicitante</a>
-        </div>
+<div class="card-header">
+    <a href="{{ route('admin.aplicants.create') }}" class="btn btn-primary"> Asignar nuevo solicitante</a>
+</div>
+@endcan
 
 
         <div class="card-body">
@@ -45,20 +47,29 @@
                             <td>{{ $aplicant->user->profile->lastname }}</td>
                             <td>{{ $aplicant->user->email }}</td>
                             <td style="display: flex">
+                                @can("admin.users.show")
+
                                 {{-- Ver --}}
                                 <a href="{{ route('admin.users.show', $aplicant->user) }}" style="margin: 0px 5px;"
                                     class="btn btn-primary">Ver</a>
+                                    @endcan
                                 {{-- Editar --}}
-                                <a href="{{ route('admin.users.edit', $aplicant->user) }}"
+                                @can("admin.users.edit")
+                                    <a href="{{ route('admin.users.edit', $aplicant->user) }}"
                                     class="btn btn-success">Editar</a>
+                                @endcan
+
+                                @can("admin.aplicants.destroy")
+
                                 {{-- Borrar --}}
                                 <form style="display: inline" action="{{ route('admin.aplicants.destroy', $aplicant) }}"
-                                    method="post" class="formulario-eliminar">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                                </form>
-                            </td>
+                                method="post" class="formulario-eliminar">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                            </form>
+                            @endcan
+                        </td>
                         </tr>
                     @endforeach
                 </tbody>

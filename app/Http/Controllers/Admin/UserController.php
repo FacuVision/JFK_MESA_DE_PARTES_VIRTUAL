@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminUserCreateRequest;
-use App\Models\District;
-use App\Models\Proceding;
 use App\Models\Type_document;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -37,11 +36,6 @@ class UserController extends Controller
      */
     public function create()
     {
-
-        // $dist = [];
-        // foreach($distritos as $ds){
-        //     $dist[$ds['id']]= $ds['name'];
-        // }
 
         $document = Type_document::all();
 
@@ -82,6 +76,9 @@ class UserController extends Controller
             "phone" => $request->phone
             ]);
 
+        if ($request->administrador == "administrador") {
+            $user->assignRole("admin");
+        }
 
         return redirect()->route('admin.users.index')->with('mensaje', 'Usuario creado correctamente');
     }
@@ -105,11 +102,6 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // $distritos = District::all();
-        // $dist = [];
-        // foreach($distritos as $ds){
-        //     $dist[$ds['id']]= $ds['name'];
-        // }
 
         $document = Type_document::all();
         $doc = [];
@@ -117,7 +109,9 @@ class UserController extends Controller
             $doc[$dc['id']] = $dc['name'];
         }
         $sexo = $this->sexo;
-        return view('admin.users.edit', compact('user','sexo','doc'));
+
+        $roles = Role::where("name","admin")->get();
+        return view('admin.users.edit', compact('user','sexo','doc',"roles"));
     }
 
     /**
@@ -129,6 +123,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+
         $sinpass = [
             "email" => "required|string|email|max:100",
             "name" => "required|string",
@@ -206,7 +201,15 @@ class UserController extends Controller
             }
         }
 
+
         $user->profile->update($request->only("name","lastname","date_nac","gender","address","document_number","type_document_id","district_id","phone"));
+
+        if ($request->roles != null) {
+            $user->assignRole("admin");
+        } else {
+            $user->removeRole("admin");
+        }
+
 
         return redirect()->route('admin.users.edit', $user)->with('mensaje','Usuario Modificado correctamente');
     }

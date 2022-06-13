@@ -19,11 +19,11 @@
                 <strong>{{ session('alerta') }}</strong>
             </div>
         @endif
-
-        <div class="card-header">
-            <a href="{{ route('admin.typeprocedings.create') }}" class="btn btn-primary">Añadir Nuevo Tipo</a>
-        </div>
-
+        @can('admin.typeprocedings.create')
+            <div class="card-header">
+                <a href="{{ route('admin.typeprocedings.create') }}" class="btn btn-primary">Añadir Nuevo Tipo</a>
+            </div>
+        @endcan
 
         <div class="card-body">
             <table id="tipoExpe" class="table table-striped dt-responsive nowrap" style="width:100%">
@@ -43,19 +43,22 @@
                             <td>{{ $TypeProceding->name }}</td>
                             <td>{{ $TypeProceding->type }}</td>
                             <td>
+                                @can('admin.typeprocedings.edit')
+                                    {{-- Editar --}}
+                                    <a href="{{ route('admin.typeprocedings.edit', $TypeProceding->id) }}"
+                                        class="btn btn-success">Editar</a>
+                                @endcan
 
-                                {{-- Editar --}}
-                                <a href="{{ route('admin.typeprocedings.edit', $TypeProceding->id) }}"
-                                    class="btn btn-success">Editar</a>
-
-                                {{-- Eliminar --}}
-                                <form id="formulario-eliminar" style="display: inline"
-                                    action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}"
-                                    method="post" class="formulario-eliminar">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                                </form>
+                                @can('admin.typeprocedings.destroy')
+                                    {{-- Eliminar --}}
+                                    <form id="formulario-eliminar" style="display: inline"
+                                        action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}" method="post"
+                                        class="formulario-eliminar">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                                    </form>
+                                @endcan
                             </td>
                             <td>{{ $TypeProceding->description }}</td>
                         </tr>
@@ -102,8 +105,6 @@
                     }
                 })
             });
-
         });
     </script>
-
 @stop

@@ -22,7 +22,7 @@ class ProcedingController extends Controller
      */
     public function index()
     {
-        return view('aplicant.index');
+        //return view('aplicant.index');
     }
 
     /**
@@ -31,6 +31,7 @@ class ProcedingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+    // Ver menu de redaccion de expedientes
     {
         //$typedocument = TypeDocument::all();
         $typedocument  = Type_proceding::where("type","system")->pluck("name","id")->toArray();
@@ -39,18 +40,11 @@ class ProcedingController extends Controller
 
         $office  = Office::pluck('name','id')->toArray();
 
-        // tipo : mensaje
-        //mensaje: Expediente enviado satisfactoriamente
-        //session()->flash('mensaje','Expediente enviado satisfactoriamente');
-        //$this->alert('success','Expediente enviado //satisfactoriamente');
-
-
         return view('aplicant.create',compact('office','typedocument','docsubsanar'));
     }
 
     public function alert($tipo,$mensaje){
         session()->flash($tipo,$mensaje);
-        // session()->flash('alert');
     }
 
 

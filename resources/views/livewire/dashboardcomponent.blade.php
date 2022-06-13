@@ -1,4 +1,5 @@
 <div>
+    <h4>Generales</h4>
 
     {{-- VISTA GENERAL DEL ADMIN --}}
     <div class="row">
@@ -46,54 +47,61 @@
         </div>
 
     </div>
-
-
-    {{-- <div class="row">
-        <div class="col">
-            <div class="info-box">
-                <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Documentos Recibidos</span>
-                    <span class="info-box-number">{{$array_documentos["enviados"]}}</span>
+    @can('secretaries.procedings.destroy')
+        <div class="row">
+            <div class="col">
+                <div class="info-box">
+                    <span class="info-box-icon bg-primary"><i class="far fa-envelope"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total de documentos Recibidos</span>
+                        <span class="info-box-number">{{ $array_documentos['enviados'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="info-box">
-                <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
-                <div class="info-box-content">
-                  <span class="info-box-text">Documentos atendidos</span>
-                  <span class="info-box-number">{{$array_documentos["respondidos"]}}</span>
-                </div>
-              </div>
-        </div>
-
-    </div> --}}
-
-
-    {{-- VISTA GENERAL DEL SECRETARIO --}}
-
-    <div class="row">
-        <div class="col">
-            <div class="info-box">
-                <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Tus documentos Recibidos</span>
-                    <span class="info-box-number">{{ $secretario_array_documentos['secretary_enviados'] }}</span>
+            <div class="col">
+                <div class="info-box">
+                    <span class="info-box-icon bg-primary"><i class="far fa-envelope"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Total de documentos atendidos</span>
+                        <span class="info-box-number">{{ $array_documentos['respondidos'] }}</span>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="info-box">
-                <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Tus documentos atendidos</span>
-                    <span class="info-box-number">{{ $secretario_array_documentos['secretary_respondidos'] }}</span>
-                </div>
-            </div>
-        </div>
 
-    </div>
+        </div>
+    @endcan
+
+    
+    @can('secretaries.archivate.procedings.index')
+        {{-- VISTA GENERAL DEL SECRETARIO --}}
+        @if ($secretario_array_documentos != null)
+
+        <h4>Específicos</h4>
+
+            <div class="row">
+                <div class="col">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tus documentos Recibidos</span>
+                            <span class="info-box-number">{{ $secretario_array_documentos['secretary_enviados'] }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success"><i class="far fa-envelope"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Tus documentos atendidos</span>
+                            <span class="info-box-number">{{ $secretario_array_documentos['secretary_respondidos'] }}</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        @endif
+    @endcan
+
 
 
 </div>

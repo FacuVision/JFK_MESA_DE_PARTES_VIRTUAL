@@ -32,7 +32,8 @@ class SecretaryController extends Controller
 
         $users_sin_rol=User::doesntHave('aplicant')->doesntHave('secretary')->get();
 
-        $offices = Office::all();
+        $offices = Office::doesntHave('secretary')->get();
+
         return view('admin.secretaries.create',compact('users_sin_rol','offices'));
     }
 
@@ -80,6 +81,7 @@ class SecretaryController extends Controller
      */
     public function edit(Secretary $secretary)
     {
+
         $offices = Office::all();
         return view('admin.secretaries.edit', compact('offices','secretary'));
     }
@@ -93,6 +95,12 @@ class SecretaryController extends Controller
      */
     public function update(Request $request, Secretary $secretary)
     {
+        foreach (Secretary::all() as $sec) {
+            if ($sec->office->id == $request->office_id) {
+                return redirect()->route('admin.secretaries.index')->with('alerta','Esta oficina ya ha sido asignada a un secretario');
+            }
+        }
+
         $secretary->update($request->all());
         return redirect()->route('admin.secretaries.index')->with('mensaje','Secretario fue modificado correctamente');
     }
@@ -106,6 +114,6 @@ class SecretaryController extends Controller
     public function destroy(Secretary $secretary)
     {
         $secretary->delete();
-        return redirect()->route('admin.secretaries.index')->with('mensaje', 'Secretario eliminado correctamente');
+        return redirect()->route('admin.secretaries.index')->with('eliminado', 'Secretario eliminado correctamente');
     }
 }

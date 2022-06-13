@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Aplicant;
 use App\Models\District;
-use App\Models\Office;
+use Spatie\Permission\Models\Role;
 use App\Models\Profile;
 use App\Models\Secretary;
 use App\Models\Type_document;
@@ -21,18 +21,21 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $solicitante = User::create([
-            "name" => "emma",
-            "email" => "correoprueba@gmail.com",
-            "password" => bcrypt("correoprueba@gmail.com")
+        $admin = User::create([
+            "name" => "Admin",
+            "email" => "admin@gmail.com",
+            "password" => bcrypt("admin@gmail.com")
         ]);
+
+        $admin->syncRoles(["admin","secretario"]);
+
 
         $date = new DateTime("2001-01-01");
 
-        $solicitante->profile()->create(
+        $admin->profile()->create(
             [
-                "name" => "Emmanuel",
-                "lastname" => "Garayar",
+                "name" => "Admin",
+                "lastname" => "Apellido admin",
                 "date_nac" => $date,
                 "gender" => "m",
                 "address" => "Direccion",
@@ -44,10 +47,11 @@ class UserSeeder extends Seeder
             ]
         );
 
-
         //ASOCIAMOS EL USUARIO AL APLICANT
-        Aplicant::factory()->create([
-            "user_id" => $solicitante->id,
+        Secretary::factory()->create([
+            "user_id" => $admin->id,
+            "office_id" => 1,
+
         ]);
 
 
@@ -55,17 +59,20 @@ class UserSeeder extends Seeder
 
 
         $secretario = User::create([
-            "name" => "Sr. Secretario",
+            "name" => "Secretario",
             "email" => "secretario@gmail.com",
             "password" => bcrypt("secretario@gmail.com")
         ]);
 
-        $date = new DateTime("1990-01-01");
 
+        $secretario->assignRole("secretario");
+
+
+        $date = new DateTime("1990-01-01");
         $secretario->profile()->create(
             [
                 "name" => "Secretario",
-                "lastname" => "Apellido del secretario",
+                "lastname" => "Apellido Secretario",
                 "date_nac" => $date,
                 "gender" => "m",
                 "address" => "Direccion",
@@ -81,24 +88,22 @@ class UserSeeder extends Seeder
         //ASOCIAMOS EL USUARIO AL APLICANT
         Secretary::factory()->create([
             "user_id" => $secretario->id,
-            "office_id" => 1,
+            "office_id" => 2,
         ]);
-
-
-
-
 
 
 
 
         //********************************************** */
 
-        $users = User::factory(40)->create();
+        $users = User::factory(20)->create();
+
 
         foreach ($users as $user) {
 
-            //LOS MODELOS PUEDEN LLAMAR A LAS FACTORIES, PERO LOS OBJETOS POR ALGUNA RAZON NO PUEDEN
+            $user->assignRole("solicitante");
 
+            //LOS MODELOS PUEDEN LLAMAR A LAS FACTORIES, PERO LOS OBJETOS POR ALGUNA RAZON NO PUEDEN
 
             //CREAMOS LOS  PERFILES
             Profile::factory()->create([
@@ -119,11 +124,12 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(4)->create();
+        $users = User::factory(3)->create();
 
-        $conteo = 2;
+        $conteo = 3;
         foreach ($users as $user) {
 
+            $user->assignRole("secretario");
 
             //CREAMOS LOS 4 PERFILES
             Profile::factory()->create([

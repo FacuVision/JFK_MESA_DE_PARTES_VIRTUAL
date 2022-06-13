@@ -7,59 +7,63 @@
 @stop
 
 @section('content')
-<div class="card">
-    {{session('Todos')}}
-    @if (session('mensaje'))
-        <div class="alert alert-success">
-            <strong>{{ session('mensaje') }}</strong>
-        </div>
-    @endif
-    @if (session('alerta'))
-        <div class="alert alert-warning">
-            <strong>{{ session('alerta') }}</strong>
-        </div>
-    @endif
+    <div class="card">
+        {{ session('Todos') }}
+        @if (session('mensaje'))
+            <div class="alert alert-success">
+                <strong>{{ session('mensaje') }}</strong>
+            </div>
+        @endif
+        @if (session('alerta'))
+            <div class="alert alert-warning">
+                <strong>{{ session('alerta') }}</strong>
+            </div>
+        @endif
+        @can('admin.offices.create')
+            <div class="card-header">
+                <a href="{{ route('admin.offices.create') }}" class="btn btn-primary">Añadir Nueva Oficina</a>
+            </div>
+        @endcan
 
-    <div class="card-header">
-        <a href="{{ route('admin.offices.create') }}" class="btn btn-primary">Añadir Nueva Oficina</a>
-    </div>
 
-
-    <div class="card-body">
-        <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <td>Descripción</td>
-                    <td>Acción</td>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($offices as $office)
+        <div class="card-body">
+            <table id="tabla1" class="table table-striped dt-responsive nowrap" style="width:100%">
+                <thead>
                     <tr>
-                        <td>{{ $office->id }}</td>
-                        <td>{{ $office->name }}</td>
-                        <td>{{ $office->description }}</td>
-                        <td style="display: flex">
-                            {{-- Editar --}}
-                            <a href="{{ route('admin.offices.edit', $office) }}"
-                                class="btn btn-success">Editar</a>
-                            {{-- Borrar --}}
-                            <form style="display: inline" action="{{ route('admin.offices.destroy', $office) }}"
-                                method="post" class="formulario-eliminar">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                            </form>
-                        </td>
+                        <th>Id</th>
+                        <th>Nombre</th>
+                        <td>Descripción</td>
+                        <td>Acción</td>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                    @foreach ($offices as $office)
+                        <tr>
+                            <td>{{ $office->id }}</td>
+                            <td>{{ $office->name }}</td>
+                            <td>{{ $office->description }}</td>
+                            <td style="display: flex">
+                                @can('admin.offices.edit')
+                                    {{-- Editar --}}
+                                    <a href="{{ route('admin.offices.edit', $office) }}" class="btn btn-success">Editar</a>
+                                @endcan
+                                @can("admin.offices.destroy")
+                                    {{-- Borrar --}}
+                                    <form style="display: inline" action="{{ route('admin.offices.destroy', $office) }}"
+                                        method="post" class="formulario-eliminar">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                                    </form>
+                                @endcan
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 
-</div>
+    </div>
 @stop
 
 @section('css')
@@ -69,18 +73,17 @@
 
 @section('js')
 
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $('#tabla1').DataTable({
                 responsive: true,
                 autoWidth: false,
             });
-    });
-
-</script>
-<script>
-        $( document ).ready(function() {
-            $('.formulario-eliminar').submit(function(e){
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -95,10 +98,10 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         this.submit();
-       }
-       })
-    });
+                    }
+                })
+            });
 
-});
-</script>
+        });
+    </script>
 @stop

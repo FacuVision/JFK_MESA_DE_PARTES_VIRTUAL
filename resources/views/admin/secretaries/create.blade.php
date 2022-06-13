@@ -48,18 +48,24 @@
             <!--.container-->
         </div>
 
+        @if ($offices->count()>0)
+            <div class="form-group">
+                {!! Form::label('office_id', 'Oficinas disponibles') !!}
+                <select required name="office_id" class="form-control">
+                    @foreach ($offices as $office)
+                        <option value="{{ $office->id }}">{{ $office->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @else
         <div class="form-group">
-            {!! Form::label('office_id', 'Oficina') !!}
-            <select required name="office_id" class="form-control">
-                @foreach ($offices as $office)
-                    <option value="{{ $office->id }}">{{ $office->name }}</option>
-                @endforeach
-            </select>
+            <input type="text" class="form-control" disabled value="No hay oficinas para asignar, intente crear una">
         </div>
+        @endif
 
         <div class="form-group">
 
-            @if($users_sin_rol->count() > 0)
+            @if($users_sin_rol->count() > 0 && $offices->count()>0)
                 {!! Form::submit('Crear', ['class' => 'btn btn-success']) !!}
             @else
                 <a href="{{ route('admin.secretaries.index') }}" class="btn btn-secondary">Volver</a>

@@ -46,11 +46,11 @@ return [
     */
 
     'logo' => '<b>Virtual</b>JFK',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => '',
 
     /*
     |--------------------------------------------------------------------------
@@ -247,41 +247,52 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'Expedientes',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
+            'text'        => 'Inicio',
+            'route'         => 'admin.index',
+            'icon'        => 'fas fa-home',
+            'label_color' => 'success'
         ],
         [
-            'text'        => 'Seguimiento',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label_color' => 'success',
+            'text'          => 'Ver Expedientes',
+            'route'         => 'admin.users.create',
+            'icon'          => 'fas fa-file',
+            'label_color'   => 'success',
+            'can'           => 'admin.users.create'
         ],
 
 
-        ['header' => 'GESTION - ADMIN'],
+        [
+            'header' => 'GESTION - ADMIN',
+            'can'  => 'admin.users.create'
+        ],
 
         [
             'text'    => 'Usuarios',
             'icon'    => 'fas fa-fw fa-share',
+            'can'   => 'admin.users.index',
             'submenu' => [
                 [
                     'text' => 'Todos',
                     'route'  => 'admin.users.index',
                     'icon_color' => 'yellow',
+                    'can'   => 'admin.users.index',
+
 
                 ],
                 [
                     'text' => 'Secretarios',
                     'route'  => 'admin.secretaries.index',
                     'icon_color' => 'cyan',
+                    'can'   => 'admin.secretaries.index',
+
 
                 ],
                 [
                     'text' => 'Solicitantes',
                     'route'  => 'admin.aplicants.index',
                     'icon_color' => 'cyan',
+                    'can'   => 'admin.aplicants.index',
+
 
                 ],
             ],
@@ -291,35 +302,47 @@ return [
             'text' => 'Oficinas',
             'route'  => 'admin.offices.index',
             'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin.offices.index'
         ],
         [
             'text' => 'Documentos de identidad',
             'route'  => 'admin.typedocuments.index',
             'icon' => 'fas fa-fw fa-user',
+            'can'  => 'admin.typedocuments.index',
+
         ],
         [
             'text' => 'Tipos de expedientes',
             'route'  => 'admin.typeprocedings.index',
             'icon' => 'fas fa-fw fa-user',
+            'can'  => 'admin.typeprocedings.index',
+
         ],
 
 
 
-        ['header' => 'GESTION SECRETARIO'],
+        [
+            'header' => 'GESTION SECRETARIO',
+            'can' => 'secretaries.procedings.index'
+        ],
         [
             'text'       => 'Hacer Seguimiento',
             'icon_color' => 'red',
-            'url'        => '#',
+            'url'        => 'admin.users.index',
         ],
         [
             'text'       => 'Mis Expedientes',
             'icon_color' => 'yellow',
-            'route'        => 'secretaries.procedings.index',
+            'route'      => 'secretaries.procedings.index',
+            'can'        => 'secretaries.procedings.index',
+
         ],
         [
             'text'       => 'Ver Archivados',
             'icon_color' => 'yellow',
-            'route'        =>'secretaries.archivate.procedings.index',
+            'route'        => 'secretaries.archivate.procedings.index',
+            'can'        => 'secretaries.archivate.procedings.index',
+
         ]
     ],
 

@@ -30,7 +30,11 @@
                         <th>Sexo</th>
                         <th>Dirección</th>
                         <th>Distrito</th>
-                        <th>Accion</th>
+                        <th>Provincia</th>
+                        <th>Departamento</th>
+                        @can('admin.users.edit')
+                            <th>Accion</th>
+                        @endcan
                     </tr>
                 </thead>
                 <tbody>
@@ -43,7 +47,7 @@
                         <td>{{ date('d/m/Y ', strtotime($user->profile->date_nac)) }}</td>
                         <td>{{ $user->profile->type_document->name }}</td>
                         <td>{{ $user->profile->document_number }}</td>
-                        <td style="display: flex">
+                        <td>
                             @if ($user->profile->gender == 'm')
                                 Masculino
                             @else
@@ -52,22 +56,26 @@
                         </td>
                         <td>{{ $user->profile->address }}</td>
                         <td>{{ $user->profile->district->name }}</td>
-                        <td style="display: flex">
+                        <td>{{ $user->profile->district->province->name}}</td>
+                        <td>{{ $user->profile->district->province->departament->name }}</td>
+                        @can('admin.users.edit')
+                            @can('admin.users.destroy')
+                                <td style="display: flex">
 
-                            {{-- Editar --}}
+                                    {{-- Editar --}}
+                                    <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success">Editar</a>
 
-                                <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-success">Editar</a>
+                                    {{-- Eliminar --}}
+                                    <form style="display: inline" action="{{ route('admin.users.destroy', $user) }}" method="post"
+                                        class="formulario-eliminar">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                                    </form>
 
-                                {{-- Eliminar --}}
-
-                                <form style="display: inline" action="{{ route('admin.users.destroy', $user) }}" method="post"
-                                    class="formulario-eliminar">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                                </form>
-
-                        </td>
+                                </td>
+                            @endcan
+                        @endcan
                     </tr>
 
 

@@ -93,12 +93,17 @@
                         @livewire('admin-register-component')
                 </div>
 
-            </div>
 
-            <div class="form-group">
-                {!! Form::submit('Crear', ['class' => 'btn btn-success']) !!}
+                <div class="form-group">
+                    {!! Form::label('Administrador', 'Administrador') !!}
+                    {!! Form::checkbox("administrador", "administrador", false, ["class" => "mr-1"]) !!}
+                </div>
+
+                <div class="form-group">
+                    {!! Form::submit('Crear', ['class' => 'btn btn-success']) !!}
+                </div>
             </div>
-            {!! Form::close() !!}
+                {!! Form::close() !!}
 
         </div>
         @livewireScripts

@@ -15,12 +15,12 @@ class OfficeSeeder extends Seeder
     public function run()
     {
         Office::factory(1)->create([
-            "name"=> "Secretaria General",
-            "description" => "Esta oficina atiende temas generales, solicitudes, consultas,etc."
+            "name"=> "Gerencia General",
+            "description" => "***"
         ]);
 
         Office::factory(1)->create([
-            "name"=> "Informes",
+            "name"=> "Secretaria General",
             "description" => "***"
         ]);
 
@@ -38,5 +38,6 @@ class OfficeSeeder extends Seeder
             "name"=> "Atencion al cliente",
             "description" => "****"
         ]);
+
     }
 }
