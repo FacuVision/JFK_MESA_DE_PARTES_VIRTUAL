@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class OfficeController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:admin.offices.index")->only("index");
+        $this->middleware("can:admin.offices.create")->only("store","create");
+        $this->middleware("can:admin.offices.edit")->only("edit","update");
+        $this->middleware("can:admin.offices.destroy")->only("destroy");
+    }
     /**
      * Display a listing of the resource.
      *

@@ -9,11 +9,17 @@ use Illuminate\Http\Request;
 
 class TypeProcedingController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:admin.typeprocedings.index")->only("index");
+        $this->middleware("can:admin.typeprocedings.create")->only("store","create");
+        $this->middleware("can:admin.typeprocedings.edit")->only("edit","update");
+        $this->middleware("can:admin.typeprocedings.destroy")->only("destroy");
+    }
 
     public function index()
     {
         $tipoexpedientes=Type_proceding::orderBy('id', 'ASC')->get();
-       
+
         return view('admin.typeprocedings.index',compact('tipoexpedientes'));
     }
 
@@ -26,7 +32,7 @@ class TypeProcedingController extends Controller
     {
         $tipos = ["user"=>"User","system"=>"System"];
         return view('admin.typeprocedings.create',compact('tipos'));
-        
+
     }
 
     /**
@@ -82,11 +88,11 @@ class TypeProcedingController extends Controller
             'description' =>'required',
             'type'=>'required'
         ]);
-        
+
         try {
             $dato =  Type_proceding::find($id);
             $dato->update($request->all());
-            
+
         } catch (\Throwable $th) {
             return back()->with('mensaje','error');
         }
@@ -107,9 +113,9 @@ class TypeProcedingController extends Controller
         try {
             Type_proceding::destroy($id);
         } catch (\Throwable $th) {
-            
+
         }
         return redirect(route('admin.typeprocedings.index'))->with(array('mensaje'=>'Registro Eliminado Satisfactorimente','color'=>'success'));
-        
+
     }
 }

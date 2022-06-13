@@ -19,12 +19,16 @@
                 <strong>{{ session('alerta') }}</strong>
             </div>
         @endif
-@can("admin.aplicants.create")
-
-<div class="card-header">
-    <a href="{{ route('admin.aplicants.create') }}" class="btn btn-primary"> Asignar nuevo solicitante</a>
-</div>
-@endcan
+        @if (session('danger'))
+            <div class="alert alert-danger">
+                <strong>{{ session('danger') }}</strong>
+            </div>
+        @endif
+        @can('admin.aplicants.create')
+            <div class="card-header">
+                <a href="{{ route('admin.aplicants.create') }}" class="btn btn-primary"> Asignar nuevo solicitante</a>
+            </div>
+        @endcan
 
 
         <div class="card-body">
@@ -47,29 +51,27 @@
                             <td>{{ $aplicant->user->profile->lastname }}</td>
                             <td>{{ $aplicant->user->email }}</td>
                             <td style="display: flex">
-                                @can("admin.users.show")
-
-                                {{-- Ver --}}
-                                <a href="{{ route('admin.users.show', $aplicant->user) }}" style="margin: 0px 5px;"
-                                    class="btn btn-primary">Ver</a>
-                                    @endcan
+                                @can('admin.users.show')
+                                    {{-- Ver --}}
+                                    <a href="{{ route('admin.users.show', $aplicant->user) }}" style="margin: 0px 5px;"
+                                        class="btn btn-primary">Ver</a>
+                                @endcan
                                 {{-- Editar --}}
-                                @can("admin.users.edit")
+                                @can('admin.users.edit')
                                     <a href="{{ route('admin.users.edit', $aplicant->user) }}"
-                                    class="btn btn-success">Editar</a>
+                                        class="btn btn-success">Editar</a>
                                 @endcan
 
-                                @can("admin.aplicants.destroy")
-
-                                {{-- Borrar --}}
-                                <form style="display: inline" action="{{ route('admin.aplicants.destroy', $aplicant) }}"
-                                method="post" class="formulario-eliminar">
-                                @csrf
-                                @method('DELETE')
-                                <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                            </form>
-                            @endcan
-                        </td>
+                                @can('admin.aplicants.destroy')
+                                    {{-- Borrar --}}
+                                    <form style="display: inline" action="{{ route('admin.aplicants.destroy', $aplicant) }}"
+                                        method="post" class="formulario-eliminar">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="submit" id="delete" value="Desasignar" class="btn btn-danger">
+                                    </form>
+                                @endcan
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -85,18 +87,17 @@
 
 @section('js')
 
-<script>
-    $(document).ready(function() {
+    <script>
+        $(document).ready(function() {
             $('#tabla').DataTable({
                 responsive: true,
                 autoWidth: false,
             });
-    });
-
-</script>
-<script>
-        $( document ).ready(function() {
-            $('.formulario-eliminar').submit(function(e){
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.formulario-eliminar').submit(function(e) {
                 e.preventDefault();
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -111,10 +112,10 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         this.submit();
-       }
-       })
-    });
+                    }
+                })
+            });
 
-});
-</script>
+        });
+    </script>
 @stop

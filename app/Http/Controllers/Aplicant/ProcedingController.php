@@ -15,6 +15,9 @@ use PhpParser\Node\Stmt\Return_;
 
 class ProcedingController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:aplicants.procedings.create")->only("store","create");
+    }
     /**
      * Display a listing of the resource.
      *

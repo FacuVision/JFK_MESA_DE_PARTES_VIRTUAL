@@ -16,6 +16,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ProcedingController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware("can:secretaries.procedings.index")->only("index");
+        $this->middleware("can:secretaries.procedings.store")->only("store");
+        $this->middleware("can:secretaries.procedings.show")->only("show","update");
+
+        $this->middleware("can:secretaries.procedings.destroy")->only("destroy");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,7 +33,6 @@ class ProcedingController extends Controller
     {
 
         $secretary = Secretary::findOrFail(Auth::id());
-
         $procedings = Proceding::select()->where("office_id", $secretary->office->id)->where("status", "<>", "4")->get();
         $offices = Office::all();
 
@@ -115,7 +122,7 @@ class ProcedingController extends Controller
             'status' => '4',
         ]);
 
-//--------------------------CREACION DE INCIDENTES ---------------------
+        //--------------------------CREACION DE INCIDENTES ---------------------
         $procedingControllerIncident = new AplicantProcedingController();
         $array_datos = $procedingControllerIncident->user_data();
 
@@ -124,7 +131,7 @@ class ProcedingController extends Controller
         $oficina_remitente = $user->secretary->office->name;
 
         //EL DESTINO ES EL APLICANT
-        $destino_aplicant = $proceding->aplicant->user->profile->name." ".$proceding->aplicant->user->profile->lastname;
+        $destino_aplicant = $proceding->aplicant->user->profile->name . " " . $proceding->aplicant->user->profile->lastname;
 
         $procedingControllerIncident->crearIncidente(
             $array_datos["ip"],
@@ -136,8 +143,9 @@ class ProcedingController extends Controller
             $destino_aplicant,       //nombres y apellidos
             "Archivado",
             $proceding->id,
-            "notificacion final");
-//-----------------------------------------------------------
+            "notificacion final"
+        );
+        //-----------------------------------------------------------
 
         //SOLO SE EJECUTARÁ EN CASO EL EXPEDIENTE TENGA ALGUNA REFERENCIA
         if ($proceding->reference != "-") {
@@ -149,27 +157,28 @@ class ProcedingController extends Controller
                 "status" => "4"
             ]);
 
-                $procedingControllerIncident->crearIncidente(
-                    $array_datos["ip"],
-                    $array_datos["nav"],
-                    $array_datos["so"],
-                    $user,
-                    $oficina_remitente,
-                    "-",                        //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
-                    $destino_aplicant,       //nombres y apellidos
-                    "Archivado",
-                    $proceding2->id,
-                    "archivamiento");
+            $procedingControllerIncident->crearIncidente(
+                $array_datos["ip"],
+                $array_datos["nav"],
+                $array_datos["so"],
+                $user,
+                $oficina_remitente,
+                "-",                        //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
+                $destino_aplicant,       //nombres y apellidos
+                "Archivado",
+                $proceding2->id,
+                "archivamiento"
+            );
 
 
-                $new_answer =  Answer::create([
-                        'title' => "El documento fué archivado correctamente",
-                        'content' => "Este documento fue subsanado y posteriormente archivado, por favor revisar el ultimo expediente enviado con Codigo Nº " . $proceding->code,
-                        'read_status' => '0',
-                        'proceding_id' => $proceding2->id,
-                        'user_id' => $user->id,
-                        "answer_type" => "0"
-                ]);
+            $new_answer =  Answer::create([
+                'title' => "El documento fué archivado correctamente",
+                'content' => "Este documento fue subsanado y posteriormente archivado, por favor revisar el ultimo expediente enviado con Codigo Nº " . $proceding->code,
+                'read_status' => '0',
+                'proceding_id' => $proceding2->id,
+                'user_id' => $user->id,
+                "answer_type" => "0"
+            ]);
 
             //Actualizará al expediente original
 
@@ -324,7 +333,7 @@ class ProcedingController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     
+
     public function destroy(Proceding $proceding)
     {
 

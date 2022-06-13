@@ -28,7 +28,7 @@
         </div>
         <div class="card-body">
 
-            {!! Form::model($user, ['route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
+            {!! Form::model($user, ["class"=>"form",'route' => ['admin.users.update', $user], 'method' => 'PUT']) !!}
 
             <div class="form-group">
 
@@ -97,13 +97,10 @@
 
                     <div class="form-group">
                         {!! Form::label('Administrador', 'Administrador') !!}
-                        {!! Form::checkbox("roles[]", $roles[0]->id, null, ["class" => "mr-1"]) !!}
+                        {!! Form::checkbox('roles[]', $roles[0]->id, null, ['class' => 'mr-1']) !!}
                     </div>
 
                 </div>
-
-
-
 
                 {!! Form::submit('Guardar', ['class' => 'btn btn-success']) !!}
             </div>
@@ -120,6 +117,26 @@
 
     @section('js')
         <script>
-            console.log('Hi!');
+            $(document).ready(function() {
+                $('.form').submit(function(e) {
+                    e.preventDefault();
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: "Se actualizará los datos del usuario",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, actualizar!',
+                        cancelmButtonText: 'Cancelar'
+
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            this.submit();
+                        }
+                    })
+                });
+
+            });
         </script>
     @stop

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class TypeDocumentController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:admin.typedocuments.index")->only("index");
+        $this->middleware("can:admin.typedocuments.create")->only("store","create");
+        $this->middleware("can:admin.typedocuments.edit")->only("edit","update");
+        $this->middleware("can:admin.typedocuments.destroy")->only("destroy");
+    }
     /**
      * Display a listing of the resource.
      *

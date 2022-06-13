@@ -10,6 +10,12 @@ use Illuminate\Http\Request;
 
 class SecretaryController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:admin.secretaries.index")->only("index");
+        $this->middleware("can:admin.secretaries.create")->only("store","create");
+        $this->middleware("can:admin.secretaries.edit")->only("edit","update");
+        $this->middleware("can:admin.secretaries.destroy")->only("destroy");
+    }
     /**
      * Display a listing of the resource.
      *
@@ -113,7 +119,9 @@ class SecretaryController extends Controller
      */
     public function destroy(Secretary $secretary)
     {
+
+        $secretary->user->removeRole("secretario");
         $secretary->delete();
-        return redirect()->route('admin.secretaries.index')->with('eliminado', 'Secretario eliminado correctamente');
+        return redirect()->route('admin.secretaries.index')->with('eliminado', 'Secretario desasignado correctamente');
     }
 }

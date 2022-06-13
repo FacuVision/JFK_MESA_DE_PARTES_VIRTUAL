@@ -10,6 +10,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ProcedingArchivateController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:secretaries.archivate.procedings.index")->only("index");
+
+        $this->middleware("can:secretaries.archivate.procedings.destroy")->only("destroy");
+    }
     /**
      * Display a listing of the resource.
      *

@@ -14,9 +14,9 @@ class Dashboardcomponent extends Component
 {
     public function admin_obtener_cantidad_usuarios()
     {
-        $users = User::all()->count();
         $secretarios = Secretary::all()->count();
         $aplicants = Aplicant::all()->count();
+        $users = $secretarios+$aplicants;
 
         return [
             "users" => $users,

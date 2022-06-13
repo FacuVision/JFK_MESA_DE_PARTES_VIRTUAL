@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class TracingProcedingController extends Controller
 {
+    public function __construct() {
+        $this->middleware("can:aplicants.tracings.index")->only("index");
+        $this->middleware("can:aplicants.tracings.show")->only("show");
+    }
     /**
      * Display a listing of the resource.
      *

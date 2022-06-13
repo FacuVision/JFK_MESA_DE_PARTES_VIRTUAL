@@ -9,6 +9,13 @@ use Illuminate\Http\Request;
 
 class AplicantController extends Controller
 {
+    public function FunctionName()
+    {
+        $this->middleware("can:admin.aplicants.index")->only("index");
+        $this->middleware("can:admin.aplicants.create")->only("store","create");
+        $this->middleware("can:admin.aplicants.destroy")->only("destroy");
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -109,7 +116,9 @@ class AplicantController extends Controller
      */
     public function destroy(Aplicant $aplicant)
     {
+        $aplicant->user->removeRole("solicitante");
         $aplicant->delete();
-        return redirect()->route('admin.aplicants.index')->with('mensaje', 'Solicitante eliminado correctamente');
+
+        return redirect()->route('admin.aplicants.index')->with('danger', 'Solicitante desasignado correctamente');
     }
 }

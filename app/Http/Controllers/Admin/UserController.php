@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -18,6 +19,14 @@ class UserController extends Controller
      */
 
     public $sexo = ["m" => "Masculino", "f" => "Femenino"];
+
+    public function __construct() {
+        $this->middleware("can:admin.users.index")->only("index");
+        $this->middleware("can:admin.users.show")->only("show");
+        $this->middleware("can:admin.users.create")->only("store","create");
+        $this->middleware("can:admin.users.edit")->only("edit","update");
+        $this->middleware("can:admin.users.destroy")->only("destroy");
+    }
 
     public function index()
     {
