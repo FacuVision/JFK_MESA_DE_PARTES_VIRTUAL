@@ -329,7 +329,7 @@ return [
         [
             'text'       => 'Hacer Seguimiento',
             'icon_color' => 'red',
-            'url'        => 'admin.users.index',
+            'route'        => 'secretaries.tracing.index',
         ],
         [
             'text'       => 'Mis Expedientes',

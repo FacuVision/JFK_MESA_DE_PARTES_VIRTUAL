@@ -174,7 +174,7 @@ class CollectiveController extends Controller
 
 
         return redirect()->route('secretaries.procedings.index')
-        ->with(['mensaje' => 'Se solicitó subsanación correctamente (sI el expediente tenia referencia, este fue archivado automáticamente)', 'color' => 'warning']);
+        ->with(['mensaje' => 'Se solicitó subsanación correctamente (Si el expediente tenia referencia, este fue archivado automáticamente)', 'color' => 'warning']);
 
     }
 

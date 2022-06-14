@@ -60,18 +60,6 @@
                                                         </th>
                                                         <th scope="col"
                                                             class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                                            Ip de origen
-                                                        </th>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                                            Navegador
-                                                        </th>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                                                            Sistema operativo
-                                                        </th>
-                                                        <th scope="col"
-                                                            class="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
                                                             Oficina Remiente
                                                         </th>
                                                         <th scope="col"
@@ -104,9 +92,6 @@
                                                     @foreach ($incidents as $incident)
                                                         <tr style="font-size: 0.9em">
                                                             <td class="px-6 py-4 whitespace-nowrap">{{$incident->id}}</td>
-                                                            <td class="px-6 py-4 whitespace-nowrap">{{$incident->ip_origin}}</td>
-                                                            <td class="px-6 py-4 whitespace-nowrap">{{$incident->navigator_origin}}</td>
-                                                            <td class="px-6 py-4 whitespace-nowrap">{{$incident->os_origin}}</td>
                                                             <td class="px-6 py-4 whitespace-nowrap">{{$incident->office_remitent}}</td>
                                                             <td class="px-6 py-4 whitespace-nowrap">{{$incident->remitent}}</td>
                                                             <td class="px-6 py-4 whitespace-nowrap">{{$incident->office_destiny}}</td>
@@ -155,7 +140,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script>
-        
+
         $(document).ready(function() {
             $('#horarios').DataTable({
                 "responsive": true,

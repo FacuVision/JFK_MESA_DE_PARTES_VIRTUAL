@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\DistrictController;
 use App\Http\Controllers\Admin\OfficeController;
 use App\Http\Controllers\Admin\ProcedingArchivateController;
 use App\Http\Controllers\Admin\ProcedingController;
+use App\Http\Controllers\Admin\AdmTracingProcedingController;
 use App\Http\Controllers\Admin\TypeDocumentController;
 use App\Http\Controllers\Admin\TypeProcedingController;
 use App\Http\Controllers\Aplicant\TracingProcedingController;
@@ -51,7 +52,8 @@ Route::resource('typeprocedings',TypeProcedingController::class)->names('admin.t
 Route::resource('procedings', ProcedingController::class)->names('secretaries.procedings');
 //administracion de procedimientos archivados (secretario)
 Route::resource('archivateprocedings', ProcedingArchivateController::class)->names('secretaries.archivate.procedings');
-
+//seguimiento de expedientes del secretario
+Route::resource('tracing', AdmTracingProcedingController::class)->names('secretaries.tracing');
 
 //rechazar expediente (secretario)
 Route::get('procedings/{proceding}/reject', [CollectiveController::class,'reject'])->name('secretaries.procedings.reject');

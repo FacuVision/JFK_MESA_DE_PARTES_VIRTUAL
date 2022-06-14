@@ -1,65 +1,20 @@
-<div class="modal fade bd-example-modal-lg" id="anotationModal{{ $archivado->id }}" data-modal-index="4"
+<div class="modal fade bd-example-modal-lg" id="answerModal{{ $proceding->id }}" data-modal-index="4"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Anotaciones del expediente</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Respuestas del expediente N°: {{ $proceding->code }}</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                @php
-                    $cont = 1;
-                @endphp
-
-
-
-
-                @if ($archivado->anotations->count() != 0)
-
-                    @foreach ($archivado->anotations as $anotation)
-                        <div class="card">
-                            <div class="card-header bg-light">
-                                <strong>({{ $cont }}) Remitente </strong>
-                                {{ $anotation->secretary->user->profile->name }}
-                                {{ $anotation->secretary->user->profile->lastname }}
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col"><strong>Id: </strong><br> {{ $anotation->id }}</div>
-                                    <div class="col"><strong>Titulo: </strong><br> {{ $anotation->title }}
-                                    </div>
-                                    <div class="col"><strong>Oficina: </strong><br>
-                                        {{ $anotation->office->name }}</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col"><strong>Descripcion: </strong><br>
-                                        {{ $anotation->description }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        @php
-                            $cont++;
-                        @endphp
-                    @endforeach
-                @else
-                    <input disabled class="form-control" type="text"
-                        value="Este expediente no cuenta con incidencias aún">
-                @endif
-
-
-                @if ($archivado->answers->count() != 0)
-                    <hr>
+                @if ($proceding->answers->count() != 0)
                     <div class="card">
-                        <div class="card-header">
-                            <h5><strong>Respuestas</strong></h5>
-                            <span>Las respuestas pueden ser anotaciones pero de subsanacion o notificaciones finales de
-                                aprobacion</span>
-                        </div>
+
                         <div class="card-body">
-                            @foreach ($archivado->answers as $respuesta)
+                            @foreach ($proceding->answers as $respuesta)
                                 @php
                                     $fecha = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $respuesta->created_at)->format('d-m-Y H:i:s');
                                 @endphp
@@ -80,7 +35,7 @@
                                         <label class="col-form-label col-form-label-sm" for="foly">Contenido</label>
                                         <textarea readonly class="form-control form-control-sm" cols="30" rows="5">{{ $respuesta->content }}</textarea>
                                     </div>
-                                    <div class="form-group-sm col-md-6">
+                                    <div class="form-group-sm col-md-3">
                                         <label class="col-form-label col-form-label-sm" for="foly">Estado de
                                             Leído</label>
                                         @if ($respuesta->title == 0)
@@ -89,7 +44,7 @@
                                             <input type="text" class="form-control form-control-sm" value="No" readonly>
                                         @endif
                                     </div>
-                                    <div class="form-group-sm col-md-3">
+                                    <div class="form-group-sm col-md-6">
                                         <label class="col-form-label col-form-label-sm" for="code">Fecha de
                                             envío</label>
                                         <input type="text" class="form-control form-control-sm"
@@ -108,16 +63,18 @@
                                     </div>
 
                                 </div>
+
                                 <hr>
-                                @for ($i = 0; $i < $archivado->answers->count(); $i++)
-                                    @if ($archivado->answers[$i]->documents->count() > 0)
-                                        @for ($m = 0; $m < $archivado->answers[$i]->documents->count(); $m++)
+
+                                @for ($i = 0; $i < $proceding->answers->count(); $i++)
+                                    @if ($proceding->answers[$i]->documents->count() > 0)
+                                        @for ($m = 0; $m < $proceding->answers[$i]->documents->count(); $m++)
                                             <div class="row">
                                                 <div class="col-sm">
                                                     <div class="form-group-sm col-md-12 text-center">
                                                         <label for="form-contro">Documento:</label><br>
                                                         <span style="font-size: 3em;">
-                                                            <a href="{{ Storage::url($archivado->answers[$m]->documents[$i]->url) }}"
+                                                            <a href="{{ Storage::url($proceding->answers[$m]->documents[$i]->url) }}"
                                                                 target="blank_">
                                                                 <i  style="color:Tomato" class="fas fa-file-pdf"></i></a>
                                                         </span>
@@ -135,9 +92,6 @@
                     <input disabled class="form-control" type="text"
                         value="Este expediente no cuenta con respuestas aún">
                 @endif
-
-
-
 
             </div>
             <div class="modal-footer">
