@@ -51,13 +51,13 @@ Route::resource('archivateprocedings', ProcedingArchivateController::class)->nam
 
 
 //rechazar expediente (secretario)
-Route::get('procedings/{proceding}/reject', [CollectiveController::class,'reject'])->middleware("secretaries.procedings.reject")->name('secretaries.procedings.reject');
+Route::get('procedings/{proceding}/reject', [CollectiveController::class,'reject'])->name('secretaries.procedings.reject');
 
 //arpobar expediente (secretario)
-Route::get('procedings/{proceding}/dont_reject', [CollectiveController::class,'dont_reject'])->middleware("secretaries.procedings.dont_reject")->name('secretaries.procedings.dont_reject');
+Route::get('procedings/{proceding}/dont_reject', [CollectiveController::class,'dont_reject'])->name('secretaries.procedings.dont_reject');
 
 //subsanar expediente (secretario)
-Route::put('procedings_sub/{sub_proceding}', [CollectiveController::class,'subsanar_expediente'])->middleware("secretaries.procedings.subsanar_expediente")->name('secretaries.procedings.subsanar_expediente');
+Route::put('procedings_sub/{sub_proceding}', [CollectiveController::class,'subsanar_expediente'])->name('secretaries.procedings.subsanar_expediente');
 
 //graficos
 Route::get('procedings/proceding/graficos', [CollectiveController::class, 'graficos'])->name('admin.procedings.graficos');

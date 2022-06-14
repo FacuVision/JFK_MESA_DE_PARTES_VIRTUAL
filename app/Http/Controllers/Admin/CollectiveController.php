@@ -7,10 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Proceding;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
 
 class CollectiveController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware("can:secretaries.procedings.reject")->only("reject");
+        $this->middleware("can:secretaries.procedings.dont_reject")->only("dont_reject");
+        $this->middleware("can:secretaries.procedings.subsanar_expediente")->only("subsanar_expediente");
+    }
+
     //ESTE METODO SIRVE PARA RECHAZAR UN EXPEDIENTE DEL LADO DEL SECRETARIO
     public function reject(Proceding $proceding)
     {
