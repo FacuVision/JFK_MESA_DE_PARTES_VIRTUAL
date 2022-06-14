@@ -15,9 +15,9 @@ class CreateIncidentsTable extends Migration
     {
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
-            $table->string('ip_origin',50);
-            $table->string('navigator_origin',50);
-            $table->string('os_origin',50);
+            $table->string('ip_origin');
+            $table->string('navigator_origin');
+            $table->string('os_origin');
             $table->string('office_remitent',100)->nullable();
             $table->string('remitent',100);
             $table->string('office_destiny',100);

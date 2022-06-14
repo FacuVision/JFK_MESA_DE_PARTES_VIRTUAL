@@ -158,6 +158,7 @@ class ProcedingController extends Controller
                     $this->alert('error','¡Error!, Comuníquece con el soporte');
                 return redirect()->route('aplicants.procedings.create');
             }
+
         return redirect()->route('aplicants.procedings.create');
     }
 
