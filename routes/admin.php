@@ -30,7 +30,10 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/', [HomeController::class,'index'])->middleware("can:admin.index")->name('admin.index');
+
+//NUNCA PONER MIDDLEWARES EN LAS BENDITAS RUTAS
+
+Route::get('/', [HomeController::class,'index'])->name('admin.index');
 
 //administracion de usuarios (admin)
 Route::resource('users', UserController::class)->names('admin.users');
