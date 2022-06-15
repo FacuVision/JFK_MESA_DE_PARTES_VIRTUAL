@@ -30,11 +30,11 @@
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                     <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
-                        <a class="btn btn-secondary" href="{{ route('aplicants.tracings.index') }}"> Volver</a>
+                        <a class="btn btn-secondary mb-2" href="{{ route('aplicants.tracings.index') }}"> Volver</a>
 
-                        <div>
+                        {{-- <div>
 
-                            <div class="md:grid md:grid-cols-12 md:gap-6">
+                            <div class="md:grid md:grid-cols-12 md:gap-6"> --}}
                                 <div class="md:col-span-1">
 
                                     {{-- <div class="px-4 sm:px-0">
@@ -44,10 +44,10 @@
 
                                 </div>
 
-                                <div class="mt-5 md:mt-0 md:col-span-2">
+                                {{-- <div class="mt-5 md:mt-0 md:col-span-2">
                                     <div class="shadow overflow-hidden sm:rounded-md">
 
-                                        <div class="px-4 py-5 bg-white sm:p-6">
+                                        <div class="px-4 py-5 bg-white sm:p-6"> --}}
 
                                             <table id="horarios"
                                                 class="table table-hover min-w-full divide-y divide-gray-200"
@@ -106,12 +106,12 @@
                                                     @endforeach
                                                 </tbody>
                                             </table>
-                                        </div>
+                                        {{-- </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
-                            </div>
-                        </div>
+                            {{-- </div>
+                        </div> --}}
 
                         <div class="hidden sm:block" aria-hidden="true">
                             <div class="py-5">
