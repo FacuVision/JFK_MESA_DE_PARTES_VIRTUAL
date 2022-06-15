@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Seguimiento de Expediente: {{$tracing->code}}</h1>
+    <h1>Seguimiento de Expediente: {{ $tracing->code }}</h1>
 @stop
 @section('content')
     <div class="card">
@@ -38,6 +38,11 @@
                 <thead>
                     <tr>
                         <th>Id</th>
+                        @role('admin')
+                            <th>Ip Origen</th>
+                            <th>Navegador</th>
+                            <th>Sistema Operativo</th>
+                        @endrole
                         <th>Oficina Remiente</th>
                         <th>Remitente</th>
                         <th>Oficina Destino</th>
@@ -48,20 +53,25 @@
                     </tr>
                 </thead>
                 <tbody>
-                        <tr>
-                            @foreach ($incidents as $incident)
+                    <tr>
+                        @foreach ($incidents as $incident)
                             <td>{{ $incident->id }}</td>
+                            @role('admin')
+                                <td>{{$incident->ip_origin}}</td>
+                                <td>{{$incident->navigator_origin}}</td>
+                                <td>{{$incident->os_origin}}</td>
+                            @endrole
                             <td>{{ $incident->office_remitent }}</td>
                             <td>{{ $incident->remitent }}</td>
                             <td>{{ $incident->office_destiny }}</td>
                             <td>{{ $incident->destiny }}</td>
                             <td>{{ $incident->status }}</td>
-                            <td ><span class="badge badge-info">{{ $incident->transaction_type }}</span></td>
+                            <td><span class="badge badge-info">{{ $incident->transaction_type }}</span></td>
                             @php
                                 $fecha = Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $incident->created_at)->format('d-m-Y H:i:s');
                             @endphp
                             <td>{{ $fecha }}</td>
-                        </tr>
+                    </tr>
                     @endforeach
                     </tr>
 

@@ -16,9 +16,19 @@ class AdmTracingProcedingController extends Controller
      */
     public function index()
     {
-        $procedings = Auth::user()->secretary->office->procedings;
+        //Solo identificara al rol admin, no se añade un else para el rol secretario ya que por ahora el admin puede ser secretario y admin a la vez
+            foreach (Auth::user()->roles as $role) {
+                if ($role->name == 'admin') {
+                    $procedings = Proceding::all();
+                }
+            }
+        //Si no se identificó el rol de admin, procedings no estara definido
+        //Para ello la siguiente condicional lo determinara y sabra que es secretario
+        if (!isset($procedings)) {
+            $procedings = Auth::user()->secretary->office->procedings;
+        }
 
-        return view("secretaries.procedings.tracings.index",compact("procedings"));
+        return view("secretaries.procedings.tracings.index", compact("procedings"));
     }
 
     /**
@@ -51,7 +61,7 @@ class AdmTracingProcedingController extends Controller
     public function show(Proceding $tracing)
     {
         $incidents = $tracing->incidents;
-        return view("secretaries.procedings.tracings.show",compact("incidents","tracing"));
+        return view("secretaries.procedings.tracings.show", compact("incidents", "tracing"));
     }
 
     /**

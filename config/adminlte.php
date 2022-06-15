@@ -260,6 +260,12 @@ return [
             'label_color'   => 'success',
             'can'           => 'admin.users.create'
         ],
+        // [
+        //     'text'       => 'Hacer Seguimiento',
+        //     'icon_color' => 'red',
+        //     'route'        => 'secretaries.tracing.index',
+        //     'role'         => 'admin',
+        // ],
 
 
         [

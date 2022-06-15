@@ -44,6 +44,8 @@ class CreateNewUser implements CreatesNewUsers
             'password' => Hash::make($input['password']),
         ]);
 
+        $user->assignRole("solicitante");
+
         Profile::create([
             'name' => $user->name,
             'lastname' => $input['lastname'],
@@ -60,6 +62,7 @@ class CreateNewUser implements CreatesNewUsers
         Aplicant::create([
             "user_id"=>$user->id
         ]);
+
 
         return $user;
 
