@@ -20,7 +20,9 @@
                 <div class="p-6 sm:px-20 bg-white border-b border-gray-200">
 
 
-                    <div class="mt-8 text-2xl">
+                    <div class="text-2xl">
+                        <img class="block lg:hidden h-20 w-auto" src="{{ asset('img/logo.png') }}" alt="Workflow">
+                        <img class="hidden lg:block h-20 w-auto" src="{{ asset('img/logo.png') }}" alt="Workflow">
                         Bienvenido a la Mesa de Partes Virtual
                     </div>
 
