@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Aplicant\ProcedingController;
 use App\Http\Controllers\Controller;
+use App\Models\Office;
 use App\Models\Proceding;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -238,5 +239,16 @@ class CollectiveController extends Controller
         // die();
         return response()->json([$array]);
      }
+
+
+    public function procedingadmin(){
+
+        $procedings = Proceding::select()->where("status","4")->orWhere('status','5')->get();
+        $offices = Office::all();
+        // return $documentos_archivados;
+        // die();
+        return view("admin.allprocedings.index", compact('procedings'));
+
+    }
 
 }

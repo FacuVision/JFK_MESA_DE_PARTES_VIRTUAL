@@ -253,20 +253,13 @@ return [
             'label_color' => 'success',
             'can' => 'admin.index'
         ],
-        [
-            'text'          => 'Ver Expedientes',
-            'route'         => 'admin.users.create',
-            'icon'          => 'fas fa-file',
-            'label_color'   => 'success',
-            'can'           => 'admin.users.create'
-        ],
         // [
-        //     'text'       => 'Hacer Seguimiento',
-        //     'icon_color' => 'red',
-        //     'route'        => 'secretaries.tracing.index',
-        //     'role'         => 'admin',
+        //     'text'          => 'Ver Expedientes',
+        //     'route'         => 'admin.users.create',
+        //     'icon'          => 'fas fa-file',
+        //     'label_color'   => 'success',
+        //     'can'           => 'admin.users.create'
         // ],
-
 
         [
             'header' => 'GESTION - ADMIN',
@@ -329,8 +322,15 @@ return [
 
 
         [
-            'header' => 'GESTION SECRETARIO',
+            'header' => 'GESTION DE EXPEDIENTES',
             'can' => 'secretaries.procedings.index'
+        ],
+        [
+            'text'          => 'Ver Expedientes',
+            'route'         => 'admin.procedings.procedingadmin',
+            'icon'          => 'fas fa-file',
+            'label_color'   => 'success',
+            'can'           => 'admin.procedings.procedingadmin',
         ],
         [
             'text'       => 'Hacer Seguimiento',

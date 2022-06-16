@@ -360,9 +360,7 @@ class ProcedingController extends Controller
             $proceding->id,
             "eliminacion"
         );
-
-
         $proceding->delete();
-        return redirect()->route('secretaries.procedings.index')->with(['mensaje' => 'Expediente eliminado correctamente', 'color' => 'danger']);
+        return redirect()->route('admin.procedings.procedingadmin')->with(['mensaje' => 'Expediente eliminado correctamente', 'color' => 'danger']);
     }
 }

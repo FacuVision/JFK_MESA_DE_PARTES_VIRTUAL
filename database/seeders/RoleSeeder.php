@@ -67,7 +67,7 @@ class RoleSeeder extends Seeder
         Permission::create(["name"=>"secretaries.procedings.reject","description"=>"rechazar expedientes"])->syncRoles([$secretario]); //expedientes rechazados
         Permission::create(["name"=>"secretaries.procedings.dont_reject","description"=>"aprobar expedientes"])->syncRoles([$secretario]); //expedientes aprobados
         Permission::create(["name"=>"secretaries.procedings.subsanar_expediente","description"=>"solicitar subsanacion de expedientes"])->syncRoles([$secretario]); //expedientes subsanacion
-
+        Permission::create(["name"=>"admin.procedings.procedingadmin","description"=>"ver expedientes (admin) (archivados y rechazados)"])->syncRoles([$admin]); //expedientes subsanacion
 
 
         //Usuarios normales

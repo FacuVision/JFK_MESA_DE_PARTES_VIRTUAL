@@ -57,39 +57,19 @@
                             <td>{{ $proceding->office->name }}</td>
                             <td>
                                 @switch($proceding->status)
-                                    @case(1)
-                                        <span class="text-white badge badge-success">
-                                            Enviado
-                                        </span>
-                                    @break
-                                    @case(2)
-                                        <span class="text-white badge badge-info">
-                                            Derivado
-                                        </span>
-                                    @break
 
-                                    @case(3)
-                                        <span class="text-white badge badge-danger">
-                                            Por subsanar
+                                    @case(4)
+                                        <span class="text-white badge badge-secondary">
+                                            Archivado
                                         </span>
                                     @break
 
                                     @case(5)
-                                        <span class="text-white badge badge-dark">
+                                        <span class="text-white badge badge-warning">
                                             Rechazado
                                         </span>
                                     @break
 
-                                    @case(6)
-                                        <span class="text-white badge badge-warning">
-                                            Subsanado
-                                        </span>
-                                    @break
-                                    @case(7)
-                                        <span class="text-white badge badge-primary">
-                                            Desarchivado
-                                        </span>
-                                    @break
                                 @endswitch
 
                             </td>
@@ -103,21 +83,17 @@
 
                                     {{-- SI EN CASO EL EXPEDIENTE ES RECHAZADO --}}
                                     @if ($proceding->status == 5)
-                                        <a href="{{ route('secretaries.procedings.dont_reject', $proceding) }}"
-                                            class="btn btn-success btn-sm ml-1"><i class="fa fa-check-square"
-                                                aria-hidden="true"></i></a>
+                                        <form action="{{ route('secretaries.procedings.destroy', $proceding) }}"
+                                            method="post" class="formulario-eliminar ml-1">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm"><i
+                                                    class="formulario-eliminar fa fa-trash"></i></button>
+                                        </form>
                                     @endif
-                                    @if ($proceding->status != 5 && $proceding->status !=6 && $proceding->status !=1 && $proceding->status !=2)
-                                        <a href="{{ route('secretaries.procedings.show', $proceding) }}"
-                                            class="archivar ml-1 btn btn-secondary btn-sm mr-1">Archivar</a>
-                                    @endif
-
                                 </div>
-                                @include('secretaries.procedings.partials.show')
-                                @include('secretaries.procedings.partials.anotations')
-                                @include('secretaries.procedings.partials.answer')
-                                @include('secretaries.procedings.partials.subsana')
-                                @include('secretaries.procedings.partials.derive')
+                                @include('admin.allprocedings.partials.show')
+                                @include('admin.allprocedings.partials.anotations')
                             </td>
                         </tr>
                     @endforeach
@@ -162,25 +138,6 @@
                     }
                 })
             });
-
-            // $('.archivar').click(function(e) {
-            //     e.preventDefault();
-            //     Swal.fire({
-            //         title: '¿Estás seguro?',
-            //         text: "Esta expediente se archivará, el solicitante no podrá realizar ninguna acción con su expediente si continuas",
-            //         icon: 'warning',
-            //         showCancelButton: true,
-            //         confirmButtonColor: '#3085d6',
-            //         cancelButtonColor: '#d33',
-            //         confirmButtonText: 'Sí, archivar',
-            //         cancelmButtonText: 'Cancelar'
-
-            //     }).then((result) => {
-            //         if (result.isConfirmed) {
-            //             this.submit();
-            //         }
-            //     })
-            // });
 
 
         });
