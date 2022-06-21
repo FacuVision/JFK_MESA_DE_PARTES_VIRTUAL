@@ -322,35 +322,43 @@ return [
 
 
         [
-            'header' => 'GESTION DE EXPEDIENTES',
+            'header' => 'RECEPCIÓN DE EXPEDIENTES',
             'can' => 'secretaries.procedings.index'
         ],
+
         [
             'text'          => 'Ver Expedientes',
             'route'         => 'admin.procedings.procedingadmin',
-            'icon'          => 'fas fa-file',
+            'icon_color'          => 'blue',
             'label_color'   => 'success',
             'can'           => 'admin.procedings.procedingadmin',
         ],
         [
-            'text'       => 'Hacer Seguimiento',
-            'icon_color' => 'red',
-            'route'        => 'secretaries.tracing.index',
-        ],
-        [
-            'text'       => 'Mis Expedientes',
-            'icon_color' => 'yellow',
-            'route'      => 'secretaries.procedings.index',
-            'can'        => 'secretaries.procedings.index',
+            'text'    => 'GESTIÓN',
+            'icon'    => 'fas fa-fw fa-share',
+            'can'   => 'secretaries.procedings.index',
+            'submenu' => [
+                [
+                    'text'       => 'Hacer Seguimiento',
+                    'icon_color' => 'red',
+                    'route'        => 'secretaries.tracing.index',
+                ],
+                [
+                    'text'       => 'Mis Expedientes',
+                    'icon_color' => 'green',
+                    'route'      => 'secretaries.procedings.index',
+                    'can'        => 'secretaries.procedings.index',
 
-        ],
-        [
-            'text'       => 'Ver Archivados',
-            'icon_color' => 'yellow',
-            'route'        => 'secretaries.archivate.procedings.index',
-            'can'        => 'secretaries.archivate.procedings.index',
+                ],
+                [
+                    'text'       => 'Ver Archivados',
+                    'icon_color' => 'yellow',
+                    'route'        => 'secretaries.archivate.procedings.index',
+                    'can'        => 'secretaries.archivate.procedings.index',
 
-        ]
+                ],
+            ]
+        ],
     ],
 
     /*

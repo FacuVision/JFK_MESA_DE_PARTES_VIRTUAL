@@ -57,7 +57,6 @@
                             <td>{{ $proceding->office->name }}</td>
                             <td>
                                 @switch($proceding->status)
-
                                     @case(4)
                                         <span class="text-white badge badge-secondary">
                                             Archivado
@@ -69,7 +68,6 @@
                                             Rechazado
                                         </span>
                                     @break
-
                                 @endswitch
 
                             </td>
@@ -82,7 +80,7 @@
                                         data-target="#anotationModal{{ $proceding->id }}">Ver Anotaciones</a>
 
                                     {{-- SI EN CASO EL EXPEDIENTE ES RECHAZADO --}}
-                                    @if ($proceding->status == 5)
+                                    {{-- @if ($proceding->status == 5) --}}
                                         <form action="{{ route('secretaries.procedings.destroy', $proceding) }}"
                                             method="post" class="formulario-eliminar ml-1">
                                             @csrf
@@ -90,11 +88,11 @@
                                             <button type="submit" class="btn btn-danger btn-sm"><i
                                                     class="formulario-eliminar fa fa-trash"></i></button>
                                         </form>
-                                    @endif
+                                    {{-- @endif --}}
                                 </div>
-                                @include('admin.allprocedings.partials.show')
-                                @include('admin.allprocedings.partials.anotations')
                             </td>
+                            @include('admin.allprocedings.partials.show')
+                            @include('admin.allprocedings.partials.anotations')
                         </tr>
                     @endforeach
 

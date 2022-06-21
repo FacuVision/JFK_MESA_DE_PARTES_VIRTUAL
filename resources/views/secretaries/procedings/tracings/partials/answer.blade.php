@@ -38,7 +38,7 @@
                                     <div class="form-group-sm col-md-3">
                                         <label class="col-form-label col-form-label-sm" for="foly">Estado de
                                             Leído</label>
-                                        @if ($respuesta->title == 0)
+                                        @if ($respuesta->read_status == 1)
                                             <input type="text" class="form-control form-control-sm" value="Si" readonly>
                                         @else
                                             <input type="text" class="form-control form-control-sm" value="No" readonly>

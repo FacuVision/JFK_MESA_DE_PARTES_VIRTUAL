@@ -42,7 +42,13 @@ class TracingProcedingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $proceding = Proceding::findOrFail($request->id);
+
+        foreach ($proceding->answers as $answer ) {
+            $response = $answer->update(["read_status" => "1"]);
+        }
+
+        return response()->json($response);
     }
 
     /**

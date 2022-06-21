@@ -85,5 +85,11 @@ class IdentitySeeder extends Seeder
                     "type"=>"system" ]);
 
         //AGREGAR DE AQUI EN ADELANTE
+
+        Type_proceding::create(
+            ["name"=>"VALIDACIÓN DE CUPONES",
+            "description"=>"El cupon es un descuento exclusivo para aquellos alumnos que se matriculen haciendo uso de este",
+            "type"=>"system" ]);
+
     }
 }
