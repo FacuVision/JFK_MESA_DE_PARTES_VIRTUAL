@@ -98,7 +98,7 @@
 
                     // This will get the first returned node in the jQuery collection.
                     new Chart(areaChartCanvas, {
-                        type: 'line',
+                        type: 'bar',
                         data: areaChartData,
                         options: areaChartOptions
                     });
