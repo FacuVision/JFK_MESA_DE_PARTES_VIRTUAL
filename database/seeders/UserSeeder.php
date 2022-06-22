@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             "password" => bcrypt("admin@gmail.com")
         ]);
 
-        $admin->syncRoles(["admin","secretario"]);
+        $admin->syncRoles(["admin"]);
 
 
         $date = new DateTime("2001-01-01");
@@ -47,14 +47,11 @@ class UserSeeder extends Seeder
             ]
         );
 
-        //ASOCIAMOS EL USUARIO AL APLICANT
-        Secretary::factory()->create([
-            "user_id" => $admin->id,
-            "office_id" => 1,
-
-        ]);
-
-
+        // //ASOCIAMOS EL USUARIO AL APLICANT
+        // Secretary::factory()->create([
+        //     "user_id" => $admin->id,
+        //     "office_id" => 1,
+        // ]);
 
 
 
@@ -66,7 +63,6 @@ class UserSeeder extends Seeder
 
 
         $secretario->assignRole("secretario");
-
 
         $date = new DateTime("1990-01-01");
         $secretario->profile()->create(
@@ -96,57 +92,57 @@ class UserSeeder extends Seeder
 
         //********************************************** */
 
-        $users = User::factory(20)->create();
+        // $users = User::factory(20)->create();
 
 
-        foreach ($users as $user) {
+        // foreach ($users as $user) {
 
-            $user->assignRole("solicitante");
+        //     $user->assignRole("solicitante");
 
-            //LOS MODELOS PUEDEN LLAMAR A LAS FACTORIES, PERO LOS OBJETOS POR ALGUNA RAZON NO PUEDEN
+        //     //LOS MODELOS PUEDEN LLAMAR A LAS FACTORIES, PERO LOS OBJETOS POR ALGUNA RAZON NO PUEDEN
 
-            //CREAMOS LOS  PERFILES
-            Profile::factory()->create([
-                "name" => $user->name,
-                "user_id" => $user->id,
-                "district_id" => District::all()->random(),
-                "type_document_id" => Type_document::all()->random(),
-            ]);
+        //     //CREAMOS LOS  PERFILES
+        //     Profile::factory()->create([
+        //         "name" => $user->name,
+        //         "user_id" => $user->id,
+        //         "district_id" => District::all()->random(),
+        //         "type_document_id" => Type_document::all()->random(),
+        //     ]);
 
-            //ASOCIAMOS EL USUARIO AL APLICANT
-            Aplicant::factory()->create([
-                "user_id" => $user->id,
-            ]);
+        //     //ASOCIAMOS EL USUARIO AL APLICANT
+        //     Aplicant::factory()->create([
+        //         "user_id" => $user->id,
+        //     ]);
 
-            //ASIGNAMOS LOS ROLES
-            //COMMING SOON
-        }
+        //     //ASIGNAMOS LOS ROLES
+        //     //COMMING SOON
+        // }
 
         //********************************************** */
 
-        $users = User::factory(3)->create();
+        // $users = User::factory(3)->create();
 
-        $conteo = 3;
-        foreach ($users as $user) {
+        // $conteo = 3;
+        // foreach ($users as $user) {
 
-            $user->assignRole("secretario");
+        //     $user->assignRole("secretario");
 
-            //CREAMOS LOS 4 PERFILES
-            Profile::factory()->create([
-                "name" => $user->name,
-                "user_id" => $user->id,
-                "district_id" => District::all()->random(),
-                "type_document_id" => Type_document::all()->random(),
-            ]);
+        //     //CREAMOS LOS 4 PERFILES
+        //     Profile::factory()->create([
+        //         "name" => $user->name,
+        //         "user_id" => $user->id,
+        //         "district_id" => District::all()->random(),
+        //         "type_document_id" => Type_document::all()->random(),
+        //     ]);
 
-            //ASOCIAMOS EL USUARIO
-            Secretary::factory()->create(
-                ["user_id" => $user->id,"office_id" => $conteo]);
+        //     //ASOCIAMOS EL USUARIO
+        //     Secretary::factory()->create(
+        //         ["user_id" => $user->id,"office_id" => $conteo]);
 
-            //ASIGNAMOS LOS ROLES
-            //COMMING SOON
-            $conteo++;
-        }
+        //     //ASIGNAMOS LOS ROLES
+        //     //COMMING SOON
+        //     $conteo++;
+        // }
 
 
 
