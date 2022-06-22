@@ -55,6 +55,7 @@ class UserSeeder extends Seeder
 
 
 
+
         $secretario = User::create([
             "name" => "Secretario",
             "email" => "secretario@gmail.com",
@@ -65,6 +66,7 @@ class UserSeeder extends Seeder
         $secretario->assignRole("secretario");
 
         $date = new DateTime("1990-01-01");
+
         $secretario->profile()->create(
             [
                 "name" => "Secretario",
@@ -82,7 +84,7 @@ class UserSeeder extends Seeder
 
 
         //ASOCIAMOS EL USUARIO AL APLICANT
-        Secretary::factory()->create([
+        Secretary::create([
             "user_id" => $secretario->id,
             "office_id" => 2,
         ]);
