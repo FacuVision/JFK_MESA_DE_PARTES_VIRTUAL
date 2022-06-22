@@ -14,27 +14,27 @@ class OfficeSeeder extends Seeder
      */
     public function run()
     {
-        Office::factory(1)->create([
+        Office::create([
             "name"=> "Gerencia General",
             "description" => "***"
         ]);
 
-        Office::factory(1)->create([
+        Office::create([
             "name"=> "Secretaria General",
             "description" => "***"
         ]);
 
-        Office::factory(1)->create([
+        Office::create([
             "name"=> "Educacion",
             "description" => "***"
         ]);
 
-        Office::factory(1)->create([
+        Office::create([
             "name"=> "Finanzas",
             "description" => "****"
         ]);
 
-        Office::factory(1)->create([
+        Office::create([
             "name"=> "Atencion al cliente",
             "description" => "****"
         ]);
