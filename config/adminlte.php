@@ -323,7 +323,6 @@ return [
 
         [
             'header' => 'RECEPCIÓN DE EXPEDIENTES',
-            'can' => 'secretaries.procedings.index'
         ],
 
         [
