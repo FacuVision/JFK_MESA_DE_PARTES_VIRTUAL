@@ -41,8 +41,8 @@ class ProcedingController extends Controller
         $docsubsanar = Proceding::where(['status'=>3,'user_id'=>Auth()->user()->id])->pluck('title','code')->toArray();
 
 
-        $office  = Office::pluck('name','id')->toArray();
-
+        // $office  = Office::pluck('name','id')->toArray();
+        $office  = Office::Has('secretary')->pluck('name','id')->toArray();
         return view('aplicant.create',compact('office','typedocument','docsubsanar'));
     }
 

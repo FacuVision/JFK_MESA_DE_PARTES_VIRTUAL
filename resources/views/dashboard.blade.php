@@ -49,8 +49,8 @@
                                 Es el centro a través del cual se realiza la recepción de documentos, quejas y/o sugerencias presentadas por nuestros clientes, socios, entre otros.<br>
                                 ¿Quieres presentar un documento?
                             </div>
-
-                            <a href="#">
+                            @role('solicitante')
+                            <a href="{{ route('aplicants.procedings.create') }}" target="__blank">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-indigo-700">
                                     <div>Empieza a tramitar</div>
 
@@ -63,6 +63,7 @@
                                     </div>
                                 </div>
                             </a>
+                            @endrole
                         </div>
                     </div>
 
@@ -85,7 +86,7 @@
                                 Estamos capacitados para aportar sólidos conocimientos y habilidades, brindando un servicio de calidad y garantía.
                             </div>
 
-                            <a href="http://www.jfkescuelademanejo.com/">
+                            <a href="http://www.jfkescuelademanejo.com/" target="__blank">
                                 <div class="mt-3 flex items-center text-sm font-semibold text-indigo-700">
                                     <div>Web Oficial</div>
 

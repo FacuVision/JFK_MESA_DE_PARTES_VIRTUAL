@@ -328,7 +328,7 @@ return [
         [
             'text'          => 'Ver Expedientes',
             'route'         => 'admin.procedings.procedingadmin',
-            'icon_color'          => 'blue',
+            'icon_color'          => 'white',
             'label_color'   => 'success',
             'can'           => 'admin.procedings.procedingadmin',
         ],
