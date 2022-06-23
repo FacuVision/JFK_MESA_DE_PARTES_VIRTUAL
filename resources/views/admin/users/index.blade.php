@@ -28,6 +28,7 @@
                         <th>Id</th>
                         <th>Nombre</th>
                         <th>Email</th>
+                        <th>Roles</th>
                         <th>Fecha de Creación</th>
                         <th> </th>
                     </tr>
@@ -38,6 +39,11 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>
+                                @foreach ($user->roles as $role )
+                                    <li>{{$role->name}}</li>
+                                @endforeach
+                            </td>
                             <td>{{ date('d/m/Y H:m:s', strtotime($user->created_at)) }}</td>
                             <td>
                                 {{-- Mostrar --}}
