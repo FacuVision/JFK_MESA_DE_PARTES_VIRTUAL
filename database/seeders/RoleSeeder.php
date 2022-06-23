@@ -53,9 +53,9 @@ class RoleSeeder extends Seeder
         Permission::create(["name"=>"secretaries.procedings.destroy","description"=>"eliminar expedientes"])->syncRoles([$admin]); //eliminar expediente
 
         Permission::create(["name"=>"admin.typeprocedings.index","description"=>"ver tipos de expedientes"])->syncRoles([$admin,$secretario]);
-        Permission::create(["name"=>"admin.typeprocedings.create","description"=>"crear tipos de expedientes"])->syncRoles([$secretario]);
-        Permission::create(["name"=>"admin.typeprocedings.edit","description"=>"editar tipos de expedientes"])->syncRoles([$secretario]);
-        Permission::create(["name"=>"admin.typeprocedings.destroy","description"=>"eliminar tipos de expedientes"])->syncRoles([$secretario]);
+        Permission::create(["name"=>"admin.typeprocedings.create","description"=>"crear tipos de expedientes"])->syncRoles([$admin]);
+        Permission::create(["name"=>"admin.typeprocedings.edit","description"=>"editar tipos de expedientes"])->syncRoles([$admin]);
+        Permission::create(["name"=>"admin.typeprocedings.destroy","description"=>"eliminar tipos de expedientes"])->syncRoles([$admin]);
 
         Permission::create(["name"=>"secretaries.procedings.index","description"=>"ver tus expedientes como secretario"])->syncRoles([$secretario]);
         Permission::create(["name"=>"secretaries.procedings.store","description"=>"responder expedientes"])->syncRoles([$secretario]); // notificacion final

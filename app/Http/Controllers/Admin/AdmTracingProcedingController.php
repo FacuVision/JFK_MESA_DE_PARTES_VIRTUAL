@@ -60,6 +60,7 @@ class AdmTracingProcedingController extends Controller
      */
     public function show(Proceding $tracing)
     {
+        $this->authorize("metodo_autorizador_procedings_secretario", $tracing);
         $incidents = $tracing->incidents;
         return view("secretaries.procedings.tracings.show", compact("incidents", "tracing"));
     }

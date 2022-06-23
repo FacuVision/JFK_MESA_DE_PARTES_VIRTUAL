@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         $admin = User::create([
             "name" => "Admin",
             "email" => "admin@gmail.com",
-            "password" => bcrypt("admin@gmail.com")
+            "password" => bcrypt("jcNZHVrK3kvFEFGP7lu+zpr+")
         ]);
 
         $admin->syncRoles(["admin"]);
@@ -35,12 +35,12 @@ class UserSeeder extends Seeder
         $admin->profile()->create(
             [
                 "name" => "Admin",
-                "lastname" => "Apellido admin",
+                "lastname" => "Admin",
                 "date_nac" => $date,
                 "gender" => "m",
                 "address" => "Direccion",
-                "phone" => "963852741",
-                "document_number" => "96396312",
+                "phone" => "999999999",
+                "document_number" => "88888888",
                 "district_id" => 1,
                 "user_id" => 1,
                 "type_document_id" => 1,
@@ -54,12 +54,10 @@ class UserSeeder extends Seeder
         // ]);
 
 
-
-
         $secretario = User::create([
-            "name" => "Secretario",
-            "email" => "secretario@gmail.com",
-            "password" => bcrypt("secretario@gmail.com")
+            "name" => "Anais",
+            "email" => "administracion@jfkescuelademanejo.com",
+            "password" => bcrypt("administracion@jfkescuelademanejo.com")
         ]);
 
 
@@ -69,8 +67,8 @@ class UserSeeder extends Seeder
 
         $secretario->profile()->create(
             [
-                "name" => "Secretario",
-                "lastname" => "Apellido Secretario",
+                "name" => "Anais",
+                "lastname" => "Mendoza",
                 "date_nac" => $date,
                 "gender" => "m",
                 "address" => "Direccion",
@@ -78,7 +76,7 @@ class UserSeeder extends Seeder
                 "document_number" => "85236914",
                 "district_id" => 1,
                 "user_id" => 2,
-                "type_document_id" => 1,
+                "type_document_id" => 4,
             ]
         );
 

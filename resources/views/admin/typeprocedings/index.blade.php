@@ -48,17 +48,18 @@
                                     <a href="{{ route('admin.typeprocedings.edit', $TypeProceding->id) }}"
                                         class="btn btn-success">Editar</a>
                                 @endcan
-
-                                @can('admin.typeprocedings.destroy')
-                                    {{-- Eliminar --}}
-                                    <form id="formulario-eliminar" style="display: inline"
-                                        action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}" method="post"
-                                        class="formulario-eliminar">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
-                                    </form>
-                                @endcan
+                                @if ($TypeProceding->type != "system")
+                                    @can('admin.typeprocedings.destroy')
+                                        {{-- Eliminar --}}
+                                        <form id="formulario-eliminar" style="display: inline"
+                                            action="{{ route('admin.typeprocedings.destroy', $TypeProceding->id) }}"
+                                            method="post" class="formulario-eliminar">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" id="delete" value="Eliminar" class="btn btn-danger">
+                                        </form>
+                                    @endcan
+                                @endif
                             </td>
                             <td>{{ $TypeProceding->description }}</td>
                         </tr>

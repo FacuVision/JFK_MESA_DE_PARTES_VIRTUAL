@@ -63,7 +63,7 @@ class IdentitySeeder extends Seeder
             "type"=>"system" ]);
 
         Type_proceding::create(
-                ["name"=>"PERMISO PREVISIONAL (PARA CLASES DE MANEJO)",
+                ["name"=>"INSCRIPCION DE ESTUDIANTE (DNI Y PERMISO PROVISIONAL PARA CLASES DE MANEJO)",
                 "description"=>"El permiso provisional para aprender a conducir habilita a una persona a manejar un vehículo en la vía pública por el período de 6 meses, acompañado siempre de un instructor (familiar, amigo o conocido) que cuente con un brevete hace más de 2 años.",
                 "type"=>"system" ]);
 
