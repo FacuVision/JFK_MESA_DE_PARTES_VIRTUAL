@@ -81,6 +81,7 @@
 
                                     {{-- SI EN CASO EL EXPEDIENTE ES RECHAZADO --}}
                                     {{-- @if ($proceding->status == 5) --}}
+                                    @role('admin')
                                         <form action="{{ route('secretaries.procedings.destroy', $proceding) }}"
                                             method="post" class="formulario-eliminar ml-1">
                                             @csrf
@@ -88,6 +89,7 @@
                                             <button type="submit" class="btn btn-danger btn-sm"><i
                                                     class="formulario-eliminar fa fa-trash"></i></button>
                                         </form>
+                                    @endrole
                                     {{-- @endif --}}
                                 </div>
                             </td>

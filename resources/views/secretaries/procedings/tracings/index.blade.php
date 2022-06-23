@@ -75,6 +75,11 @@
                                             Por subsanar
                                         </span>
                                     @break
+                                    @case(4)
+                                        <span class="text-white badge badge-secondary">
+                                            Archivado
+                                        </span>
+                                    @break
 
                                     @case(5)
                                         <span class="text-white badge badge-dark">

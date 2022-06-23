@@ -16,6 +16,7 @@ class CollectiveController extends Controller
         $this->middleware("can:secretaries.procedings.reject")->only("reject");
         $this->middleware("can:secretaries.procedings.dont_reject")->only("dont_reject");
         $this->middleware("can:secretaries.procedings.subsanar_expediente")->only("subsanar_expediente");
+        $this->middleware("can:admin.procedings.procedingadmin")->only("procedingadmin");
     }
 
     //ESTE METODO SIRVE PARA RECHAZAR UN EXPEDIENTE DEL LADO DEL SECRETARIO

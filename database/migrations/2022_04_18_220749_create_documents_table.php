@@ -20,9 +20,8 @@ class CreateDocumentsTable extends Migration
             $table->enum('type',[0,1]);
 
             /*
-             * 0 = principal
-             * 1 = file
-             * 2 = answer
+             * 0 = principal (envio principal)
+             * 1 = file (envio anexo)
              */
             $table->timestamps();
 

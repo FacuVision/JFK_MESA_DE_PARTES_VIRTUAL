@@ -117,7 +117,7 @@
                                     </a>
                                 @else
                                     <div class="form-group-sm col-md-12">
-                                        <a>-</a>
+                                        <a><span style="font-size: 3em"><i style="color:gray" class="fas fa-file-pdf"></i></span></a>
                                     </div>
                                 @endif
 

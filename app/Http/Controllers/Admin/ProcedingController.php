@@ -10,6 +10,7 @@ use App\Models\Answer;
 use App\Models\Office;
 use App\Models\Proceding;
 use App\Models\Secretary;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -20,8 +21,7 @@ class ProcedingController extends Controller
     {
         $this->middleware("can:secretaries.procedings.index")->only("index");
         $this->middleware("can:secretaries.procedings.store")->only("store");
-        $this->middleware("can:secretaries.procedings.show")->only("show","update");
-
+        $this->middleware("can:secretaries.procedings.show")->only("show", "update");
         $this->middleware("can:secretaries.procedings.destroy")->only("destroy");
     }
     /**
@@ -337,30 +337,70 @@ class ProcedingController extends Controller
     public function destroy(Proceding $proceding)
     {
 
+
         $user = Auth::user();
 
-        //registramos en los incidentes
+        //Solo identificara al rol admin, no se añade un else para el rol secretario ya que por ahora el admin puede ser secretario y admin a la vez
+        foreach (Auth::user()->roles as $role) {
 
-        $procedingControllerIncident = new AplicantProcedingController();
-        $array_datos = $procedingControllerIncident->user_data();
+            if ($role->name == 'admin') {
 
-        $oficina_remitente = $user->secretary->office->name;
+                $procedingControllerIncident = new AplicantProcedingController();
+                $array_datos = $procedingControllerIncident->user_data();
 
-        $destino = $proceding->aplicant->user->profile->name . " " . $proceding->aplicant->user->profile->lastname;
+                $oficina_remitente = "-";
 
-        $procedingControllerIncident->crearIncidente(
-            $array_datos["ip"],
-            $array_datos["nav"],
-            $array_datos["so"],
-            $user,
-            $oficina_remitente,
-            "-",            //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
-            $destino,       //nombres y apellidos
-            "Rechazado",
-            $proceding->id,
-            "eliminacion"
-        );
-        $proceding->delete();
+                $destino = $proceding->aplicant->user->profile->name . " " . $proceding->aplicant->user->profile->lastname;
+
+                $procedingControllerIncident->crearIncidente(
+                    $array_datos["ip"],
+                    $array_datos["nav"],
+                    $array_datos["so"],
+                    $user,
+                    $oficina_remitente,
+                    "-",            //oficina del destinatario, (en este caso el usuario no pertenece a ninguna oficina)
+                    $destino,       //nombres y apellidos
+                    "Rechazado",
+                    $proceding->id,
+                    "eliminacion"
+                );
+
+
+                //REVISANDO LOS ANSWERS QUE NO TIENEN DOCUMENTOS
+                $answers = Answer::DoesntHave('documents')->get();
+                    foreach ($answers as $answer) {
+                        if ($answer->proceding_id == $proceding->id) {
+                          $answer->delete(); //borrando respuesta sola - sin documento
+                        }
+                    }
+
+
+
+                //REVISANDO LOS ANSWERS QUE SI TIENEN DOCUMENTOS
+                $ans = Answer::Has('documents')->get();
+                    foreach ($ans as $an) {
+
+                        if ($an->proceding_id == $proceding->id) {
+
+                            $an->documents()->delete();//borrando registro de documento
+
+                            foreach ($an->documents as $doc) {
+                                Storage::delete($doc->url); //borrando pdf
+                            }
+
+                            $an->delete(); //borrando respuesta
+                        }
+                    }
+
+                foreach ($proceding->documents as $document) {
+                    Storage::delete($document->url);
+                }
+            }
+
+            $proceding->delete();
+            $proceding->documents()->delete();
+
+        }
         return redirect()->route('admin.procedings.procedingadmin')->with(['mensaje' => 'Expediente eliminado correctamente', 'color' => 'danger']);
     }
 }
