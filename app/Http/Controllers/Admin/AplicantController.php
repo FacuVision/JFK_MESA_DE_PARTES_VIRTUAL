@@ -68,8 +68,8 @@ class AplicantController extends Controller
         // }elseif($user->aplicant){
         //     return redirect()->route('admin.aplicants.index')->with('alerta','El usuario ya fue asignado como Solicitante');
         // }else{
-
         Aplicant::create($request->all());
+        $user->assignRole('solicitante');
             return redirect()->route('admin.aplicants.index')->with('mensaje','El Solicitante fue creado correctamente');
 
     }

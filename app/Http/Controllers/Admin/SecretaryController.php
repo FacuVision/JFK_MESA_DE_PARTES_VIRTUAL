@@ -55,7 +55,7 @@ class SecretaryController extends Controller
             "user_id" => "required"
         ]);
 
-        // $user = User::findOrFail($request->user_id);
+        $user = User::findOrFail($request->user_id);
 
         // if($user->secretary){
         //     return redirect()->route('admin.secretaries.index')->with('alerta','El usuario ya fue asignado como Secretario');
@@ -64,6 +64,7 @@ class SecretaryController extends Controller
         // }else{
 
         Secretary::create($request->all());
+        $user->assignRole('secretario');
         return redirect()->route('admin.secretaries.index')->with('mensaje','El Secretario fue creado correctamente');
 
     }
