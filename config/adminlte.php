@@ -334,15 +334,15 @@ return [
             'can'           => 'admin.procedings.procedingadmin',
         ],
         [
+            'text'       => 'Hacer Seguimiento',
+            'icon_color' => 'red',
+            'route'        => 'secretaries.tracing.index',
+        ],
+        [
             'text'    => 'GESTIÓN',
             'icon'    => 'fas fa-fw fa-share',
             'can'   => 'secretaries.procedings.index',
             'submenu' => [
-                [
-                    'text'       => 'Hacer Seguimiento',
-                    'icon_color' => 'red',
-                    'route'        => 'secretaries.tracing.index',
-                ],
                 [
                     'text'       => 'Mis Expedientes',
                     'icon_color' => 'green',
