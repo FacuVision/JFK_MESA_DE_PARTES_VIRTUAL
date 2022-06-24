@@ -25,6 +25,13 @@ class ProcedingPolicy
         if ($user->secretary->office->id == $proceding->office->id) {
             return true;
         } else {
+
+            //Solo identificara al rol admin, no se añade un else para el rol secretario ya que por ahora el admin puede ser secretario y admin a la vez
+            foreach ($user->roles as $role) {
+                if ($role->name == 'admin') {
+                    return true;
+                }
+            }
             return false;
         }
     }
