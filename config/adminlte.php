@@ -434,6 +434,12 @@ return [
                     'asset' => false,
                     'location' => '//cdn.datatables.net/responsive/2.2.9/css/responsive.bootstrap4.min.css',
                 ],
+                [
+                    'type' => 'js',
+                    'asset' => false,
+                    'location' => '//cdnjs.cloudflare.com/ajax/libs/jQuery-Knob/1.2.13/jquery.knob.min.js',
+                ]
+
             ],
         ],
         'Select2' => [

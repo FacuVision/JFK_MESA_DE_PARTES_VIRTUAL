@@ -1,6 +1,4 @@
 <div>
-    <h4>Generales</h4>
-
     {{-- VISTA GENERAL DEL ADMIN --}}
     <div class="row">
         <div class="col">
@@ -48,12 +46,16 @@
 
     </div>
     @can('secretaries.procedings.destroy')
+        <h4>Conteo General</h4>
+        <p>Se muestra la cantidad de documentos pendientes por atender y los que ya fueron atendidos <strong>(todas las
+                areas)</strong></p>
+
         <div class="row">
             <div class="col">
                 <div class="info-box">
                     <span class="info-box-icon bg-primary"><i class="far fa-envelope"></i></span>
                     <div class="info-box-content">
-                        <span class="info-box-text">Total de documentos Recibidos</span>
+                        <span class="info-box-text">Total de documentos por atender</span>
                         <span class="info-box-number">{{ $array_documentos['enviados'] }}</span>
                     </div>
                 </div>
@@ -79,11 +81,11 @@
                 <div class="card-tools">
                     <ul class="nav nav-pills ml-auto">
                         {{-- <li class="nav-item">
-                            <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
-                        </li> --}}
+                        <a class="nav-link active" href="#revenue-chart" data-toggle="tab">Area</a>
+                    </li> --}}
                         <li class="nav-item m-2">
-                               <span class="badge badge-primary">Atendidos</span>
-                                <span class="badge badge-secondary">Enviados</span>
+                            <span class="badge badge-primary">Atendidos</span>
+                            <span class="badge badge-secondary">Enviados</span>
                         </li>
                     </ul>
                 </div>
@@ -91,26 +93,182 @@
             <div class="card-body">
                 <div class="card-body">
                     <div class="chart">
-                      <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                        <canvas id="areaChart"
+                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
                     </div>
-                  </div>
+                </div>
             </div><!-- /.card-body -->
         </div>
 
+        <h4>Ratio de rendimiento</h4>
+        <p>Se muestra los porcentajes de avance segun la cantidad de documentos atendidos sobre la de los recibidos</p>
+
+        <div class="row">
+            <div class="col">
+                <div class="info-box">
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Leyenda</span>
+
+                        <div class="row text-center">
+                            <div class="col">
+                                <span class="badge badge-danger text-md mt-2"> 0% - 25% (rendimiento bajo)</span>
+                            </div>
+                            <div class="col">
+                                <span class="badge badge-warning text-md mt-2"> 26% - 65% (rendimiento medio)</span>
+                            </div>
+                            <div class="col">
+                                <span class="badge badge-success text-md mt-2"> 66% - 100% (rendimiento alto)</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row text-center">
+
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Enero</span>
+                        <div class="container">
+                            <input type="text" value="5" id="1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Febrero</span>
+                        <div class="container">
+                            <input type="text" value="5" id="2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Marzo</span>
+                        <div class="container">
+                            <input type="text" value="5" id="3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Abril</span>
+                        <div class="container">
+                            <input type="text" value="5" id="4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Mayo</span>
+                        <div class="container">
+                            <input type="text" value="5" id="5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Junio</span>
+                        <div class="container">
+                            <input type="text" value="5" id="6">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Julio</span>
+                        <div class="container">
+                            <input type="text" value="5" id="7">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Agosto</span>
+                        <div class="container">
+                            <input type="text" value="5" id="8">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Septiembre</span>
+                        <div class="container">
+                            <input type="text" value="5" id="9">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Octubre</span>
+                        <div class="container">
+                            <input type="text" value="5" id="10">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Noviembre</span>
+                        <div class="container">
+                            <input type="text" value="5" id="11">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div class="info-box">
+                    <div class="info-box-content">
+                        <span class="info-box-text">Diciembre</span>
+                        <div class="container">
+                            <input type="text" value="5" id="12">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endcan
+
+
 
 
     @can('secretaries.archivate.procedings.index')
         {{-- VISTA GENERAL DEL SECRETARIO --}}
         @if ($secretario_array_documentos != null)
             <h4>Específicos</h4>
+            <p>Se muestra la cantidad de documentos pendientes por atender y los que ya fueron atendidos <strong>(en tu
+                    area)</strong></p>
 
             <div class="row">
                 <div class="col">
                     <div class="info-box">
                         <span class="info-box-icon bg-warning"><i class="far fa-envelope"></i></span>
                         <div class="info-box-content">
-                            <span class="info-box-text">Tus documentos Recibidos</span>
+                            <span class="info-box-text">Tus documentos por atender</span>
                             <span class="info-box-number">{{ $secretario_array_documentos['secretary_enviados'] }}</span>
                         </div>
                     </div>

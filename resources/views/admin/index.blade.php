@@ -4,6 +4,7 @@
 
 @section('content_header')
     <h1>Panel de Administracion</h1>
+
 @stop
 
 @section('content')
@@ -11,12 +12,16 @@
 
     @livewire('dashboardcomponent')
 
-
-
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <style>
+        .container{
+          margin:0 auto;
+          text-align: center
+        }
+    </style>
 @stop
 
 @section('js')
@@ -37,10 +42,7 @@
                     for (let i = 0; i < fecha[0]["Archivados"].length; i++) {
                         archivado.push(fecha[0]["Archivados"][i]);
                     }
-                    //console.log(datas);
-                    //alert("Se ha realizado el POST con exito ");
 
-                    // Get context with jQuery - using jQuery's .get() method.
                     var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
 
                     var areaChartData = {
@@ -102,8 +104,74 @@
                         data: areaChartData,
                         options: areaChartOptions
                     });
+
+
+                    for (let index = 0; index < 12; index++) {
+
+
+                        id = index+1;
+
+                        porcentaje = ((archivado[index]*100)/enviado[index]);
+
+                        //console.log(Math.round(porcentaje));
+
+                        var color = "";
+
+
+                        if( porcentaje >= 0  && porcentaje < 25){
+                            color = "#e74c3c";
+                        }
+                        else if( porcentaje >= 25  && porcentaje < 65){
+                            color = "#fec107";
+                        } else if( porcentaje >= 65  && porcentaje <= 100){
+                            color = "#79E354";
+                        }
+
+                        if (enviado[index]== 0) {
+
+                            color = "#e74c3c";
+
+                            $('#'+id).val(0);
+
+                            $('#'+id).knob({
+                                'min': 0,
+                                'max': 100,
+                                'height': 100,
+                                'width': 100,
+                                'displayInput': true,
+                                'fgColor': color,
+                                'release': function(v) {
+                                    $(".p").text(v);
+                                },
+                                'readOnly': true
+                            });
+
+                        } else {
+
+                            $('#'+id).val(Math.round(porcentaje));
+
+                            $('#'+id).knob({
+                                'min': 0,
+                                'max': 100,
+                                'height': 100,
+                                'width': 100,
+                                'displayInput': true,
+                                'fgColor': color,
+                                'release': function(v) {
+                                    $(".p").text(v);
+                                },
+                                'readOnly': true
+                            });
+                        }
+
+                    }
+
+                    //var aea = 1;
+
                 }
             });
+
         });
     </script>
+
 @stop
