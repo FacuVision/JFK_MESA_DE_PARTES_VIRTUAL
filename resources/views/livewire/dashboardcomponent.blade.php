@@ -251,6 +251,73 @@
                 </div>
             </div>
         </div>
+
+        <h4>Satisfacción del Cliente</h4>
+        <p>Se muestra los resultados de las encuentas tomando en cuenta los 3 principales aspectos: Usabilidad,
+            Funcionalidad y Accesibilidad</p>
+        <div class="row text-center">
+            <!-- PIE CHART -->
+            <div class="card col-sm-6">
+                <div class="card-header">
+                    <h3 class="card-title">¿Qué tanto considera la facilidad de uso del sistema a comparación de la manera
+                        tradicional?</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="usa1"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- PIE CHART -->
+            <div class="card col-sm-6">
+                <div class="card-header">
+                    <h3 class="card-title">¿Considera que la atención es mucho más rápida?</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="usa2"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- PIE CHART -->
+            <div class="card col-sm-6">
+                <div class="card-header">
+                    <h3 class="card-title">¿El sistema responde con velocidad en sus procedimientos?</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="fun1"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- PIE CHART -->
+            <div class="card col-sm-6">
+                <div class="card-header">
+                    <h3 class="card-title">¿El sistema descarga correctamente sus reportes en los formatos disponibles?</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="fun2"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- PIE CHART -->
+            <div class="card col-sm-6">
+                <div class="card-header">
+                    <h3 class="card-title">¿El sistema puede usarlo con normalidad en su móvil?</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="acc1"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+            <!-- PIE CHART -->
+            <div class="card col-sm-6">
+                <div class="card-header">
+                    <h3 class="card-title">¿Considera muy util poder hacer el seguimiento de sus expedientes enviados?</h3>
+                </div>
+                <div class="card-body">
+                    <canvas id="acc2"
+                        style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                </div>
+            </div>
+        </div>
     @endcan
 
 

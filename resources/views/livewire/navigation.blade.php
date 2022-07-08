@@ -50,8 +50,9 @@
                                 <a href="{{ route('aplicants.tracings.index') }}"
                                         class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tus expedientes</a>
                                 @endcan
-                                <a href="https://forms.gle/knk1da4YRyc8J1Wv5" target="__blank"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dejanos tu opinion!</a>
+                                {{-- <a href="#" data-toggle="modal" data-target="#showQuiz"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dejanos tu opinion!</a> --}}
+                                @livewire('quiz')
                             @endif
 
 
@@ -134,8 +135,9 @@
                 <a href="{{ route('aplicants.tracings.index') }}"
                         class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Tus expedientes</a>
                 @endcan
-                <a href="https://forms.gle/knk1da4YRyc8J1Wv5" target="__blank"
-                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dejanos tu opinion!</a>
+                {{-- <a href="#" data-toggle="modal" data-target="#showQuiz"
+                        class="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Dejanos tu opinion!</a> --}}
+                @livewire('quiz')
             @endif
 
 
@@ -152,3 +154,5 @@
     </nav>
 
 </div>
+
+
