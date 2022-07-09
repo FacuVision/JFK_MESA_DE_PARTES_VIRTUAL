@@ -255,7 +255,16 @@
         <h4>Satisfacción del Cliente</h4>
         <p>Se muestra los resultados de las encuentas tomando en cuenta los 3 principales aspectos: Usabilidad,
             Funcionalidad y Accesibilidad</p>
+            <div class="col">
+                <div class="info-box">
+                    <div class="info-box-content">
+                            <h3 class="card-title">Personas que respondieron : <strong>{{$total["respuestas"]}}</strong></h3>
+                    </div>
+                </div>
+            </div>
         <div class="row text-center">
+
+
             <!-- PIE CHART -->
             <div class="card col-sm-6">
                 <div class="card-header">

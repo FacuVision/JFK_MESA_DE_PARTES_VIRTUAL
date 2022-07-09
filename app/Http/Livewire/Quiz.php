@@ -25,6 +25,7 @@ class Quiz extends Component
         "acc1" => "required",
         "acc2" => "required",
     ];
+
     protected $messages = [
         'usa1.required' => 'Seleccione una opción.',
         'usa2.required' => 'Seleccione una opción.',
