@@ -138,7 +138,7 @@
                         }]
                     };
                     new Chart(usa1, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: datausa1,
                         options: pieOptions
                     });
@@ -157,7 +157,7 @@
                         }]
                     };
                     new Chart(usa2, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: datausa2,
                         options: pieOptions
                     });
@@ -176,7 +176,7 @@
                         }]
                     };
                     new Chart(fun1, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: datafun1,
                         options: pieOptions
                     });
@@ -194,7 +194,7 @@
                         }]
                     };
                     new Chart(fun2, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: datafun2,
                         options: pieOptions
                     });
@@ -212,7 +212,7 @@
                         }]
                     };
                     new Chart(acc1, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: dataacc1,
                         options: pieOptions
                     });
@@ -230,7 +230,7 @@
                         }]
                     };
                     new Chart(acc2, {
-                        type: 'pie',
+                        type: 'doughnut',
                         data: dataacc2,
                         options: pieOptions
                     });
