@@ -14,6 +14,6 @@ class ProcedingSeeder extends Seeder
      */
     public function run()
     {
-        //Proceding::factory(10)->create();
+        Proceding::factory(10)->create();
     }
 }

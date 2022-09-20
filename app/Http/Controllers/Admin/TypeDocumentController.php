@@ -46,6 +46,7 @@ class TypeDocumentController extends Controller
         $request->validate(["name" => "required|string|max:50|unique:type_documents"]);
         Type_document::create($request->all());
         return redirect()->route('admin.typedocuments.index')->with('mensaje','Tipo de Documento creado correctamente');
+        // return response()->json([],201);
     }
 
     /**
@@ -56,7 +57,7 @@ class TypeDocumentController extends Controller
      */
     public function show(Type_document $typedocument)
     {
-        //
+        return view('admin.typedocuments.show',compact('typedocument'));
     }
 
     /**
@@ -87,8 +88,6 @@ class TypeDocumentController extends Controller
             $typedocument->update($request->only('name'));
             return redirect()->route('admin.typedocuments.edit', $typedocument)->with('mensaje','Cambio realizado con exito');
         }
-
-
     }
 
     /**

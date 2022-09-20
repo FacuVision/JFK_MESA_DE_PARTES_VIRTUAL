@@ -49,7 +49,7 @@ class TypeProcedingController extends Controller
             'type'=>'required'
         ]);
 
-        Type_proceding::create([
+        $tipoexpedientes= Type_proceding::create([
             'name' =>$request->name,
             'description' =>$request->description,
             'type' =>$request->type,
