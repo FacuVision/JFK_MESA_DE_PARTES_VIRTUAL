@@ -348,7 +348,7 @@
 
 
 
-{{--
+
                 @if (session()->has('success'))
                     <script>
                         toastr.success("{{ session('success') }}");
@@ -368,6 +368,6 @@
                     <script>
                         toastr.warnig("{{ session('warnig') }}");
                     </script>
-                @endif --}}
+                @endif
 
     </x-app-layout>
