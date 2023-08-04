@@ -5,7 +5,7 @@
                 <label>Departamento</label>
                 <select wire:model="department" class="form-control">
                     <option value="">Departamento</option>
-                    @foreach ($departments as $dep)
+                    @foreach ($department as $dep)
                         <option value="{{ $dep->id }}">{{ $dep->name }}</option>
                     @endforeach
                 </select>

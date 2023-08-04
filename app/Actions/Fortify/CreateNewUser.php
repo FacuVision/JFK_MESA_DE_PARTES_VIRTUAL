@@ -32,7 +32,6 @@ class CreateNewUser implements CreatesNewUsers
             'phone' => ['required', 'digits:9', 'numeric', 'unique:profiles'],
             'document_number' => ['required','numeric', 'unique:profiles'],
             'type_document_id' => ['required','numeric'],
-            'district_id' => ['required','numeric'],
             'password' => $this->passwordRules(),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['accepted', 'required'] : '',
 
@@ -55,7 +54,6 @@ class CreateNewUser implements CreatesNewUsers
             'address' => $input['address'],
             'document_number' => $input['document_number'],
             'type_document_id' => $input['type_document_id'],
-            'district_id' => $input['district_id'],
             'user_id' => $user->id],
         );
 

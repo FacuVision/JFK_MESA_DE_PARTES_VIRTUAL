@@ -23,7 +23,7 @@ class CreateProfilesTable extends Migration
             $table->string('phone',9);
             $table->string('document_number', 15)->unique();
 
-            $table->unsignedBigInteger('district_id');
+            //$table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('type_document_id');
 
@@ -35,11 +35,11 @@ class CreateProfilesTable extends Migration
                         ->onUpdate('cascade');
 
                         //RELACION DE  UNO A MUCHOS DE  PERFIL CON DISTRITO
-                        $table->foreign('district_id')
-                        ->references('id')
-                        ->on('districts')
-                        ->onDelete('cascade')
-                        ->onUpdate('cascade');
+                        // $table->foreign('district_id')
+                        // ->references('id')
+                        // ->on('districts')
+                        // ->onDelete('cascade')
+                        // ->onUpdate('cascade');
 
                         //RELACION DE  UNO A UNO DE  PERFIL CON TYPE_DOCUMENTS
                         $table->foreign('type_document_id')

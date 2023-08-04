@@ -78,7 +78,7 @@
             <div class="mt-4">
                 <x-jet-label for="address" value="{{ __('Direccion') }}" />
                 <textarea
-                    :value="old('address')"
+
                     class="
                     form-control
                     block
@@ -99,7 +99,8 @@
                   id="address"
                   name="address"
                   rows="3"
-                ></textarea>
+                >
+            </textarea>
             </div>
 
 

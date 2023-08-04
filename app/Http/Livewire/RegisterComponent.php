@@ -16,7 +16,7 @@ class RegisterComponent extends Component
 
     public function mount()
     {
-        $this->departments = Departament::all();
+        $this->department = Departament::all();
         $this->provinces = collect();
         $this->districts = collect();
 

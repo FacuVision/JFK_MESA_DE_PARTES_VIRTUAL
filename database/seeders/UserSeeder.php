@@ -41,8 +41,6 @@ class UserSeeder extends Seeder
                 "address" => "Direccion",
                 "phone" => "999999999",
                 "document_number" => "88888888",
-                "district_id" => 1,
-                "user_id" => 1,
                 "type_document_id" => 1,
             ]
         );
@@ -74,7 +72,6 @@ class UserSeeder extends Seeder
                 "address" => "Direccion",
                 "phone" => "963258474",
                 "document_number" => "85236914",
-                "district_id" => 1,
                 "user_id" => 2,
                 "type_document_id" => 4,
             ]
